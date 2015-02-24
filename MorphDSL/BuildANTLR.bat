@@ -1,1 +1,1 @@
-antlr "Grammar/MorphDSL.g" -o "ANTLRCompilerNew"
+antlr34 "Grammar/MorphDSL.g" -o "ANTLRCompilerNew"

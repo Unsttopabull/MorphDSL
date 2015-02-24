@@ -48,27 +48,23 @@ tokens {
   
 }
 
-@parser::includes
-{
-   #include "MorphDSLParser.hpp"
-   #include "../ANTLRInterface/CompilerSemanticInterface.h"
-   #include <string>
+@parser::namespace{	LPM_MorphDSL }
+@parser::header {using namespace std;}
+
+//include za .hpp
+@parser::includes {
+#include "MorphDSLLexer.hpp"
+#include "../ANTLRInterface/CompilerSemanticInterface.h"
+#include <string>
+#include <map>
+#include <vector>
 }
+//Include za .cpp
+@parser::postinclude {#include    "stdafx.h"}
 
-@lexer::namespace {	LPM.MorphDSL }
 
-@parser::namespace{	LPM.MorphDSL }
-@parser::header { using namespace std; }
-
-//NE DELA
-@parser::init{
-	currentFigure = NULL;
-	interval1 = NULL;
-	interval2 = NULL;
-	marker1 = NULL;
-	marker2 = NULL;
-	outputFigureName = "";
-}
+@lexer::namespace {	LPM_MorphDSL }
+@lexer::postinclude {#include    "stdafx.h"}
 
 //dodano v telo razreda v headerju (*.hpp)
 @parser::context {
@@ -80,8 +76,8 @@ private:
 	const CommonTokenType*    interval2;
 	const CommonTokenType*    marker1;
 	const CommonTokenType*    marker2;
-	vector<vector<double>> img;
-	map<string,vector<double>> vect;
+	std::vector<std::vector<double>> img;
+	map<string, std::vector<double>> vect;
 	string outputFigureName;	
 }
 
@@ -102,7 +98,12 @@ private:
 	typedef antlr3::Traits< MorphDSLLexer, MorphDSLParser, UserTraits > MorphDSLLexerTraits;
 	typedef MorphDSLLexerTraits MorphDSLParserTraits;
 
-
+/*
+	   class MorphDSLLexer;
+	   class MorphDSLParser;
+	   typedef antlr3::Traits< MorphDSLLexer, MorphDSLParser > MorphDSLLexerTraits;
+	   typedef MorphDSLLexerTraits MorphDSLParserTraits;
+*/
 }
 
 program
@@ -122,7 +123,7 @@ load
 				cout<<"LOADING"<<endl;
 
 				stringstream fLast;//create a stringstream
-				fLast << $id1.text;
+				fLast << $id2.text;
 				cout<<"<--  "<<fLast.str()<<endl;
 
 				int firstLetter = fLast.str().find_last_of("/\\")+1;
