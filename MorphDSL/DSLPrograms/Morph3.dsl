@@ -1,0 +1,1 @@
+a = load(".\maribor.bmp")b = dilate(BOX(2),a)c = erode(RECONSTRUCTION,a,b)d = erode(BOX(3),c)e = dilate(RECONSTRUCTION,c,d)

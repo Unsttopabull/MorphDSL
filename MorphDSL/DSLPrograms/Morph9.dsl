@@ -1,0 +1,1 @@
+a = load(".\maribor.bmp")b = open(BOX(2),a)c = close(BOX(2),b)

@@ -1,0 +1,1 @@
+a = load(".\maribor.bmp")b = close(RECONSTRUCTION,BOX(2),a)c = 1,2,3,4,5,6,7,8,9,10d = diferentialProfiles(MORPHOLOGICAL,c,b)

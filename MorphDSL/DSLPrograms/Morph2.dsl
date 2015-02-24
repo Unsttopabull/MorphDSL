@@ -1,0 +1,1 @@
+a = load(".\maribor.bmp")b = open(AREA, 1000, a)c = open(BOX(2),a)d = subtract(a,b)e = subtract(a,c)

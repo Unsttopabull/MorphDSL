@@ -1,0 +1,1 @@
+a = load(".\maribor.bmp")for (int l; l<50000; l+1000)	b = open(AREA, l, a)c = close(AREA, 50000, b)

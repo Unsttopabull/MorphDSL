@@ -1,0 +1,1 @@
+a = load(".\maribor.bmp")b = open(AREA, 50000, a)c = close(AREA, 50000, b)

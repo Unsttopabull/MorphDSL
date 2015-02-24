@@ -1,0 +1,69 @@
+SELECT
+	* (slika)
+	mask (binarna slika)
+	set  (mnozica koordinat pixlov)
+	atribute (širina objekta)
+	okroglost
+	volument
+	internal_gradient (robovi)
+	external_gradient (robovi)
+	
+/* zaznava napisov */
+a = load(".\maribor.bmp")
+b = SELECT * FROM a WHERE area<50
+
+
+a = load(".\maribor.bmp")
+b = open(AREA, 50, a)
+c = subtract(a,b)
+
+
+/* veliki objekti */
+
+a = load(".\maribor.bmp")
+b = SELECT mask FROM a WHERE 100<area AND area <1000
+ 
+a = load(".\maribor.bmp")
+b = open(AREA, 100, a)
+c = open(AREA, 1000, a)
+d = subtract(b,c)
+e = treshold(5,d)
+f = normalize (e)
+
+
+/* iskanje braintumor-ja */
+
+a = load(".\maribor.bmp")
+b = SELECT mask FROM a WHERE 100<area AND area <1000 AND response = 5
+
+a = load(".\braintumor.bmp")
+b = open(AREA, 1000, a)
+c = open(AREA, 3000, a)
+
+d = subtract(b,c)
+e = treshold(5,d)
+
+/* iskanje braintumor-ja */
+
+a = load(".\maribor.bmp")
+b = SELECT normalize(mask) FROM a WHERE 1000<area AND area <3000
+
+a = load(".\braintumor.bmp")
+b = open(AREA, 1000, a)
+c = open(AREA, 3000, a)
+d = subtract(b,c)
+e = treshold(1,d)
+
+/* iskanje notranjih robov */
+
+a = load(".\maribor.bmp")
+b = SELECT * FROM a WHERE internal_gradient > 1
+
+a = load(".\braintumor.bmp")
+b = erode(BOX(1),a)
+c = subtract(a,b)
+
+
+
+
+
