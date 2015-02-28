@@ -34,6 +34,9 @@
     <Filter Include="ANTLRCompilerNew">
       <UniqueIdentifier>{0b363098-4890-45ba-a931-6eaf59ecc0c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ANTLRCompilerNew\Semantics">
+      <UniqueIdentifier>{056d83c6-da06-45ef-99be-d2d35ad97175}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -154,6 +157,33 @@
     </ClCompile>
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser.cpp">
       <Filter>ANTLRCompilerNew</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsAREA.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsATTRIBUTE.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBB.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBG.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBOX.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGB.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGG.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsRECONSTRUCION.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_util.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

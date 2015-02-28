@@ -113,6 +113,15 @@
   <ItemGroup>
     <ClCompile Include="ANTLRCompilerNew\MorphDSLLexer.cpp" />
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsAREA.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsATTRIBUTE.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBB.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBOX.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGB.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsRECONSTRUCION.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_util.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGG.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBG.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Lexer.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Parser.cpp" />
     <ClCompile Include="ANTLRInterface\CompilerSemanticInterface.cpp" />

@@ -7720,8 +7720,8 @@ MorphDSL3Parser::vector()
 //	cout<< " ";
 //	cout<< fNew.str();
 //	cout<< endl;
-    std::map<string,std::vector<double>>::iterator it = vect.begin();
-    vect.insert (it, std::pair<string,std::vector<double>>(fNew.str(),tmp));
+    std::map<string, std::vector<double>>::iterator it = vect.begin();
+    vect.insert (it, std::pair<string, std::vector<double>>(fNew.str(), tmp));
     return ;
 }
 /* $ANTLR end vector */
