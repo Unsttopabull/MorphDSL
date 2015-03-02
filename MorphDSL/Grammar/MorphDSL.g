@@ -45,7 +45,7 @@ tokens {
 	T_TRESHOLD = 'treshold';
 	T_UNION = 'union';
 	T_WITHOUT = 'without';
-  
+	T_STAR = '*';
 }
 
 @parser::namespace{	LPM_MorphDSL }
@@ -193,9 +193,31 @@ assignment :
 	| operatorsBG
 	| operatorsGB
 	| vector
+	| sql
 	);
 
 figurevector : ID { currentFigure = $ID; };
+
+sql: 'SELECT' (ID | '*' | operatorSQL) 'FROM' ID 'WHERE' sqlWhere ('AND' sqlWhere)*;
+
+operatorSQL: operator '(' ID ')';
+
+operator: ;
+
+sqlWhere
+	: DOUBLENUMBER RELOP sqlKeyword
+	| sqlKeyword RELOP DOUBLENUMBER
+	;
+
+sqlKeyword
+	: 'area'
+	| 'response'
+	| 'internal_gradient'
+	| 'external_gradient'
+	| 'volument'
+	| 'okroglost'
+	| 'atribute'
+	;
 
 operatorsBB : 
 	( 'complement' '(' cId=ID ')' {	complementImpl($cId.text); }
@@ -303,6 +325,8 @@ ID: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '\\' | '.' | ':' )+ ( '[' NUMBER ']' )?;
 DOUBLENUMBER: NUMBER ( '.' NUMBER )?;
 
 fragment NUMBER: ( '0' .. '9' )+;
+
+fragment RELOP: '>' | '<' | '=' | '!=';
 
 WS:	( ' ' | '\t' | '\n' | '\r' ) { skip(); };
 
