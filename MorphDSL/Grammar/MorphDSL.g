@@ -49,6 +49,8 @@ tokens {
 }
 
 @parser::namespace{	LPM_MorphDSL }
+
+//header za .hpp in .cpp
 @parser::header {using namespace std;}
 
 //include za .hpp
@@ -176,7 +178,11 @@ program
  	load assignment+;
 
 load
-	: currentFigure=ID '=' 'load' '(' '\"' id2=ID '\"' ')' { loadImpl($id2.text, $currentFigure.text); }
+	: currentFigure=ID '=' 'load' '(' '\"' id2=ID '\"' ')' 
+	{
+		currentFigure = $currentFigure;
+		loadImpl($id2.text, $currentFigure.text);
+	}
 	;
 
 assignment : 
@@ -220,7 +226,7 @@ operatorsGG :
 	/* //Spremenjeno v kodi, odstranjen marker in dodan še en ID
 	| 'segmentation' '(' 'WATHERSHADE' ',' marker ',' watershadeMarkerId=ID ')' )
 	*/
-	| 'segmentation' '(' 'WATHERSHADE' ',' watershadeMarkerId2=ID ',' watershadeMarkerId1=ID ')' ) { segmentationWatershadeMarkerImpl($watershadeMarkerId1.text, $watershadeMarkerId2.text); }
+	| ('segmentation' '(' 'WATHERSHADE' ',' watershadeMarkerId2=ID ',' watershadeMarkerId1=ID ')' ) { segmentationWatershadeMarkerImpl($watershadeMarkerId1.text, $watershadeMarkerId2.text); })
 	;
 	
 interval returns[double start, double stop]: 
@@ -292,7 +298,7 @@ vector
 
 //LEXER PRAVILA
 
-ID: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '\\\\' | '.' | ':' )+ ( '[' NUMBER ']' )?;
+ID: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '\\' | '.' | ':' )+ ( '[' NUMBER ']' )?;
 
 DOUBLENUMBER: NUMBER ( '.' NUMBER )?;
 
