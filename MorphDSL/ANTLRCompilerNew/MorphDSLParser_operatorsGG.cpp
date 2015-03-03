@@ -7,22 +7,14 @@ using namespace std;
 void MorphDSLParser::negateImpl(string id) {
     cout << "NEGATE" << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     // morphInterface.negate("maribor1.bmp", "maribor2.bmp");
-    morphInterface.negate(fLast.str(), fNew.str());
+    morphInterface.negate(fLast, fNew);
     cout << "---END" << endl;
 }
 
@@ -36,17 +28,13 @@ void MorphDSLParser::normalizeImpl() {
     fLast << ".bmp";
     cout << "<--  " << fLast.str() << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     //when 5 pics created
     // d = open(AREA, 250, c)
     // morphInterface.openAREA(250, "maribor1.bmp", "maribor2.bmp");
-    morphInterface.normalize(fLast.str(), fNew.str());
+    morphInterface.normalize(fLast.str(), fNew);
     cout << "---END" << endl;
 }
 
@@ -54,21 +42,13 @@ void MorphDSLParser::multiplyImpl(std::string id, double num) {
     cout << "MULTIPLY" << endl;
     cout << "<--  " << num << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.multiply(fLast.str(), num, fNew.str());
+    morphInterface.multiply(fLast, num, fNew);
     cout << "---END" << endl;
 }
 
@@ -76,70 +56,42 @@ void MorphDSLParser::multiplyImpl(double num, std::string id) {
     cout << "MULTIPLY" << endl;
     cout << "<--  " << num << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.multiply(num, fLast.str(), fNew.str());
+    morphInterface.multiply(num, fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::multiplyImpl(std::string id1, std::string id2) {
     cout << "MULTYPLY" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id2[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id2);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.multiply(fFirst.str(), fLast.str(), fNew.str());
+    morphInterface.multiply(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::cropImpl(std::string id, double lowBound, double highBound) {
     cout << "CROP" << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.crop(fLast.str(), lowBound, highBound, fNew.str());
+    morphInterface.crop(fLast, lowBound, highBound, fNew);
     cout << "---END" << endl;
     cout << "---END" << endl;
 }
@@ -147,185 +99,125 @@ void MorphDSLParser::cropImpl(std::string id, double lowBound, double highBound)
 void MorphDSLParser::subtractImpl(std::string id1, std::string id2) {
     cout << "SUBTRACT" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id2[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id2);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     //when 5 pics created
-    morphInterface.subtract(fFirst.str(), fLast.str(), fNew.str());
+    morphInterface.subtract(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::gradientInternalImpl(std::string id) {
     cout << "GRADIENT INTERNAL" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     //when 5 pics created
-    morphInterface.gradientINTERNAL(fFirst.str(), fNew.str());
+    morphInterface.gradientINTERNAL(fFirst, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::gradientExternalImpl(std::string id) {
     cout << "GRADIENT EXTERNAL" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     //when 5 pics created
-    morphInterface.gradientEXTERNAL(fFirst.str(), fNew.str());
+    morphInterface.gradientEXTERNAL(fFirst, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::diferentialProfilesMorphologicalImpl(std::string id1, std::string id2) {
     cout << "DIF. PROFILES - MORPHOLOGICAL" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id2[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id2);
+    cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
     fLast << id1[0] - 96;
     cout << "<--  " << fLast.str() << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    //fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName(true);
+    cout << "-->  " << fNew << endl;
 
     std::map<string, std::vector<double>>::iterator it;
     it = vect.find(fLast.str());
 
-    morphInterface.diferentialProfilesMORPHOLOGICAL(fFirst.str(), it->second, fNew.str());
+    morphInterface.diferentialProfilesMORPHOLOGICAL(fFirst, it->second, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::diferentialProfilesAttributeImpl(std::string id1, std::string id2) {
     cout << "DIF. PROFILES - ATTRIBUTE" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id2[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id2);
+    cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
     fLast << id1[0] - 96;
     cout << "<--  " << fLast.str() << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    //fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName(true);
+    cout << "-->  " << fNew << endl;
 
     std::map<string, std::vector<double>>::iterator it;
     it = vect.find(fLast.str());
 
-    morphInterface.diferentialProfilesATTRIBUTE(fFirst.str(), it->second, fNew.str());
+    morphInterface.diferentialProfilesATTRIBUTE(fFirst, it->second, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::mappingDmpImpl(std::string id1, std::string id2) {
     cout << "MAPPING - DMP" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id2[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id2);
+    cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
     fLast << id1[0] - 96;
     cout << "<--  " << fLast.str() << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    //fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName(true);
+    cout << "-->  " << fNew << endl;
 
     std::map<string, std::vector<double>>::iterator it;
     it = vect.find(fLast.str());
 
-    morphInterface.mappingDMP(fFirst.str(), it->second, fNew.str());
+    morphInterface.mappingDMP(fFirst, it->second, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::mappingDapImpl(std::string id1, std::string id2) {
     cout << "MAPPING - DAP" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id2[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id2);
+    cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
     fLast << id1[0] - 96;
     cout << "<--  " << fLast.str() << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    //fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName(true);
+    cout << "-->  " << fNew << endl;
 
     std::map<string, std::vector<double>>::iterator it;
     it = vect.find(fLast.str());
 
-    morphInterface.mappingDAP(fFirst.str(), it->second, fNew.str());
+    morphInterface.mappingDAP(fFirst, it->second, fNew);
     cout << "---END" << endl;
 }
 
@@ -334,28 +226,20 @@ void MorphDSLParser::segmentationMsls1Impl(std::string id1, std::string id2) {
 
     cout << "MAPPING - DAP" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id2[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id2);
+    cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
     fLast << id1[0] - 96;
     cout << "<--  " << fLast.str() << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    //fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName(true);
+    cout << "-->  " << fNew << endl;
 
     std::map<string, std::vector<double>>::iterator it;
     it = vect.find(fLast.str());
 
-    morphInterface.segmentationMSLS(fFirst.str(), it->second, fNew.str());
+    morphInterface.segmentationMSLS(fFirst, it->second, fNew);
     cout << "---END" << endl;
 }
 
@@ -364,68 +248,44 @@ void MorphDSLParser::segmentationMsls2Impl(std::string id1, std::string id2) {
 
     cout << "MAPPING - DAP" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
     fLast << id2[0] - 96;
     cout << "<--  " << fLast.str() << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    //fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName(true);
+    cout << "-->  " << fNew << endl;
 
     std::map<string, std::vector<double>>::iterator it;
     it = vect.find(fLast.str());
 
-    morphInterface.segmentationMSLS(fFirst.str(), it->second, fNew.str());
+    morphInterface.segmentationMSLS(fFirst, it->second, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::segmentationWatershadeImpl(std::string id) {
     cout << "SEGMENTATION - WATHERSHADE" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".wtf";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageNameWtf();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.segmentationWATHERSHADE(fFirst.str(), fNew.str());
+    morphInterface.segmentationWATHERSHADE(fFirst, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::segmentationWatershadeMarkerImpl(std::string id1, std::string id2) {
     cout << "SEGMENTATION - WATHERSHADE MARKER" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".wtf";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageNameWtf();
+    cout << "-->  " << fNew << endl;
 
     //					if (marker1!=NULL)
     //					{
@@ -437,7 +297,7 @@ void MorphDSLParser::segmentationWatershadeMarkerImpl(std::string id1, std::stri
     m1 << ".bmp";
     cout << "<--  " << m1.str() << endl;
 
-    morphInterface.segmentationWATHERSHADE(m1.str(), fFirst.str(), fNew.str());
+    morphInterface.segmentationWATHERSHADE(m1.str(), fFirst, fNew);
     //					}
     /*					else if (marker2 != NULL)
     {
@@ -452,6 +312,6 @@ void MorphDSLParser::segmentationWatershadeMarkerImpl(std::string id1, std::stri
     */
     cout << "---END" << endl;
 
-    marker1 = NULL;
-    marker2 = NULL;
+    //marker1 = NULL;
+    //marker2 = NULL;
 }

@@ -7,20 +7,12 @@ using namespace std;
 void MorphDSLParser::distanceTransformImpl(std::string id) {
     cout << "DISTANCE TRANSFORM" << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.distanceTransform(fLast.str(), fNew.str());
+    morphInterface.distanceTransform(fLast, fNew);
     cout << "---END" << endl;
 }

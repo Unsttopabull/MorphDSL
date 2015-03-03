@@ -7,19 +7,11 @@ using namespace std;
 void MorphDSLParser::erodeImpl(std::string id1, std::string id2) {
     cout << "ERODE - RECONSTRUCTION MARKER" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     cout << "::::::::::::" << endl;
     //					if (marker1!=NULL)
@@ -33,7 +25,7 @@ void MorphDSLParser::erodeImpl(std::string id1, std::string id2) {
     m1 << ".bmp";
     cout << "<--  " << m1.str() << endl;
 
-    morphInterface.erodeRECONSTRUCTION(m1.str(), fFirst.str(), fNew.str());
+    morphInterface.erodeRECONSTRUCTION(m1.str(), fFirst, fNew);
     /*					}
     else if (marker2 != NULL)
     {
@@ -49,26 +41,18 @@ void MorphDSLParser::erodeImpl(std::string id1, std::string id2) {
     */
     cout << "---END" << endl;
 
-    marker1 = NULL;
-    marker2 = NULL;
+    //marker1 = NULL;
+    //marker2 = NULL;
 }
 
 void MorphDSLParser::dilateImpl(std::string id1, std::string id2) {
     cout << "DILATE - RECONSTRUCTION MARKER" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     //					if (marker1!=NULL)
     //					{
@@ -80,7 +64,7 @@ void MorphDSLParser::dilateImpl(std::string id1, std::string id2) {
     m1 << ".bmp";
     cout << "<--  " << m1.str() << endl;
 
-    morphInterface.dilateRECONSTRUCTION(m1.str(), fFirst.str(), fNew.str());
+    morphInterface.dilateRECONSTRUCTION(m1.str(), fFirst, fNew);
     //					}
     /*					else if (marker2 != NULL)
     {
@@ -95,28 +79,20 @@ void MorphDSLParser::dilateImpl(std::string id1, std::string id2) {
     */
     cout << "---END" << endl;
 
-    marker1 = NULL;
-    marker2 = NULL;
+    //marker1 = NULL;
+    //marker2 = NULL;
 }
 
 void MorphDSLParser::openImpl(double number, std::string id) {
     cout << "OPEN RECONSTRUCTION BOX" << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.openRECONSTRUCTION_BOX(number, fLast.str(), fNew.str());
+    morphInterface.openRECONSTRUCTION_BOX(number, fLast, fNew);
     cout << "---END" << endl;
 }
 
@@ -124,20 +100,12 @@ void MorphDSLParser::closeImpl(double number, std::string id) {
 
     cout << "CLOSE RECONSTRUCTION BOX" << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.closeRECONSTRUCTION_BOX(number, fLast.str(), fNew.str());
+    morphInterface.closeRECONSTRUCTION_BOX(number, fLast, fNew);
     cout << "---END" << endl;
 }

@@ -12,6 +12,9 @@ tokens {
 	T_RPAREN = ')';
 	T_COMMA = ',';
 	T_EQUALS = '=';
+	T_LESS_THAN = '<';
+	T_MORE_THAN = '>';
+	T_NOT_EQUAL = '!=';
 	T_AREA = 'AREA';
 	T_ATTRIBUTE = 'ATTRIBUTE';
 	T_BOX = 'BOX';
@@ -70,17 +73,18 @@ tokens {
 private:
 	CompilerSemanticInterface morphInterface;
 	const CommonTokenType*    currentFigure;
-	const CommonTokenType*    interval1;
-	const CommonTokenType*    interval2;
-	const CommonTokenType*    marker1;
-	const CommonTokenType*    marker2;
 	std::vector<std::vector<double>> img;
 	map<string, std::vector<double>> vect;
 	string outputFigureName;
+	string zadnjaSpremenljivka;
+	int imageCounter;
 
     //Util
     int toInt(const CommonTokenType* token);
     double toDouble(const CommonTokenType* token);
+    std::string getNewImageNameFromId(std::string id);
+    std::string getNewImageName(bool noExtension = false);
+    std::string getNewImageNameWtf();
 
     void loadImpl(std::string id2, std::string currentFigure);
 
@@ -169,19 +173,21 @@ private:
 program
 	@init { 
 		currentFigure = NULL;
-		interval1 = NULL;
+		/*
 		interval2 = NULL;
 		marker1 = NULL;
 		marker2 = NULL;
-		outputFigureName = "";	
+		*/
+		outputFigureName = "";
+		imageCounter = 0;
 	}:
  	load assignment+;
 
 load
-	: currentFigure=ID '=' 'load' '(' '\"' id2=ID '\"' ')' 
+	: imeSpremenljivke=ID '=' 'load' '(' '\"' imeSlike=ID '\"' ')' 
 	{
-		currentFigure = $currentFigure;
-		loadImpl($id2.text, $currentFigure.text);
+		this->currentFigure = $imeSpremenljivke;
+		loadImpl($imeSlike.text, $imeSpremenljivke.text);
 	}
 	;
 
@@ -198,18 +204,38 @@ assignment :
 
 figurevector : ID { currentFigure = $ID; };
 
-sql: 'SELECT' (ID | '*' | operatorSQL) 'FROM' ID 'WHERE' sqlWhere ('AND' sqlWhere)*;
+sql: 'SELECT' (operatorSql | '*' ) 'FROM' ID 'WHERE' sqlWhere ('AND' sqlWhere)*;
 
-operatorSQL: operator '(' ID ')';
-
-operator: ;
-
-sqlWhere
-	: DOUBLENUMBER RELOP sqlKeyword
-	| sqlKeyword RELOP DOUBLENUMBER
+operatorSql
+	: operatorName '(' selectKeyword ')'
+	| selectKeyword
+	;
+	
+selectKeyword
+	: 'mask'
+	| 'set'
+	| 'attribute'
+	| 'okroglost'
+	| 'volument'
+	| 'internal_gradient'
+	| 'external_greadient'
 	;
 
-sqlKeyword
+operatorName: 'normalize';
+
+sqlWhere
+	: DOUBLENUMBER relOp sqlWhereKeyword
+	| sqlWhereKeyword relOp DOUBLENUMBER
+	;
+	
+relOp
+	: '>' 
+	| '<' 
+	| '=' 
+	| '!='
+	;
+
+sqlWhereKeyword
 	: 'area'
 	| 'response'
 	| 'internal_gradient'
@@ -325,8 +351,6 @@ ID: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '\\' | '.' | ':' )+ ( '[' NUMBER ']' )?;
 DOUBLENUMBER: NUMBER ( '.' NUMBER )?;
 
 fragment NUMBER: ( '0' .. '9' )+;
-
-fragment RELOP: '>' | '<' | '=' | '!=';
 
 WS:	( ' ' | '\t' | '\n' | '\r' ) { skip(); };
 

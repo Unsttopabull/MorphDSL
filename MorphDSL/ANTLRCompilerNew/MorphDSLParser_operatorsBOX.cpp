@@ -14,15 +14,11 @@ void MorphDSLParser::erodeBoxImpl(double number, std::string id) {
     fLast << ".bmp";
     cout << "<--  " << fLast.str() << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     //when 5 pics created
-    morphInterface.erodeBOX(number, fLast.str(), fNew.str());
+    morphInterface.erodeBOX(number, fLast.str(), fNew);
     cout << "---END" << endl;
 }
 
@@ -30,22 +26,14 @@ void MorphDSLParser::dilateBoxImpl(double number, std::string id) {
 
     cout << "DILATEBOX: " << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     //when 5 pics created
-    morphInterface.dilateBOX(number, fLast.str(), fNew.str());
+    morphInterface.dilateBOX(number, fLast, fNew);
     cout << "---END" << endl;
 
 }
@@ -53,43 +41,27 @@ void MorphDSLParser::dilateBoxImpl(double number, std::string id) {
 void MorphDSLParser::openBoxImpl(double number, std::string id) {
     cout << "OPENBOX: " << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     //when 5 pics created
-    morphInterface.openBOX(number, fLast.str(), fNew.str());
+    morphInterface.openBOX(number, fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::closeBoxImpl(double number, std::string id) {
     cout << "CLOSEBOX" << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     //when 5 pics created
-    morphInterface.closeBOX(number, fLast.str(), fNew.str());
+    morphInterface.closeBOX(number, fLast, fNew);
     cout << "---END" << endl;
 }

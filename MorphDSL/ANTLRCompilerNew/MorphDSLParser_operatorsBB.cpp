@@ -4,182 +4,112 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::loadImpl(std::string id2, std::string currentFigure) {
+void MorphDSLParser::loadImpl(std::string imeSlike, std::string imeSpremenljivke) {
     cout << "LOADING" << endl;
+    cout << "<--  " << imeSlike << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << id2;
-    cout << "<--  " << fLast.str() << endl;
+    int firstLetter = imeSlike.find_last_of("/\\") + 1;
+    int length = imeSlike.find_last_of(".") - firstLetter;
+    outputFigureName = imeSlike.substr(firstLetter, length);
 
-    int firstLetter = fLast.str().find_last_of("/\\") + 1;
-    int length = fLast.str().find_last_of(".") - firstLetter;
-    outputFigureName = fLast.str().substr(firstLetter, length);
-    cout << outputFigureName << endl;
+    //cout << outputFigureName << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure[0] - 96; //96 => ASCII pred 'a', torej èe je prva èrka 'a' je rezultat 1
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    std::string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
     cout << "---END" << endl;
 
-    morphInterface.LoadImg(fLast.str(), img);
-    morphInterface.StoreImg(fNew.str(), img);
+    morphInterface.LoadImg(imeSlike, img);
+    morphInterface.StoreImg(fNew, img);
 }
 
 void MorphDSLParser::complementImpl(std::string id) {
     cout << "COMPLEMENT" << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.complement(fLast.str(), fNew.str());
+    morphInterface.complement(fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::unionImpl(std::string id1, std::string id2) {
     cout << "UNION" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id2[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id2);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.unionBB(fFirst.str(), fLast.str(), fNew.str());
+    morphInterface.unionBB(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::intersectionImpl(std::string id1, std::string id2) {
     cout << "INTERSECTION" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id2[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id2);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    std::string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.intersection(fFirst.str(), fLast.str(), fNew.str());
+    morphInterface.intersection(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::withoutImpl(std::string id1, std::string id2) {
     cout << "WITHOUT" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id2[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id2);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.without(fFirst.str(), fLast.str(), fNew.str());
+    morphInterface.without(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::hitMissImpl(std::string id1, std::string id2) {
     cout << "HITMISS" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << outputFigureName;
-    fLast << id2[0] - 96;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
+    string fLast = getNewImageNameFromId(id2);
+    cout << "<--  " << fLast << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.hitmiss(fFirst.str(), fLast.str(), fNew.str());
+    morphInterface.hitmiss(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLParser::boundaryImpl(std::string id1) {
     cout << "BOUNDARY" << endl;
 
-    stringstream fFirst;//create a stringstream
-    fFirst << "./";
-    fFirst << outputFigureName;
-    fFirst << id1[0] - 96;
-    fFirst << ".bmp";
-    cout << "<--  " << fFirst.str() << endl;
+    string fFirst = getNewImageNameFromId(id1);
+    cout << "<--  " << fFirst << endl;
 
-    stringstream fNew;//create a stringstream
-    fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
-    fNew << ".bmp";
-    cout << "-->  " << fNew.str() << endl;
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
 
-    morphInterface.boundary(fFirst.str(), fNew.str());
+    morphInterface.boundary(fFirst, fNew);
     cout << "---END" << endl;
 }
 
