@@ -37,6 +37,9 @@
     <Filter Include="ANTLRCompilerNew\Semantics">
       <UniqueIdentifier>{056d83c6-da06-45ef-99be-d2d35ad97175}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ANTLRCompilerNew\Razredi">
+      <UniqueIdentifier>{870c2850-bfd1-470b-b4a2-b1a07d0a7b93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -72,6 +75,9 @@
     </None>
     <None Include="Grammar\MorphDSL.g">
       <Filter>Grammar</Filter>
+    </None>
+    <None Include="DSLPrograms\MorphSQL.dsl">
+      <Filter>DSLPrograms</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +131,12 @@
     </ClInclude>
     <ClInclude Include="ANTLRCompilerNew\MorphDSLParser.hpp">
       <Filter>ANTLRCompilerNew</Filter>
+    </ClInclude>
+    <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h">
+      <Filter>ANTLRCompilerNew\Razredi</Filter>
+    </ClInclude>
+    <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h">
+      <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_util.cpp">
       <Filter>ANTLRCompilerNew\Semantics</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp">
+      <Filter>ANTLRCompilerNew\Razredi</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp">
+      <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,11 @@
 grammar MorphDSL_brez_semantike;
 
+
 options {
 	/*language=Cpp;*/
 	backtrack = true;
 }
+
 
 //Da lažje beremo generirano kodo in tokeni niso oznaèeni z številkami npr. T_9 = '\"' ampak T_DOUBLE_QUOTE
 tokens {
@@ -12,6 +14,11 @@ tokens {
 	T_RPAREN = ')';
 	T_COMMA = ',';
 	T_EQUALS = '=';
+	T_MORE_THAN = '>';
+	T_LESS_THAN = '<';
+	T_LESS_OR_EQUAL = '<=';
+	T_MORE_OR_EQUAL = '>=';
+	T_NOT_EQUAL = '!=';
 	T_AREA = 'AREA';
 	T_ATTRIBUTE = 'ATTRIBUTE';
 	T_BOX = 'BOX';
@@ -90,6 +97,7 @@ operatorName: 'normalize';
 sqlWhere
 	: DOUBLENUMBER relOp sqlWhereKeyword
 	| sqlWhereKeyword relOp DOUBLENUMBER
+	| sqlWhereKeyword '=' '(' sql ')'
 	;
 	
 relOp
@@ -97,6 +105,8 @@ relOp
 	| '<' 
 	| '=' 
 	| '!='
+	| '>='
+	| '<='
 	;
 
 sqlWhereKeyword

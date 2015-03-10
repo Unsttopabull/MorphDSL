@@ -10,7 +10,7 @@ void MorphDSLParser::loadImpl(std::string imeSlike, std::string imeSpremenljivke
 
     int firstLetter = imeSlike.find_last_of("/\\") + 1;
     int length = imeSlike.find_last_of(".") - firstLetter;
-    outputFigureName = imeSlike.substr(firstLetter, length);
+    imeIzhodneSlike = imeSlike.substr(firstLetter, length);
 
     //cout << outputFigureName << endl;
 

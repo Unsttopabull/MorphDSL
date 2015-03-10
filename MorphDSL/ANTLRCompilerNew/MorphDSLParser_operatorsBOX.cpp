@@ -9,7 +9,7 @@ void MorphDSLParser::erodeBoxImpl(double number, std::string id) {
 
     stringstream fLast;//create a stringstream
     fLast << "./";
-    fLast << outputFigureName;
+    fLast << imeIzhodneSlike;
     fLast << number;
     fLast << ".bmp";
     cout << "<--  " << fLast.str() << endl;

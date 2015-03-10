@@ -87,6 +87,7 @@
     <None Include="DSLPrograms\Morph7.dsl" />
     <None Include="DSLPrograms\Morph8.dsl" />
     <None Include="DSLPrograms\Morph9.dsl" />
+    <None Include="DSLPrograms\MorphSQL.dsl" />
     <None Include="Grammar\MorphDSL.g" />
     <None Include="maribor.bmp" />
     <None Include="ReadMe.txt" />
@@ -107,6 +108,8 @@
     <ClInclude Include="MMLib\priority_queue.h" />
     <ClInclude Include="MMLib\Utils.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h" />
+    <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -129,6 +132,8 @@
     <ClCompile Include="MorphDSL.cpp" />
     <ClCompile Include="MMLib\bestfit.cpp" />
     <ClCompile Include="MMLib\MMLib.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

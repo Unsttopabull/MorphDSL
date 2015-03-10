@@ -19,7 +19,7 @@ void MorphDSLParser::erodeImpl(std::string id1, std::string id2) {
     //					   cout<<"???"<<endl;
     stringstream m1;//create a stringstream
     m1 << "./";
-    m1 << outputFigureName;
+    m1 << imeIzhodneSlike;
     //m1 << marker1->getText()[0]-96;
     m1 << id2[0] - 96;
     m1 << ".bmp";
@@ -56,9 +56,9 @@ void MorphDSLParser::dilateImpl(std::string id1, std::string id2) {
 
     //					if (marker1!=NULL)
     //					{
-    stringstream m1;//create a stringstream
+    stringstream m1; //create a stringstream
     m1 << "./";
-    m1 << outputFigureName;
+    m1 << imeIzhodneSlike;
     //m1 << marker1->getText()[0]-96;
     m1 << id2[0] - 96;
     m1 << ".bmp";

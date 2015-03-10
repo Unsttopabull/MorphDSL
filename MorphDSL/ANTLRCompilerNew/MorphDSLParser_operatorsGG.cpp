@@ -23,8 +23,8 @@ void MorphDSLParser::normalizeImpl() {
 
     stringstream fLast;//create a stringstream
     fLast << "./";
-    fLast << outputFigureName;
-    fLast << currentFigure->getText()[0] - 96 - 1;
+    fLast << imeIzhodneSlike;
+    fLast << zadnjaSpremenljivka[0] - 96 - 1;
     fLast << ".bmp";
     cout << "<--  " << fLast.str() << endl;
 
@@ -291,7 +291,7 @@ void MorphDSLParser::segmentationWatershadeMarkerImpl(std::string id1, std::stri
     //					{
     stringstream m1;//create a stringstream
     m1 << "./";
-    m1 << outputFigureName;
+    m1 << imeIzhodneSlike;
     m1 << id2[0] - 96;
     //m1 << marker1->getText()[0]-96;
     m1 << ".bmp";

@@ -59,23 +59,27 @@ tokens {
 //include za .hpp
 @parser::includes {
 #include "MorphDSLLexer.hpp"
+#include "Razredi/SqlWhere.h"
 #include "../ANTLRInterface/CompilerSemanticInterface.h"
 #include <string>
 #include <map>
 #include <vector>
 }
 //Include za .cpp
-@parser::postinclude {#include    "stdafx.h"}
+@parser::postinclude {#include    "stdafx.h"
+#include	"Razredi/SqlWhere.h"
+#include	"Razredi/Sql.h"
+}
 
 //dodano v telo razreda v headerju (*.hpp)
 @parser::context {
 
 private:
 	CompilerSemanticInterface morphInterface;
-	const CommonTokenType*    currentFigure;
+	//const CommonTokenType*    currentFigure;
 	std::vector<std::vector<double>> img;
 	map<string, std::vector<double>> vect;
-	string outputFigureName;
+	string imeIzhodneSlike;
 	string zadnjaSpremenljivka;
 	int imageCounter;
 
@@ -172,13 +176,13 @@ private:
 
 program
 	@init { 
-		currentFigure = NULL;
+		//zadnjaSpremenljivka = NULL;
 		/*
 		interval2 = NULL;
 		marker1 = NULL;
 		marker2 = NULL;
 		*/
-		outputFigureName = "";
+		imeIzhodneSlike = "";
 		imageCounter = 0;
 	}:
  	load assignment+;
@@ -186,7 +190,7 @@ program
 load
 	: imeSpremenljivke=ID '=' 'load' '(' '\"' imeSlike=ID '\"' ')' 
 	{
-		this->currentFigure = $imeSpremenljivke;
+		this->zadnjaSpremenljivka = $imeSpremenljivke.text;
 		loadImpl($imeSlike.text, $imeSpremenljivke.text);
 	}
 	;
@@ -202,9 +206,34 @@ assignment :
 	| sql
 	);
 
-figurevector : ID { currentFigure = $ID; };
+figurevector : ID { zadnjaSpremenljivka = $ID.text; };
 
-sql: 'SELECT' (operatorSql | '*' ) 'FROM' ID 'WHERE' sqlWhere ('AND' sqlWhere)*;
+sql returns [Sql* sql]
+	@init { $sql = new Sql(); }
+	@after {
+		auto keywords = $sql->getUporabljeneKeyworde();
+		for(int i = 0; i < keywords.size(); i++){
+			std::cout << "keyword: " << keywords[i] << std::endl;
+
+			auto omejitveNaKeyword = $sql->getOmejtiveZaKeyword(keywords[i]);
+
+			for(int j = 0; j < omejitveNaKeyword.size(); j++){
+				if(omejitveNaKeyword[j]->isNestedSql()){
+					std::cout << "nested" << std::endl;
+				}
+				else{
+					std::cout << omejitveNaKeyword[j]->getVrednost() << std::endl;
+				}
+			}
+
+			std::cout << std::endl;
+		}
+	}
+	: 'SELECT' (operatorSql | '*' ) 'FROM' ID 'WHERE' w1=sqlWhere { sql->dodajOmejitev($w1.keyword, $w1.stavek); }
+	  ('AND' w2=sqlWhere 
+		{ $sql->dodajOmejitev($w2.keyword, $w2.stavek); } 
+	  )*
+	;
 
 operatorSql
 	: operatorName '(' selectKeyword ')'
@@ -223,16 +252,32 @@ selectKeyword
 
 operatorName: 'normalize';
 
-sqlWhere
-	: DOUBLENUMBER relOp sqlWhereKeyword
-	| sqlWhereKeyword relOp DOUBLENUMBER
+sqlWhere returns [std::string keyword, SqlWhere* stavek]
+	: val1=DOUBLENUMBER op1=relOp kv1=sqlWhereKeyword 
+	{ 
+		$keyword = $kv1.text;
+		$stavek = new SqlWhere($op1.relOperator, toDouble($val1));
+	}
+	| kv2=sqlWhereKeyword op2=relOp val2=DOUBLENUMBER
+	{ 
+		$keyword = $kv2.text;
+		$stavek = new SqlWhere($op2.relOperator, toDouble($val2));
+	}
+	| kv3=sqlWhereKeyword '=' '(' sql ')'
+	{
+		$keyword = $kv3.text;
+		$stavek = new SqlWhere($sql.sql);
+	}
 	;
 	
-relOp
-	: '>' 
-	| '<' 
-	| '=' 
-	| '!='
+relOp returns [RelOp::RelacijskiOperatorji relOperator]
+	@init  { $relOperator = RelOp::ERR;}
+	: '>'  { $relOperator = RelOp::GT; }
+	| '<'  { $relOperator = RelOp::LT; }
+	| '='  { $relOperator = RelOp::EQ; }
+	| '!=' { $relOperator = RelOp::NE; }
+	| '>=' { $relOperator = RelOp::GE; }
+	| '<=' { $relOperator = RelOp::LE; }
 	;
 
 sqlWhereKeyword
@@ -331,7 +376,11 @@ vector
 	@after {
 		stringstream fNew;//create a stringstream
 	//	cout<< "VECTOR: ";
-		fNew << currentFigure->getText()[0]-96;
+		
+		//fNew << currentFigure->getText()[0]-96;
+		fNew << zadnjaSpremenljivka[0] - 96;
+
+
 	//	cout<< currentFigure->getText();
 	//	cout<< " ";
 	//	cout<< fNew.str();

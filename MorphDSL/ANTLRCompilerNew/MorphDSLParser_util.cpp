@@ -24,7 +24,7 @@ std::string MorphDSLParser::getNewImageNameFromId(std::string id) {
 
     stringstream fId;//create a stringstream
     fId << "./";
-    fId << outputFigureName;
+    fId << imeIzhodneSlike;
     fId << id[0] - 96;
     fId << ".bmp";
 
@@ -32,13 +32,13 @@ std::string MorphDSLParser::getNewImageNameFromId(std::string id) {
 }
 
 std::string MorphDSLParser::getNewImageName(bool noExtension) {
-    auto cf = currentFigure->getText()[0];
+    auto cf = zadnjaSpremenljivka[0];
     cf -= 96;
 
     stringstream fNew;
     fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
+    fNew << imeIzhodneSlike;
+    fNew << zadnjaSpremenljivka[0] - 96;
 
     if (!noExtension) {
         fNew << ".bmp";
@@ -50,8 +50,8 @@ std::string MorphDSLParser::getNewImageName(bool noExtension) {
 std::string MorphDSLParser::getNewImageNameWtf() {
     stringstream fNew;
     fNew << "./";
-    fNew << outputFigureName;
-    fNew << currentFigure->getText()[0] - 96;
+    fNew << imeIzhodneSlike;
+    fNew << zadnjaSpremenljivka[0] - 96;
     fNew << ".wtf";
 
     return fNew.str();
