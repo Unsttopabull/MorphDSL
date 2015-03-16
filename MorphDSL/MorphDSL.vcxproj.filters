@@ -132,10 +132,10 @@
     <ClInclude Include="ANTLRCompilerNew\MorphDSLParser.hpp">
       <Filter>ANTLRCompilerNew</Filter>
     </ClInclude>
-    <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h">
+    <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h">
       <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClInclude>
-    <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h">
+    <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h">
       <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClInclude>
   </ItemGroup>
@@ -197,10 +197,13 @@
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_util.cpp">
       <Filter>ANTLRCompilerNew\Semantics</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp">
-      <Filter>ANTLRCompilerNew\Razredi</Filter>
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_sql.cpp">
+      <Filter>ANTLRCompilerNew\Semantics</Filter>
     </ClCompile>
     <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp">
+      <Filter>ANTLRCompilerNew\Razredi</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp">
       <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClCompile>
   </ItemGroup>

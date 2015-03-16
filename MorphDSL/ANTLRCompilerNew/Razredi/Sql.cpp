@@ -10,6 +10,8 @@ Sql::~Sql() {
 }
 
 void Sql::dodajOmejitev(std::string keyword, SqlWhere* omejitev) {
+    omejitveUrejeno.push_back(omejitev);
+
     if (omejitve.find(keyword) != omejitve.end()) {
         omejitve[keyword].push_back(omejitev);
     }
@@ -36,4 +38,8 @@ std::vector<std::string> Sql::getUporabljeneKeyworde() {
     }
 
     return keywords;
+}
+
+std::map<std::string, std::vector<SqlWhere*>> Sql::getOmejitve() {
+    return omejitve;
 }

@@ -49,6 +49,10 @@ tokens {
 	T_UNION = 'union';
 	T_WITHOUT = 'without';
 	T_STAR = '*';
+	T_SELECT = 'SELECT';
+	T_WHERE = 'WHERE';
+	T_AND = 'AND';
+	T_FROM = 'FROM';
 }
 
 @parser::namespace{	LPM_MorphDSL }
@@ -144,6 +148,9 @@ private:
 
     //operatorsGB
     void tresholdImpl(double number, std::string id);
+
+	//sql
+	void sqlImpl(Sql* sql);
 }
 
 @lexer::namespace {	LPM_MorphDSL }
@@ -209,45 +216,38 @@ assignment :
 figurevector : ID { zadnjaSpremenljivka = $ID.text; };
 
 sql returns [Sql* sql]
-	@init { $sql = new Sql(); }
-	@after {
-		auto keywords = $sql->getUporabljeneKeyworde();
-		for(int i = 0; i < keywords.size(); i++){
-			std::cout << "keyword: " << keywords[i] << std::endl;
-
-			auto omejitveNaKeyword = $sql->getOmejtiveZaKeyword(keywords[i]);
-
-			for(int j = 0; j < omejitveNaKeyword.size(); j++){
-				if(omejitveNaKeyword[j]->isNestedSql()){
-					std::cout << "nested" << std::endl;
-				}
-				else{
-					std::cout << omejitveNaKeyword[j]->getVrednost() << std::endl;
-				}
-			}
-
-			std::cout << std::endl;
-		}
+	@init {
+		$sql = new Sql(); 
 	}
-	: 'SELECT' (operatorSql | '*' ) 'FROM' ID 'WHERE' w1=sqlWhere { sql->dodajOmejitev($w1.keyword, $w1.stavek); }
+	@after { sqlImpl($sql); delete $sql;}
+	: 'SELECT' operatorSql 'FROM' ID 'WHERE' w1=sqlWhere { sql->dodajOmejitev($w1.keyword, $w1.stavek); }
 	  ('AND' w2=sqlWhere 
-		{ $sql->dodajOmejitev($w2.keyword, $w2.stavek); } 
+		{ 
+			$sql->dodajOmejitev($w2.keyword, $w2.stavek);
+		} 
 	  )*
+	  {
+		$sql->selectKeyword = $operatorSql.selectKw;
+		$sql->selectFunkcija = $operatorSql.funkcija;
+		$sql->fromId = $ID.text;
+	  }
 	;
 
-operatorSql
-	: operatorName '(' selectKeyword ')'
-	| selectKeyword
+operatorSql returns [SelectKw::Keyword selectKw, std::string funkcija]
+	: operatorName '(' sk1=selectKeyword { $selectKw = $sk1.kw; $funkcija = $operatorName.text; } ')'
+	| sk2=selectKeyword { $selectKw = $sk2.kw; }
+	| '*' { $selectKw = SelectKw::Star; }
 	;
 	
-selectKeyword
-	: 'mask'
-	| 'set'
-	| 'attribute'
-	| 'okroglost'
-	| 'volument'
-	| 'internal_gradient'
-	| 'external_greadient'
+selectKeyword returns [SelectKw::Keyword kw]
+	@init{ $kw = SelectKw::Error; }
+	: 'mask' { $kw = SelectKw::Mask; }
+	| 'set'  { $kw = SelectKw::Set; }
+	| 'attribute' { $kw = SelectKw::Attribute; }
+	| 'okroglost' { $kw = SelectKw::Okroglost; }
+	| 'volument'  { $kw = SelectKw::Volument; }
+	| 'internal_gradient'  { $kw = SelectKw::InternalGradient; }
+	| 'external_greadient' { $kw = SelectKw::ExternalGradient; }
 	;
 
 operatorName: 'normalize';
@@ -256,28 +256,18 @@ sqlWhere returns [std::string keyword, SqlWhere* stavek]
 	: val1=DOUBLENUMBER op1=relOp kv1=sqlWhereKeyword 
 	{ 
 		$keyword = $kv1.text;
-		$stavek = new SqlWhere($op1.relOperator, toDouble($val1));
+		$stavek = new SqlWhere($op1.relOperator, toDouble($val1), $keyword);
 	}
 	| kv2=sqlWhereKeyword op2=relOp val2=DOUBLENUMBER
 	{ 
 		$keyword = $kv2.text;
-		$stavek = new SqlWhere($op2.relOperator, toDouble($val2));
+		$stavek = new SqlWhere($op2.relOperator, toDouble($val2), $keyword);
 	}
 	| kv3=sqlWhereKeyword '=' '(' sql ')'
 	{
 		$keyword = $kv3.text;
-		$stavek = new SqlWhere($sql.sql);
+		$stavek = new SqlWhere($sql.sql, $keyword);
 	}
-	;
-	
-relOp returns [RelOp::RelacijskiOperatorji relOperator]
-	@init  { $relOperator = RelOp::ERR;}
-	: '>'  { $relOperator = RelOp::GT; }
-	| '<'  { $relOperator = RelOp::LT; }
-	| '='  { $relOperator = RelOp::EQ; }
-	| '!=' { $relOperator = RelOp::NE; }
-	| '>=' { $relOperator = RelOp::GE; }
-	| '<=' { $relOperator = RelOp::LE; }
 	;
 
 sqlWhereKeyword
@@ -288,6 +278,16 @@ sqlWhereKeyword
 	| 'volument'
 	| 'okroglost'
 	| 'atribute'
+	;
+	
+relOp returns [RelOp::RelacijskiOperatorji relOperator]
+	@init  { $relOperator = RelOp::ERR;}
+	: '>'  { $relOperator = RelOp::GT; }
+	| '<'  { $relOperator = RelOp::LT; }
+	| '='  { $relOperator = RelOp::EQ; }
+	| '!=' { $relOperator = RelOp::NE; }
+	| '>=' { $relOperator = RelOp::GE; }
+	| '<=' { $relOperator = RelOp::LE; }
 	;
 
 operatorsBB : 

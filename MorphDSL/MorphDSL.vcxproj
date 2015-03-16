@@ -95,6 +95,8 @@
   <ItemGroup>
     <ClInclude Include="ANTLRCompilerNew\MorphDSLLexer.hpp" />
     <ClInclude Include="ANTLRCompilerNew\MorphDSLParser.hpp" />
+    <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h" />
+    <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Lexer.hpp" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Parser.hpp" />
     <ClInclude Include="ANTLRInterface\CompilerSemanticInterface.h" />
@@ -108,8 +110,6 @@
     <ClInclude Include="MMLib\priority_queue.h" />
     <ClInclude Include="MMLib\Utils.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h" />
-    <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -122,9 +122,12 @@
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBOX.cpp" />
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGB.cpp" />
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsRECONSTRUCION.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_sql.cpp" />
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_util.cpp" />
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGG.cpp" />
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBG.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Lexer.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Parser.cpp" />
     <ClCompile Include="ANTLRInterface\CompilerSemanticInterface.cpp" />
@@ -132,8 +135,6 @@
     <ClCompile Include="MorphDSL.cpp" />
     <ClCompile Include="MMLib\bestfit.cpp" />
     <ClCompile Include="MMLib\MMLib.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

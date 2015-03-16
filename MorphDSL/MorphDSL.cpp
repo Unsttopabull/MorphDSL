@@ -71,7 +71,8 @@ int test_main(int argc, char* argv[]) {
     psr.program();
 
     cout << "konec" << endl;
-    char ch = getch();
+    system("PAUSE");
+
     return 0;
 }
 

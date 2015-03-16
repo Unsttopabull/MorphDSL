@@ -5,14 +5,16 @@
 SqlWhere::SqlWhere() {
 }
 
-SqlWhere::SqlWhere(RelacijskiOperatorji relOperator, double vrednost) {
+SqlWhere::SqlWhere(RelacijskiOperatorji relOperator, double vrednost, std::string whereKw) {
     this->relOperator = relOperator;
     this->vrednost = vrednost;
     sql = NULL;
+    whereKeyword = whereKw;
 }
 
-SqlWhere::SqlWhere(Sql* stavek) {
+SqlWhere::SqlWhere(Sql* stavek, std::string whereKw) {
     sql = stavek;
+    whereKeyword = whereKw;
 }
 
 SqlWhere::~SqlWhere() {

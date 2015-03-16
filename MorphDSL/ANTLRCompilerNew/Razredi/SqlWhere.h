@@ -20,8 +20,8 @@ class SqlWhere {
 
 public:
     SqlWhere();
-    SqlWhere(RelacijskiOperatorji relOperator, double vrednost);
-    SqlWhere(Sql* stavek);
+    SqlWhere(RelacijskiOperatorji relOperator, double vrednost, std::string whereKw);
+    SqlWhere(Sql* stavek, std::string whereKw);
 
     ~SqlWhere();
 
@@ -29,9 +29,14 @@ public:
     Sql* getNestedSql();
     double getVrednost();
 
+    std::string getKeyword() {
+        return whereKeyword;
+    }
+
 private:
     Sql* sql;
     RelacijskiOperatorji relOperator;
     double vrednost;
+    std::string whereKeyword;
 };
 
