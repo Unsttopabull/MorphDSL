@@ -21,7 +21,7 @@ c = subtract(a,b)
 /* veliki objekti */
 
 a = load(".\maribor.bmp")
-b = SELECT mask FROM a WHERE 100 < area AND area < 1000 AND response = 5
+b = SELECT normalize(mask) FROM a WHERE 100 < area AND area < 1000 AND response = 5
  
 a = load(".\maribor.bmp")
 b = open(AREA, 100, a)
@@ -53,6 +53,7 @@ b = open(AREA, 1000, a)
 c = open(AREA, 3000, a)
 d = subtract(b,c)
 e = treshold(1,d)
+f = normalize (e)
 
 /* iskanje notranjih robov */
 

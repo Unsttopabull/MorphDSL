@@ -79,6 +79,9 @@
     <None Include="DSLPrograms\MorphSQL.dsl">
       <Filter>DSLPrograms</Filter>
     </None>
+    <None Include="DSLPrograms\MorphSQL_transform.dsl">
+      <Filter>DSLPrograms</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

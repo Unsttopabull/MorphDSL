@@ -1,0 +1,6 @@
+a = load(".\maribor.bmp") 
+b = open(AREA, 100, a)
+c = open(AREA, 1000, a)
+d = subtract(b,c)
+e = treshold(5,d)
+f = normalize (e)

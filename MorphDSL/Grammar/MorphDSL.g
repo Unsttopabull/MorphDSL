@@ -183,12 +183,6 @@ private:
 
 program
 	@init { 
-		//zadnjaSpremenljivka = NULL;
-		/*
-		interval2 = NULL;
-		marker1 = NULL;
-		marker2 = NULL;
-		*/
 		imeIzhodneSlike = "";
 		imageCounter = 0;
 	}:
@@ -256,28 +250,28 @@ sqlWhere returns [std::string keyword, SqlWhere* stavek]
 	: val1=DOUBLENUMBER op1=relOp kv1=sqlWhereKeyword 
 	{ 
 		$keyword = $kv1.text;
-		$stavek = new SqlWhere($op1.relOperator, toDouble($val1), $keyword);
+		$stavek = new SqlWhere($op1.relOperator, toDouble($val1), $kv1.kw);
 	}
 	| kv2=sqlWhereKeyword op2=relOp val2=DOUBLENUMBER
 	{ 
 		$keyword = $kv2.text;
-		$stavek = new SqlWhere($op2.relOperator, toDouble($val2), $keyword);
+		$stavek = new SqlWhere($op2.relOperator, toDouble($val2), $kv2.kw);
 	}
 	| kv3=sqlWhereKeyword '=' '(' sql ')'
 	{
 		$keyword = $kv3.text;
-		$stavek = new SqlWhere($sql.sql, $keyword);
+		$stavek = new SqlWhere($sql.sql, $kw3.kw);
 	}
 	;
 
-sqlWhereKeyword
-	: 'area'
-	| 'response'
-	| 'internal_gradient'
-	| 'external_gradient'
-	| 'volument'
-	| 'okroglost'
-	| 'atribute'
+sqlWhereKeyword [SqlWhere::Keyword kw]
+	: 'area' { $kw = SqlWhere::AREA; }
+	| 'response' { $kw = SqlWhere::RESPONSE; }
+	| 'internal_gradient' { $kw = SqlWhere::INTERNAL_GRADIENT; }
+	| 'external_gradient' { $kw = SqlWhere::EXTERNAL_GRADIENT; }
+	| 'volument' { $kw = SqlWhere::VOLUMENT; }
+	| 'okroglost' { $kw = SqlWhere::OKROGLOST; }
+	| 'atribute' { $kw = SqlWhere::ATRIBUTE; }
 	;
 	
 relOp returns [RelOp::RelacijskiOperatorji relOperator]

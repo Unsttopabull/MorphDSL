@@ -33,7 +33,13 @@ int test_main(int argc, char* argv[]) {
 
     if (argc < 2 || argv[1] == NULL) {
         printf("NO ARGUMENT!\n");
+
+#define SQL
+#ifdef SQL
         fName	= (ANTLR_UINT8*)"./DSLPrograms/MorphSQL.dsl"; // Note in VS2005 debug, working directory must be configured
+#else
+        fName	= (ANTLR_UINT8*)"./DSLPrograms/MorphSQL_transform.dsl"; // Note in VS2005 debug, working directory must be configured
+#endif
     }
     else {
         printf("USING ARGUMENT!\n");
