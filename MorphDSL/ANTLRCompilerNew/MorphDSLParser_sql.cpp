@@ -91,8 +91,27 @@ void MorphDSLParser::sqlImpl(Sql* sql) {
                     tresholdImpl(vrednost, subb);
                     break;
                 }
-                case SqlWhere::INTERNAL_GRADIENT:
+                case SqlWhere::INTERNAL_GRADIENT: {
+                    std::string prevS = last;
+
+                    prev = (last[0] + 1);
+
+                    cout << "\t\t\t" << prev << " = " << "erode(BOX," << vrednost << "," << sql->fromId << ")" << std::endl;
+                    zadnjaSpremenljivka = prev;
+
+                    erodeBoxImpl(vrednost, sql->fromId);
+
+                    prev = (char)(last[0] + 2);
+                    cout << "\t\t\t" << prev << " = " << "subtract(" << (char)(last[0] - 1) << "," << ++last[0] << ")" << std::endl;
+                    zadnjaSpremenljivka = prev;
+
+                    std::string sub = last;
+
+                    subtractImpl(prevS, sub);
+
+                    last[0]++;
                     break;
+                }
                 case SqlWhere::EXTERNAL_GRADIENT:
                     break;
                 case SqlWhere::VOLUMENT:
