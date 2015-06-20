@@ -13,7 +13,6 @@
     #include "ANTLRCompiler/MorphDSL3Parser.hpp"
 #endif
 
-#include "MorphDSL.h"
 #include <antlr3.hpp>
 
 #ifdef _DEBUG
@@ -36,7 +35,7 @@ int test_main(int argc, char* argv[]) {
 
 #define SQL
 #ifdef SQL
-        fName	= (ANTLR_UINT8*)"./DSLPrograms/MorphSQL2.dsl"; // Note in VS2005 debug, working directory must be configured
+        fName	= (ANTLR_UINT8*)"./DSLPrograms/Morph1.dsl"; // Note in VS2005 debug, working directory must be configured
 #else
         fName	= (ANTLR_UINT8*)"./DSLPrograms/MorphSQL_transform.dsl"; // Note in VS2005 debug, working directory must be configured
 #endif

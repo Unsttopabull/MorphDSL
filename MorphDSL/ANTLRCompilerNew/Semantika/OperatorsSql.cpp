@@ -1,15 +1,12 @@
 #include "stdafx.h"
-#include "MorphDSLParser.hpp"
+#include "../MorphDSLParser.hpp"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
 
-/// <summary>
-/// SQLs the implementation.
-/// </summary>
-/// <param name="sql">The SQL.</param>
 void MorphDSLParser::sqlImpl(Sql* sql) {
+
     std::cout << std::endl;
     std::cout << "keyword" << std::endl;
     std::cout << "\t" << SelectKw::kw[sql->selectKeyword] << std::endl;
@@ -55,14 +52,14 @@ void MorphDSLParser::sqlImpl(Sql* sql) {
 
                         last = sql->fromId[0] + 1;
 
-                        prev = (last[0] + 1);
+                        prev = last[0] + 1;
                         cout << "\t\t\t" << prev << " = " << "open(AREA," << vrednost << "," << sql->fromId << ")" << std::endl;
                         zadnjaSpremenljivka = prev;
 
                         openArea(vrednost, sql->fromId);
 
-                        prev = (char)(last[0] + 2);
-                        cout << "\t\t\t" << prev << " = " << "subtract(" << (char)(last[0] - 1) << "," << ++last[0] << ")" << std::endl;
+                        prev = char(last[0] + 2);
+                        cout << "\t\t\t" << prev << " = " << "subtract(" << char(last[0] - 1) << "," << ++last[0] << ")" << std::endl;
                         zadnjaSpremenljivka = prev;
 
                         std::string sub = last;
@@ -72,9 +69,10 @@ void MorphDSLParser::sqlImpl(Sql* sql) {
                         needToSubtract = false;
                     }
                     else {
-                        prev = (char)(last[0] + 1);
+                        prev = char(last[0] + 1);
                         cout << "\t\t\t" << prev << " = " << "open(AREA," << vrednost << "," << sql->fromId << ")" << std::endl;
-                        zadnjaSpremenljivka = prev;
+
+                        initNovaSpremenljivka(string(&prev, 1));
 
                         openArea(vrednost, sql->fromId);
 
@@ -82,7 +80,7 @@ void MorphDSLParser::sqlImpl(Sql* sql) {
                     }
                     break;
                 case SqlWhere::RESPONSE: {
-                    prev = (char)(last[0] + 1);
+                    prev = char(last[0] + 1);
                     cout << "\t\t\t" << prev << " = " << "treshold(" << vrednost << ", " << last << ")" << std::endl;
                     zadnjaSpremenljivka = prev;
 
@@ -101,8 +99,8 @@ void MorphDSLParser::sqlImpl(Sql* sql) {
 
                     erodeBoxImpl(vrednost, sql->fromId);
 
-                    prev = (char)(last[0] + 2);
-                    cout << "\t\t\t" << prev << " = " << "subtract(" << (char)(last[0] - 1) << "," << ++last[0] << ")" << std::endl;
+                    prev = char(last[0] + 2);
+                    cout << "\t\t\t" << prev << " = " << "subtract(" << char(last[0] - 1) << "," << ++last[0] << ")" << std::endl;
                     zadnjaSpremenljivka = prev;
 
                     std::string sub = last;

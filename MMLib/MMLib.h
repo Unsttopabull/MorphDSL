@@ -1,10 +1,7 @@
 #pragma once
 #include <vector>
 #include <math.h>
-#include <algorithm>
-#include "FQDT.h"
 #include "max_tree.h"
-#include "bestfit.h"
 #include <queue>
 using namespace std;
 

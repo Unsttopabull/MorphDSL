@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 #include <sstream>
 #include "CompilerSemanticInterface.h"
-#include "..\MMLib\MMLib.h"
+#include "MMLib.h"
 using namespace std;
 
 CompilerSemanticInterface::CompilerSemanticInterface()

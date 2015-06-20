@@ -34,7 +34,7 @@ f = normalize (e)
 /* iskanje braintumor-ja */
 
 a = load(".\maribor.bmp")
-b = SELECT mask FROM a WHERE 100<area AND area <1000 AND response = 5
+b = SELECT mask FROM a WHERE 100<area AND area <1000 AND response > 5
 
 a = load(".\braintumor.bmp")
 b = open(AREA, 1000, a)
@@ -65,6 +65,20 @@ b = erode(BOX(1),a)
 c = subtract(a,b)
 
 
+a = load(".\maribor.bmp")
+b = SELECT mask FROM a WHERE 100<area AND area <1000 AND response < 5
 
+a = load(".\braintumor.bmp")
+b = open(AREA, 1000, a)
 
+c = open(AREA, 3000, a)
+d = subtract(b,c)
+
+e = multiply(-1, d)
+f = treshold(-5, e)
+g = multiply(-1, f)
+
+b = SELECT mask FROM a WHERE 100<area AND area <1000 AND response < 5
+
+c = Select mashk From d where b.mask 
 

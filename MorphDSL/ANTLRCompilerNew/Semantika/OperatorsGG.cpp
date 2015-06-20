@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MorphDSLParser.hpp"
+#include "../MorphDSLParser.hpp"
 
 using namespace LPM_MorphDSL;
 using namespace std;
@@ -7,7 +7,7 @@ using namespace std;
 void MorphDSLParser::negateImpl(string id) {
     cout << "NEGATE" << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -42,7 +42,7 @@ void MorphDSLParser::multiplyImpl(std::string id, double num) {
     cout << "MULTIPLY" << endl;
     cout << "<--  " << num << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -56,7 +56,7 @@ void MorphDSLParser::multiplyImpl(double num, std::string id) {
     cout << "MULTIPLY" << endl;
     cout << "<--  " << num << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -69,10 +69,10 @@ void MorphDSLParser::multiplyImpl(double num, std::string id) {
 void MorphDSLParser::multiplyImpl(std::string id1, std::string id2) {
     cout << "MULTYPLY" << endl;
 
-    string fFirst = getNewImageNameFromId(id1);
+    string fFirst = getImageNameFromId(id1);
     cout << "<--  " << fFirst << endl;
 
-    string fLast = getNewImageNameFromId(id2);
+    string fLast = getImageNameFromId(id2);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -85,7 +85,7 @@ void MorphDSLParser::multiplyImpl(std::string id1, std::string id2) {
 void MorphDSLParser::cropImpl(std::string id, double lowBound, double highBound) {
     cout << "CROP" << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -99,10 +99,10 @@ void MorphDSLParser::cropImpl(std::string id, double lowBound, double highBound)
 void MorphDSLParser::subtractImpl(std::string id1, std::string id2) {
     cout << "SUBTRACT" << endl;
 
-    string fFirst = getNewImageNameFromId(id1);
+    string fFirst = getImageNameFromId(id1);
     cout << "<--  " << fFirst << endl;
 
-    string fLast = getNewImageNameFromId(id2);
+    string fLast = getImageNameFromId(id2);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -116,7 +116,7 @@ void MorphDSLParser::subtractImpl(std::string id1, std::string id2) {
 void MorphDSLParser::gradientInternalImpl(std::string id) {
     cout << "GRADIENT INTERNAL" << endl;
 
-    string fFirst = getNewImageNameFromId(id);
+    string fFirst = getImageNameFromId(id);
     cout << "<--  " << fFirst << endl;
 
     string fNew = getNewImageName();
@@ -130,7 +130,7 @@ void MorphDSLParser::gradientInternalImpl(std::string id) {
 void MorphDSLParser::gradientExternalImpl(std::string id) {
     cout << "GRADIENT EXTERNAL" << endl;
 
-    string fFirst = getNewImageNameFromId(id);
+    string fFirst = getImageNameFromId(id);
     cout << "<--  " << fFirst << endl;
 
     string fNew = getNewImageName();
@@ -144,7 +144,7 @@ void MorphDSLParser::gradientExternalImpl(std::string id) {
 void MorphDSLParser::diferentialProfilesMorphologicalImpl(std::string id1, std::string id2) {
     cout << "DIF. PROFILES - MORPHOLOGICAL" << endl;
 
-    string fFirst = getNewImageNameFromId(id2);
+    string fFirst = getImageNameFromId(id2);
     cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
@@ -164,7 +164,7 @@ void MorphDSLParser::diferentialProfilesMorphologicalImpl(std::string id1, std::
 void MorphDSLParser::diferentialProfilesAttributeImpl(std::string id1, std::string id2) {
     cout << "DIF. PROFILES - ATTRIBUTE" << endl;
 
-    string fFirst = getNewImageNameFromId(id2);
+    string fFirst = getImageNameFromId(id2);
     cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
@@ -184,7 +184,7 @@ void MorphDSLParser::diferentialProfilesAttributeImpl(std::string id1, std::stri
 void MorphDSLParser::mappingDmpImpl(std::string id1, std::string id2) {
     cout << "MAPPING - DMP" << endl;
 
-    string fFirst = getNewImageNameFromId(id2);
+    string fFirst = getImageNameFromId(id2);
     cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
@@ -204,7 +204,7 @@ void MorphDSLParser::mappingDmpImpl(std::string id1, std::string id2) {
 void MorphDSLParser::mappingDapImpl(std::string id1, std::string id2) {
     cout << "MAPPING - DAP" << endl;
 
-    string fFirst = getNewImageNameFromId(id2);
+    string fFirst = getImageNameFromId(id2);
     cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
@@ -226,7 +226,7 @@ void MorphDSLParser::segmentationMsls1Impl(std::string id1, std::string id2) {
 
     cout << "MAPPING - DAP" << endl;
 
-    string fFirst = getNewImageNameFromId(id2);
+    string fFirst = getImageNameFromId(id2);
     cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
@@ -248,7 +248,7 @@ void MorphDSLParser::segmentationMsls2Impl(std::string id1, std::string id2) {
 
     cout << "MAPPING - DAP" << endl;
 
-    string fFirst = getNewImageNameFromId(id1);
+    string fFirst = getImageNameFromId(id1);
     cout << "<--  " << fFirst << endl;
 
     stringstream fLast;//create a stringstream
@@ -268,7 +268,7 @@ void MorphDSLParser::segmentationMsls2Impl(std::string id1, std::string id2) {
 void MorphDSLParser::segmentationWatershadeImpl(std::string id) {
     cout << "SEGMENTATION - WATHERSHADE" << endl;
 
-    string fFirst = getNewImageNameFromId(id);
+    string fFirst = getImageNameFromId(id);
     cout << "<--  " << fFirst << endl;
 
     string fNew = getNewImageNameWtf();
@@ -281,7 +281,7 @@ void MorphDSLParser::segmentationWatershadeImpl(std::string id) {
 void MorphDSLParser::segmentationWatershadeMarkerImpl(std::string id1, std::string id2) {
     cout << "SEGMENTATION - WATHERSHADE MARKER" << endl;
 
-    string fFirst = getNewImageNameFromId(id1);
+    string fFirst = getImageNameFromId(id1);
     cout << "<--  " << fFirst << endl;
 
     string fNew = getNewImageNameWtf();

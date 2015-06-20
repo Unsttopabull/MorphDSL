@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MorphDSLParser.hpp"
+#include "../MorphDSLParser.hpp"
 
 using namespace LPM_MorphDSL;
 using namespace std;
@@ -7,7 +7,7 @@ using namespace std;
 void MorphDSLParser::openArea(double number, std::string id) {
     cout << "OPENAREA" << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -24,7 +24,7 @@ void MorphDSLParser::openArea(double number, std::string id) {
 void MorphDSLParser::closeArea(double number, std::string id) {
     cout << "CLOSEAREA" << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();

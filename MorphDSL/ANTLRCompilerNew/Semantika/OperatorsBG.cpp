@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MorphDSLParser.hpp"
+#include "../MorphDSLParser.hpp"
 
 using namespace LPM_MorphDSL;
 using namespace std;
@@ -7,7 +7,7 @@ using namespace std;
 void MorphDSLParser::distanceTransformImpl(std::string id) {
     cout << "DISTANCE TRANSFORM" << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MorphDSLParser.hpp"
+#include "../MorphDSLParser.hpp"
 
 using namespace LPM_MorphDSL;
 using namespace std;
@@ -11,7 +11,7 @@ void MorphDSLParser::openAttribute(std::string id1, double number, std::string i
     fFirst << id1;
     cout << "<--  " << fFirst.str() << endl;
 
-    string fLast = getNewImageNameFromId(id2);
+    string fLast = getImageNameFromId(id2);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -30,7 +30,7 @@ void MorphDSLParser::closeAttribute(std::string id1, double number, std::string 
     fFirst << id1;
     cout << "<--  " << fFirst.str() << endl;
 
-    string fLast = getNewImageNameFromId(id2);
+    string fLast = getImageNameFromId(id2);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();

@@ -2,29 +2,12 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "Enums.h"
 
 class SqlWhere;
 
-namespace SelectKw {
-    enum Keyword {
-        Error,
-        Star,
-        Mask,
-        Set,
-        Attribute,
-        Okroglost,
-        Volument,
-        InternalGradient,
-        ExternalGradient
-    };
-
-    static std::string kw[] = { "Error", "Star", "Mask", "Set", "Attribute", "Okroglost", "Volument", "InternalGradient", "ExternalGradient" };
-}
-
 class Sql {
 public:
-    Sql();
-    ~Sql();
 
     SelectKw::Keyword selectKeyword;
     std::string fromId;

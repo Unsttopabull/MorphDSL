@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MorphDSLParser.hpp"
+#include "../MorphDSLParser.hpp"
 
 using namespace LPM_MorphDSL;
 using namespace std;
@@ -8,7 +8,7 @@ void MorphDSLParser::tresholdImpl(double number, std::string id) {
     //cout<<convertLetterToNumber(ID2->getText()[0])<<endl;
     cout << "TRESHOLDING" << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();

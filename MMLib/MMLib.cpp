@@ -1,8 +1,10 @@
-#include "stdafx.h"
+//#include "stdafx.h"
+#include "afx.h"
 #include "MMLib.h"
 #include <iostream>
 #include <cstddef>
 #include <limits>
+#include "bestfit.h"
 //Support functions
 using namespace std;
 

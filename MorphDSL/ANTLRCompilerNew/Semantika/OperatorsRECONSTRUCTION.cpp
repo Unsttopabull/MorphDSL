@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MorphDSLParser.hpp"
+#include "../MorphDSLParser.hpp"
 
 using namespace LPM_MorphDSL;
 using namespace std;
@@ -7,7 +7,7 @@ using namespace std;
 void MorphDSLParser::erodeImpl(std::string id1, std::string id2) {
     cout << "ERODE - RECONSTRUCTION MARKER" << endl;
 
-    string fFirst = getNewImageNameFromId(id1);
+    string fFirst = getImageNameFromId(id1);
     cout << "<--  " << fFirst << endl;
 
     string fNew = getNewImageName();
@@ -48,7 +48,7 @@ void MorphDSLParser::erodeImpl(std::string id1, std::string id2) {
 void MorphDSLParser::dilateImpl(std::string id1, std::string id2) {
     cout << "DILATE - RECONSTRUCTION MARKER" << endl;
 
-    string fFirst = getNewImageNameFromId(id1);
+    string fFirst = getImageNameFromId(id1);
     cout << "<--  " << fFirst << endl;
 
     string fNew = getNewImageName();
@@ -86,7 +86,7 @@ void MorphDSLParser::dilateImpl(std::string id1, std::string id2) {
 void MorphDSLParser::openImpl(double number, std::string id) {
     cout << "OPEN RECONSTRUCTION BOX" << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -100,7 +100,7 @@ void MorphDSLParser::closeImpl(double number, std::string id) {
 
     cout << "CLOSE RECONSTRUCTION BOX" << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();

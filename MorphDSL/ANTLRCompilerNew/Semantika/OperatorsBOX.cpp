@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MorphDSLParser.hpp"
+#include "../MorphDSLParser.hpp"
 
 using namespace LPM_MorphDSL;
 using namespace std;
@@ -26,7 +26,7 @@ void MorphDSLParser::dilateBoxImpl(double number, std::string id) {
 
     cout << "DILATEBOX: " << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -41,7 +41,7 @@ void MorphDSLParser::dilateBoxImpl(double number, std::string id) {
 void MorphDSLParser::openBoxImpl(double number, std::string id) {
     cout << "OPENBOX: " << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -55,7 +55,7 @@ void MorphDSLParser::openBoxImpl(double number, std::string id) {
 void MorphDSLParser::closeBoxImpl(double number, std::string id) {
     cout << "CLOSEBOX" << endl;
 
-    string fLast = getNewImageNameFromId(id);
+    string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();

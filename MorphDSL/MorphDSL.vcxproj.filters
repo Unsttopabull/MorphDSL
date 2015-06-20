@@ -19,9 +19,6 @@
     <Filter Include="BMP">
       <UniqueIdentifier>{55e6fb57-4e93-4eb1-a863-f63f9d3f7d90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MMlib">
-      <UniqueIdentifier>{e0e6396b-308d-4153-9bef-c49b75a48a75}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ANTLRCompiler">
       <UniqueIdentifier>{8b53b8db-a96c-49b3-99f2-d05c97ef603e}</UniqueIdentifier>
     </Filter>
@@ -34,11 +31,14 @@
     <Filter Include="ANTLRCompilerNew">
       <UniqueIdentifier>{0b363098-4890-45ba-a931-6eaf59ecc0c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ANTLRCompilerNew\Semantics">
-      <UniqueIdentifier>{056d83c6-da06-45ef-99be-d2d35ad97175}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ANTLRCompilerNew\Razredi">
       <UniqueIdentifier>{870c2850-bfd1-470b-b4a2-b1a07d0a7b93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ANTLRCompilerNew\Util">
+      <UniqueIdentifier>{53f2d099-c99d-40ca-aaf6-70c490239f7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ANTLRCompilerNew\Semantika">
+      <UniqueIdentifier>{056d83c6-da06-45ef-99be-d2d35ad97175}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,27 +102,6 @@
     <ClInclude Include="BMP\BitmapEx.h">
       <Filter>BMP</Filter>
     </ClInclude>
-    <ClInclude Include="MMLib\bestfit.h">
-      <Filter>MMlib</Filter>
-    </ClInclude>
-    <ClInclude Include="MMLib\FQDT.h">
-      <Filter>MMlib</Filter>
-    </ClInclude>
-    <ClInclude Include="MMLib\max_tree.h">
-      <Filter>MMlib</Filter>
-    </ClInclude>
-    <ClInclude Include="MMLib\MMLib.h">
-      <Filter>MMlib</Filter>
-    </ClInclude>
-    <ClInclude Include="MMLib\nVector.h">
-      <Filter>MMlib</Filter>
-    </ClInclude>
-    <ClInclude Include="MMLib\priority_queue.h">
-      <Filter>MMlib</Filter>
-    </ClInclude>
-    <ClInclude Include="MMLib\Utils.h">
-      <Filter>MMlib</Filter>
-    </ClInclude>
     <ClInclude Include="ANTLRCompiler\MorphDSL3Lexer.hpp">
       <Filter>ANTLRCompiler</Filter>
     </ClInclude>
@@ -138,11 +117,17 @@
     <ClInclude Include="ANTLRCompilerNew\MorphDSLParser.hpp">
       <Filter>ANTLRCompilerNew</Filter>
     </ClInclude>
-    <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h">
+    <ClInclude Include="ANTLRCompilerNew\Util\Spremenljivka.h">
+      <Filter>ANTLRCompilerNew\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ANTLRCompilerNew\Razredi\Enums.h">
       <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClInclude>
     <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h">
-      <Filter>ANTLRCompilerNew\Razredi</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,12 +139,6 @@
     </ClCompile>
     <ClCompile Include="BMP\BitmapEx.cpp">
       <Filter>BMP</Filter>
-    </ClCompile>
-    <ClCompile Include="MMLib\bestfit.cpp">
-      <Filter>MMlib</Filter>
-    </ClCompile>
-    <ClCompile Include="MMLib\MMLib.cpp">
-      <Filter>MMlib</Filter>
     </ClCompile>
     <ClCompile Include="ANTLRCompiler\MorphDSL3Lexer.cpp">
       <Filter>ANTLRCompiler</Filter>
@@ -176,54 +155,46 @@
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser.cpp">
       <Filter>ANTLRCompilerNew</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsAREA.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsAREA.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsATTRIBUTE.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsATTRIBUTE.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBB.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsBB.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBG.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsBG.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBOX.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsBOX.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGB.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsGB.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGG.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsGG.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsRECONSTRUCION.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsRECONSTRUCTION.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_util.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
-    </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_sql.cpp">
-      <Filter>ANTLRCompilerNew\Semantics</Filter>
-    </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp">
-      <Filter>ANTLRCompilerNew\Razredi</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\Util.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
     <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp">
-      <Filter>ANTLRCompilerNew\Razredi</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsSql.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MorphDSL.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="MMLib\FQDT.lib">
-      <Filter>MMlib</Filter>
-    </Library>
-    <Library Include="MMLib\FQDT_debug.lib">
-      <Filter>MMlib</Filter>
-    </Library>
   </ItemGroup>
 </Project>

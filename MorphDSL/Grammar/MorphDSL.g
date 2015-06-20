@@ -63,7 +63,9 @@ tokens {
 //include za .hpp
 @parser::includes {
 #include "MorphDSLLexer.hpp"
+#include "Razredi/Enums.h"
 #include "Razredi/SqlWhere.h"
+#include "Util/Spremenljivka.h"
 #include "../ANTLRInterface/CompilerSemanticInterface.h"
 #include <string>
 #include <map>
@@ -71,8 +73,8 @@ tokens {
 }
 //Include za .cpp
 @parser::postinclude {#include    "stdafx.h"
+/* Stdafx.h mora vedno biti na vrhu (prvi definiran) */
 #include	"Razredi/SqlWhere.h"
-#include	"Razredi/Sql.h"
 }
 
 //dodano v telo razreda v headerju (*.hpp)
@@ -83,6 +85,7 @@ private:
 	//const CommonTokenType*    currentFigure;
 	std::vector<std::vector<double>> img;
 	map<string, std::vector<double>> vect;
+	map<string, Spremenljivka> imeSlikeZaSpremenljivko;
 	string imeIzhodneSlike;
 	string zadnjaSpremenljivka;
 	int imageCounter;
@@ -90,9 +93,12 @@ private:
     //Util
     int toInt(const CommonTokenType* token);
     double toDouble(const CommonTokenType* token);
-    std::string getNewImageNameFromId(std::string id);
+    std::string getImageNameFromId(std::string id);
     std::string getNewImageName(bool noExtension = false);
     std::string getNewImageNameWtf();
+
+	void spremenljivkaVImeDatoteke(string spremenljivka);
+	void initNovaSpremenljivka(string novaSpr);
 
     void loadImpl(std::string id2, std::string currentFigure);
 
@@ -154,7 +160,9 @@ private:
 }
 
 @lexer::namespace {	LPM_MorphDSL }
-@lexer::postinclude {#include    "stdafx.h"}
+@lexer::postinclude {#include    "stdafx.h"
+/* Stdafx.h mora vedno biti na vrhu (prvi definiran) */
+}
 
 //sprememba delovanja kot v originalnem grammarju
 @lexer::traits 
@@ -184,7 +192,7 @@ private:
 program
 	@init { 
 		imeIzhodneSlike = "";
-		imageCounter = 0;
+		imageCounter = 1;
 	}:
  	load assignment+;
 
@@ -207,23 +215,31 @@ assignment :
 	| sql
 	);
 
-figurevector : ID { zadnjaSpremenljivka = $ID.text; };
+figurevector : ID { 
+	zadnjaSpremenljivka = $ID.text; 
+	initNovaSpremenljivka(zadnjaSpremenljivka);
+};
 
 sql returns [Sql* sql]
 	@init {
 		$sql = new Sql(); 
+	} 
+	@after {
+		sqlImpl($sql); delete $sql;
 	}
-	@after { sqlImpl($sql); delete $sql;}
-	: 'SELECT' operatorSql 'FROM' ID 'WHERE' w1=sqlWhere { sql->dodajOmejitev($w1.keyword, $w1.stavek); }
-	  ('AND' w2=sqlWhere 
+	: 'SELECT' operatorSql 'FROM' ID 'WHERE' w1=sqlWhere
+	{
+		 sql->dodajOmejitev($w1.keyword, $w1.stavek); 
+	}
+	('AND' w2=sqlWhere 
 		{ 
-			$sql->dodajOmejitev($w2.keyword, $w2.stavek);
+			sql->dodajOmejitev($w2.keyword, $w2.stavek);
 		} 
-	  )*
+	)*
 	  {
-		$sql->selectKeyword = $operatorSql.selectKw;
-		$sql->selectFunkcija = $operatorSql.funkcija;
-		$sql->fromId = $ID.text;
+	    $sql->selectKeyword = $operatorSql.selectKw;
+	    $sql->selectFunkcija = $operatorSql.funkcija;
+	    $sql->fromId = $ID.text;
 	  }
 	;
 
@@ -247,31 +263,31 @@ selectKeyword returns [SelectKw::Keyword kw]
 operatorName: 'normalize';
 
 sqlWhere returns [std::string keyword, SqlWhere* stavek]
-	: val1=DOUBLENUMBER op1=relOp kv1=sqlWhereKeyword 
+	: val1=DOUBLENUMBER op1=relOp kv1=sqlWhereKeyword
 	{ 
 		$keyword = $kv1.text;
-		$stavek = new SqlWhere($op1.relOperator, toDouble($val1), $kv1.kw);
+		$stavek = new SqlWhere($op1.relOperator, toDouble($val1), $kv1.text);
 	}
 	| kv2=sqlWhereKeyword op2=relOp val2=DOUBLENUMBER
 	{ 
 		$keyword = $kv2.text;
-		$stavek = new SqlWhere($op2.relOperator, toDouble($val2), $kv2.kw);
+		$stavek = new SqlWhere($op2.relOperator, toDouble($val2), $kv2.text);
 	}
 	| kv3=sqlWhereKeyword '=' '(' sql ')'
 	{
 		$keyword = $kv3.text;
-		$stavek = new SqlWhere($sql.sql, $kw3.kw);
+		$stavek = NULL;//new SqlWhere($ sql.sql, $ kv3.text);
 	}
 	;
 
-sqlWhereKeyword [SqlWhere::Keyword kw]
-	: 'area' { $kw = SqlWhere::AREA; }
-	| 'response' { $kw = SqlWhere::RESPONSE; }
-	| 'internal_gradient' { $kw = SqlWhere::INTERNAL_GRADIENT; }
-	| 'external_gradient' { $kw = SqlWhere::EXTERNAL_GRADIENT; }
-	| 'volument' { $kw = SqlWhere::VOLUMENT; }
-	| 'okroglost' { $kw = SqlWhere::OKROGLOST; }
-	| 'atribute' { $kw = SqlWhere::ATRIBUTE; }
+sqlWhereKeyword
+	: 'area'
+	| 'response'
+	| 'internal_gradient'
+	| 'external_gradient'
+	| 'volument'
+	| 'okroglost'
+	| 'atribute'
 	;
 	
 relOp returns [RelOp::RelacijskiOperatorji relOperator]

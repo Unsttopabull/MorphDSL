@@ -1,20 +1,6 @@
 #pragma once
 #include "Sql.h"
 
-namespace RelOp {
-    enum RelacijskiOperatorji {
-        ERR,
-        LT,
-        GT,
-        EQ,
-        NE,
-        LE,
-        GE
-    };
-
-    static std::string kw[] = { "ERR", "<", ">", "==", "¨!=", "<=", ">="};
-}
-
 using namespace RelOp;
 using namespace std;
 

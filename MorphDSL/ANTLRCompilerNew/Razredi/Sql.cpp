@@ -1,14 +1,6 @@
 #include "StdAfx.h"
 #include "Sql.h"
 
-
-Sql::Sql() {
-}
-
-
-Sql::~Sql() {
-}
-
 void Sql::dodajOmejitev(std::string keyword, SqlWhere* omejitev) {
     omejitveUrejeno.push_back(omejitev);
 

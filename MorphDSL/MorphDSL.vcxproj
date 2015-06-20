@@ -42,11 +42,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Antlr\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)MMLib\;$(SolutionDir)Antlr\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)Antlr\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)MMLib\;$(SolutionDir)Antlr\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,18 +99,13 @@
     <ClInclude Include="ANTLRCompilerNew\MorphDSLParser.hpp" />
     <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h" />
     <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h" />
+    <ClInclude Include="ANTLRCompilerNew\Util\Spremenljivka.h" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Lexer.hpp" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Parser.hpp" />
     <ClInclude Include="ANTLRInterface\CompilerSemanticInterface.h" />
     <ClInclude Include="BMP\BitmapEx.h" />
+    <ClInclude Include="ANTLRCompilerNew\Razredi\Enums.h" />
     <ClInclude Include="MorphDSL.h" />
-    <ClInclude Include="MMLib\bestfit.h" />
-    <ClInclude Include="MMLib\FQDT.h" />
-    <ClInclude Include="MMLib\max_tree.h" />
-    <ClInclude Include="MMLib\MMLib.h" />
-    <ClInclude Include="MMLib\nVector.h" />
-    <ClInclude Include="MMLib\priority_queue.h" />
-    <ClInclude Include="MMLib\Utils.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -118,25 +113,23 @@
   <ItemGroup>
     <ClCompile Include="ANTLRCompilerNew\MorphDSLLexer.cpp" />
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsAREA.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsATTRIBUTE.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBB.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBOX.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGB.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsRECONSTRUCION.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_sql.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_util.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsGG.cpp" />
-    <ClCompile Include="ANTLRCompilerNew\MorphDSLParser_operatorsBG.cpp" />
     <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp" />
     <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsAREA.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsATTRIBUTE.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsBB.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsBG.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsBOX.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsGB.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsGG.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsRECONSTRUCTION.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsSql.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\Util.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Lexer.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Parser.cpp" />
     <ClCompile Include="ANTLRInterface\CompilerSemanticInterface.cpp" />
     <ClCompile Include="BMP\BitmapEx.cpp" />
     <ClCompile Include="MorphDSL.cpp" />
-    <ClCompile Include="MMLib\bestfit.cpp" />
-    <ClCompile Include="MMLib\MMLib.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -146,8 +139,9 @@
     <ResourceCompile Include="MorphDSL.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="MMLib\FQDT.lib" />
-    <Library Include="MMLib\FQDT_debug.lib" />
+    <ProjectReference Include="..\MMLib\MMLib.vcxproj">
+      <Project>{50335163-44bf-495a-bfd5-0ed2873c75a7}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
