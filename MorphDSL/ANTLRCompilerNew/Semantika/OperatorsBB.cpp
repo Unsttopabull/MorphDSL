@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::complementImpl(const CommonTokenType* id) {
+void MorphDSLSemantics::complementImpl(const ParserToken* id) {
     cout << "COMPLEMENT" << endl;
 
     string fLast = getImageNameFromId(id->getText());
@@ -17,7 +17,7 @@ void MorphDSLParser::complementImpl(const CommonTokenType* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::unionImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::unionImpl(const ParserToken* id1, const ParserToken* id2) {
     cout << "UNION" << endl;
 
     string fFirst = getImageNameFromId(id1->getText());
@@ -33,7 +33,7 @@ void MorphDSLParser::unionImpl(const CommonTokenType* id1, const CommonTokenType
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::intersectionImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::intersectionImpl(const ParserToken* id1, const ParserToken* id2) {
     cout << "INTERSECTION" << endl;
 
     string fFirst = getImageNameFromId(id1->getText());
@@ -49,7 +49,7 @@ void MorphDSLParser::intersectionImpl(const CommonTokenType* id1, const CommonTo
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::withoutImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::withoutImpl(const ParserToken* id1, const ParserToken* id2) {
     cout << "WITHOUT" << endl;
 
     string fFirst = getImageNameFromId(id1->getText());
@@ -65,7 +65,7 @@ void MorphDSLParser::withoutImpl(const CommonTokenType* id1, const CommonTokenTy
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::hitMissImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::hitMissImpl(const ParserToken* id1, const ParserToken* id2) {
     cout << "HITMISS" << endl;
 
     string fFirst = getImageNameFromId(id1->getText());
@@ -81,7 +81,7 @@ void MorphDSLParser::hitMissImpl(const CommonTokenType* id1, const CommonTokenTy
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::boundaryImpl(const CommonTokenType* id1) {
+void MorphDSLSemantics::boundaryImpl(const ParserToken* id1) {
     cout << "BOUNDARY" << endl;
 
     string fFirst = getImageNameFromId(id1->getText());

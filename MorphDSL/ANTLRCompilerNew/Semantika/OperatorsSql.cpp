@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
 
-void MorphDSLParser::sqlImpl(Sql* sql, string spremenljivka) {
+void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
 
     cout << endl;
     cout << "keyword" << endl;

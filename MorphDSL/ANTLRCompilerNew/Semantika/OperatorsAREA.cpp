@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::openAreaNoCheck(double number, std::string id) {
+void MorphDSLSemantics::openAreaNoCheck(double number, std::string id) {
     string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
@@ -19,17 +19,17 @@ void MorphDSLParser::openAreaNoCheck(double number, std::string id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::openArea(double number, const CommonTokenType* id) {
+void MorphDSLSemantics::openArea(double number, const ParserToken* id) {
     cout << "OPENAREA" << endl;
 
-    if (!checkVariablesExist(id)) {
+    if (!checkVariableExist(id)) {
         return;
     }
 
     openAreaNoCheck(number, id->getText());
 }
 
-void MorphDSLParser::closeAreaNoCheck(double number, std::string id) {
+void MorphDSLSemantics::closeAreaNoCheck(double number, std::string id) {
     string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
@@ -40,7 +40,7 @@ void MorphDSLParser::closeAreaNoCheck(double number, std::string id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::closeArea(double number, const CommonTokenType* id) {
+void MorphDSLSemantics::closeArea(double number, const ParserToken* id) {
     cout << "CLOSEAREA" << endl;
 
     closeAreaNoCheck(number, id->getText());

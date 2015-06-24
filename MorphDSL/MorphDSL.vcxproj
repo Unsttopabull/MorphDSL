@@ -103,6 +103,7 @@
     <ClInclude Include="ANTLRCompilerNew\MorphDSLParser.hpp" />
     <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h" />
     <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h" />
+    <ClInclude Include="ANTLRCompilerNew\Semantika\MorphDSLSemantics.h" />
     <ClInclude Include="ANTLRCompilerNew\Util\Spremenljivka.h" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Lexer.hpp" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Parser.hpp" />
@@ -119,6 +120,7 @@
     <ClCompile Include="ANTLRCompilerNew\MorphDSLParser.cpp" />
     <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp" />
     <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Semantika\MorphDSLSemantics.cpp" />
     <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsAREA.cpp" />
     <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsATTRIBUTE.cpp" />
     <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsBB.cpp" />

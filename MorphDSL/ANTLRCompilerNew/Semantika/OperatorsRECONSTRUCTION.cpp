@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::erodeImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::erodeImpl(const ParserToken* id1, const ParserToken* id2) {
     cout << "ERODE - RECONSTRUCTION MARKER" << endl;
 
     string fFirst = getImageNameFromId(id1->getText());
@@ -23,7 +23,7 @@ void MorphDSLParser::erodeImpl(const CommonTokenType* id1, const CommonTokenType
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::dilateImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::dilateImpl(const ParserToken* id1, const ParserToken* id2) {
     cout << "DILATE - RECONSTRUCTION MARKER" << endl;
 
     string fFirst = getImageNameFromId(id1->getText());
@@ -39,7 +39,7 @@ void MorphDSLParser::dilateImpl(const CommonTokenType* id1, const CommonTokenTyp
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::openImpl(double number, const CommonTokenType* id) {
+void MorphDSLSemantics::openImpl(double number, const ParserToken* id) {
     cout << "OPEN RECONSTRUCTION BOX" << endl;
 
     string fLast = getImageNameFromId(id->getText());
@@ -52,7 +52,7 @@ void MorphDSLParser::openImpl(double number, const CommonTokenType* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::closeImpl(double number, const CommonTokenType* id) {
+void MorphDSLSemantics::closeImpl(double number, const ParserToken* id) {
 
     cout << "CLOSE RECONSTRUCTION BOX" << endl;
 

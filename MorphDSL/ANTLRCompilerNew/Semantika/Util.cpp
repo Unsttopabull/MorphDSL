@@ -1,81 +1,59 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 #include "../Util/Spremenljivka.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
-int MorphDSLParser::toInt(const CommonTokenType* token) {
-    int number;
-    istringstream(token->getText()) >> number;
-
-    return number;
-}
-
-double MorphDSLParser::toDouble(const CommonTokenType* token) {
-    double number;
-    istringstream(token->getText()) >> number;
-
-    return number;
-}
-
-bool MorphDSLParser::checkVariablesExist(std::string id1, std::string id2) {
-    if (imeSlikeZaSpremenljivko.find(id1) == imeSlikeZaSpremenljivko.end()) {
-        cout << "ERROR: Spremenljivka '" << id1 << "' ne obstaja." << endl;
-        this->set_failedflag(true);
+bool MorphDSLSemantics::checkVariablesExist(std::string id1, std::string id2) {
+    if (!checkVariableExist(id1)) {
         return false;
     }
 
-    if (imeSlikeZaSpremenljivko.find(id2) == imeSlikeZaSpremenljivko.end()) {
-        cout << "ERROR: Spremenljivka '" << id2 << "' ne obstaja." << endl;
-        this->set_failedflag(true);
+    if (!checkVariableExist(id2)) {
         return false;
     }
     return true;
 }
 
-bool MorphDSLParser::checkVariablesExist(std::string id) {
+bool MorphDSLSemantics::checkVariableExist(std::string id) {
     if (imeSlikeZaSpremenljivko.find(id) == imeSlikeZaSpremenljivko.end()) {
         cout << "ERROR: Spremenljivka '" << id << "' ne obstaja." << endl;
-        this->set_failedflag(true);
+        parser->set_failedflag(true);
         return false;
     }
     return true;
 }
 
-bool MorphDSLParser::checkVariablesExist(const CommonTokenType* id1, const CommonTokenType* id2) {
-    if (imeSlikeZaSpremenljivko.find(id1->getText()) == imeSlikeZaSpremenljivko.end()) {
-        cout << "ERROR: Spremenljivka '" << id1->getText() << "' ne obstaja. (" << id1->get_line() << ", " << id1->getCharPositionInLine() << ")" << endl;
-        this->set_failedflag(true);
+bool MorphDSLSemantics::checkVariablesExist(const ParserToken* id1, const ParserToken* id2) {
+    if (!checkVariableExist(id1)) {
         return false;
     }
 
-    if (imeSlikeZaSpremenljivko.find(id2->getText()) == imeSlikeZaSpremenljivko.end()) {
-        cout << "ERROR: Spremenljivka '" << id2->getText() << "' ne obstaja. (" << id2->get_line() << ", " << id2->getCharPositionInLine() << ")" << endl;
-        this->set_failedflag(true);
+    if (!checkVariableExist(id2)) {
         return false;
     }
     return true;
 }
 
-bool MorphDSLParser::checkVariablesExist(const CommonTokenType* id) {
+bool MorphDSLSemantics::checkVariableExist(const ParserToken* id) {
     if (imeSlikeZaSpremenljivko.find(id->getText()) == imeSlikeZaSpremenljivko.end()) {
         cout << "ERROR: Spremenljivka '" << id->getText() << "' ne obstaja. (" << id->get_line() << ", " << id->getCharPositionInLine() << ")" << endl;
-        this->set_failedflag(true);
+        parser->set_failedflag(true);
         return false;
     }
     return true;
 }
 
-std::string MorphDSLParser::getImageNameFromId(std::string id) {
+std::string MorphDSLSemantics::getImageNameFromId(std::string id) {
     return imeSlikeZaSpremenljivko[id].slika;
 }
 
-Spremenljivka MorphDSLParser::getVariableFromId(std::string id) {
+Spremenljivka MorphDSLSemantics::getVariableFromId(std::string id) {
     return imeSlikeZaSpremenljivko[id];
 }
 
-std::string MorphDSLParser::getNewImageName(bool noExtension) {
+std::string MorphDSLSemantics::getNewImageName(bool noExtension) {
     auto d = zadnjaSpremenljivka;
     Spremenljivka spr = imeSlikeZaSpremenljivko[zadnjaSpremenljivka];
     if (noExtension) {
@@ -84,12 +62,12 @@ std::string MorphDSLParser::getNewImageName(bool noExtension) {
     return spr.slika;
 }
 
-std::string MorphDSLParser::getNewImageNameWtf() {
+std::string MorphDSLSemantics::getNewImageNameWtf() {
     Spremenljivka spr = imeSlikeZaSpremenljivko[zadnjaSpremenljivka];
     return spr.slika + ".wtf";
 }
 
-void MorphDSLParser::variableToFileName(std::string spremenljivka, bool isTemp) {
+void MorphDSLSemantics::variableToFileName(std::string spremenljivka, bool isTemp) {
     stringstream fId;//create a stringstream
     fId << ".\\";
     fId << imeIzhodneSlike;
@@ -100,7 +78,7 @@ void MorphDSLParser::variableToFileName(std::string spremenljivka, bool isTemp) 
     auto test = imeSlikeZaSpremenljivko[spremenljivka];
 }
 
-void MorphDSLParser::initNovaSpremenljivka(std::string novaSpr) {
+void MorphDSLSemantics::initNovaSpremenljivka(std::string novaSpr) {
     if (imeSlikeZaSpremenljivko.find(novaSpr) != imeSlikeZaSpremenljivko.end()) {
         return;
     }
@@ -109,7 +87,7 @@ void MorphDSLParser::initNovaSpremenljivka(std::string novaSpr) {
     variableToFileName(zadnjaSpremenljivka);
 }
 
-std::string MorphDSLParser::initInternalVariable(std::string spremenljivka) {
+std::string MorphDSLSemantics::initInternalVariable(std::string spremenljivka) {
     stringstream sprStream;
     sprStream << "$" << spremenljivka << tempCnt++;
 
@@ -125,7 +103,7 @@ std::string MorphDSLParser::initInternalVariable(std::string spremenljivka) {
     return spr;
 }
 
-//void MorphDSLParser::clearTempSpremenljivke() {
+//void MorphDSLSemantics::clearTempSpremenljivke() {
 //    for (std::pair<string, Spremenljivka> s : imeSlikeZaSpremenljivko) {
 //        if (s.second.isTemp) {
 //            imeSlikeZaSpremenljivko.erase(s.first);
@@ -133,7 +111,7 @@ std::string MorphDSLParser::initInternalVariable(std::string spremenljivka) {
 //    }
 //}
 
-void MorphDSLParser::loadImpl(std::string imeSlike, std::string imeSpremenljivke) {
+void MorphDSLSemantics::loadImpl(std::string imeSlike, std::string imeSpremenljivke) {
     cout << "LOADING" << endl;
     cout << "<--  " << imeSlike << endl;
 

@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::negateImpl(const CommonTokenType* id) {
+void MorphDSLSemantics::negateImpl(const ParserToken* id) {
     cout << "NEGATE" << endl;
 
     string fLast = getImageNameFromId(id->getText());
@@ -18,7 +18,7 @@ void MorphDSLParser::negateImpl(const CommonTokenType* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::normalizeImpl() {
+void MorphDSLSemantics::normalizeImpl() {
     cout << "NORMALIZE" << endl;
 
     stringstream fLast;//create a stringstream
@@ -38,7 +38,7 @@ void MorphDSLParser::normalizeImpl() {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::multiplyImpl(const CommonTokenType* id, double num) {
+void MorphDSLSemantics::multiplyImpl(const ParserToken* id, double num) {
     cout << "MULTIPLY" << endl;
     cout << "<--  " << num << endl;
 
@@ -52,8 +52,8 @@ void MorphDSLParser::multiplyImpl(const CommonTokenType* id, double num) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::multiplyImpl(double num, const CommonTokenType* id) {
-    if (!checkVariablesExist(id)) {
+void MorphDSLSemantics::multiplyImpl(double num, const ParserToken* id) {
+    if (!checkVariableExist(id)) {
         return;
     }
 
@@ -70,7 +70,7 @@ void MorphDSLParser::multiplyImpl(double num, const CommonTokenType* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::multiplyImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::multiplyImpl(const ParserToken* id1, const ParserToken* id2) {
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
@@ -90,8 +90,8 @@ void MorphDSLParser::multiplyImpl(const CommonTokenType* id1, const CommonTokenT
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::cropImpl(const CommonTokenType* id, double lowBound, double highBound) {
-    if (!checkVariablesExist(id)) {
+void MorphDSLSemantics::cropImpl(const ParserToken* id, double lowBound, double highBound) {
+    if (!checkVariableExist(id)) {
         return;
     }
 
@@ -108,7 +108,7 @@ void MorphDSLParser::cropImpl(const CommonTokenType* id, double lowBound, double
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::subtractImplNoCheck(string id1Str, string id2Str) {
+void MorphDSLSemantics::subtractImplNoCheck(string id1Str, string id2Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -124,7 +124,7 @@ void MorphDSLParser::subtractImplNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::subtractImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::subtractImpl(const ParserToken* id1, const ParserToken* id2) {
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
@@ -134,8 +134,8 @@ void MorphDSLParser::subtractImpl(const CommonTokenType* id1, const CommonTokenT
     subtractImplNoCheck(id1->getText(), id2->getText());
 }
 
-void MorphDSLParser::gradientInternalImpl(const CommonTokenType* id) {
-    if (!checkVariablesExist(id)) {
+void MorphDSLSemantics::gradientInternalImpl(const ParserToken* id) {
+    if (!checkVariableExist(id)) {
         return;
     }
 
@@ -152,8 +152,8 @@ void MorphDSLParser::gradientInternalImpl(const CommonTokenType* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::gradientExternalImpl(const CommonTokenType* id) {
-    if (!checkVariablesExist(id)) {
+void MorphDSLSemantics::gradientExternalImpl(const ParserToken* id) {
+    if (!checkVariableExist(id)) {
         return;
     }
 
@@ -170,7 +170,7 @@ void MorphDSLParser::gradientExternalImpl(const CommonTokenType* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::diferentialProfilesMorphologicalImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::diferentialProfilesMorphologicalImpl(const ParserToken* id1, const ParserToken* id2) {
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
@@ -196,7 +196,7 @@ void MorphDSLParser::diferentialProfilesMorphologicalImpl(const CommonTokenType*
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::diferentialProfilesAttributeImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::diferentialProfilesAttributeImpl(const ParserToken* id1, const ParserToken* id2) {
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
@@ -227,7 +227,7 @@ void MorphDSLParser::diferentialProfilesAttributeImpl(const CommonTokenType* id1
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::mappingDmpImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::mappingDmpImpl(const ParserToken* id1, const ParserToken* id2) {
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
@@ -258,7 +258,7 @@ void MorphDSLParser::mappingDmpImpl(const CommonTokenType* id1, const CommonToke
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::mappingDapImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::mappingDapImpl(const ParserToken* id1, const ParserToken* id2) {
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
@@ -289,7 +289,7 @@ void MorphDSLParser::mappingDapImpl(const CommonTokenType* id1, const CommonToke
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::segmentationMsls1Impl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::segmentationMsls1Impl(const ParserToken* id1, const ParserToken* id2) {
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
@@ -322,7 +322,7 @@ void MorphDSLParser::segmentationMsls1Impl(const CommonTokenType* id1, const Com
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::segmentationMsls2Impl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::segmentationMsls2Impl(const ParserToken* id1, const ParserToken* id2) {
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
@@ -355,8 +355,8 @@ void MorphDSLParser::segmentationMsls2Impl(const CommonTokenType* id1, const Com
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::segmentationWatershadeImpl(const CommonTokenType* id) {
-    if (!checkVariablesExist(id)) {
+void MorphDSLSemantics::segmentationWatershadeImpl(const ParserToken* id) {
+    if (!checkVariableExist(id)) {
         return;
     }
 
@@ -372,7 +372,7 @@ void MorphDSLParser::segmentationWatershadeImpl(const CommonTokenType* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::segmentationWatershadeMarkerImpl(const CommonTokenType* id1, const CommonTokenType* id2) {
+void MorphDSLSemantics::segmentationWatershadeMarkerImpl(const ParserToken* id1, const ParserToken* id2) {
     if (!checkVariablesExist(id1, id2)) {
         return;
     }

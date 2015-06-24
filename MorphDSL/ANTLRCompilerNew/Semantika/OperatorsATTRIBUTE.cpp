@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::openAttribute(const CommonTokenType* attributeName, double number, const CommonTokenType* id2) {
+void MorphDSLSemantics::openAttribute(const ParserToken* attributeName, double number, const ParserToken* id2) {
     cout << "OPEN - ATTRIBUTE" << endl;
 
     std::string fFirst = attributeName->getText();
@@ -21,7 +21,7 @@ void MorphDSLParser::openAttribute(const CommonTokenType* attributeName, double 
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::closeAttribute(const CommonTokenType* attributeName, double number, const CommonTokenType* id2) {
+void MorphDSLSemantics::closeAttribute(const ParserToken* attributeName, double number, const ParserToken* id2) {
     cout << "CLOSE - ATTRIBUTE" << endl;
 
     std::string fFirst = attributeName->getText();

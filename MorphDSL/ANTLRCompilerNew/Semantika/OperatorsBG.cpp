@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::distanceTransformImpl(const CommonTokenType* id) {
+void MorphDSLSemantics::distanceTransformImpl(const ParserToken* id) {
     cout << "DISTANCE TRANSFORM" << endl;
 
     string fLast = getImageNameFromId(id->getText());

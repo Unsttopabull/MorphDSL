@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::erodeBoxImpl(double number, const CommonTokenType* id) {
+void MorphDSLSemantics::erodeBoxImpl(double number, const ParserToken* id) {
     cout << "ERODEBOX: " << endl;
 
     stringstream fLast;//create a stringstream
@@ -22,7 +22,7 @@ void MorphDSLParser::erodeBoxImpl(double number, const CommonTokenType* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::dilateBoxImpl(double number, const CommonTokenType* id) {
+void MorphDSLSemantics::dilateBoxImpl(double number, const ParserToken* id) {
 
     cout << "DILATEBOX: " << endl;
 
@@ -38,7 +38,7 @@ void MorphDSLParser::dilateBoxImpl(double number, const CommonTokenType* id) {
 
 }
 
-void MorphDSLParser::openBoxImpl(double number, const CommonTokenType* id) {
+void MorphDSLSemantics::openBoxImpl(double number, const ParserToken* id) {
     cout << "OPENBOX: " << endl;
 
     string fLast = getImageNameFromId(id->getText());
@@ -52,7 +52,7 @@ void MorphDSLParser::openBoxImpl(double number, const CommonTokenType* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::closeBoxImpl(double number, const CommonTokenType* id) {
+void MorphDSLSemantics::closeBoxImpl(double number, const ParserToken* id) {
     cout << "CLOSEBOX" << endl;
 
     string fLast = getImageNameFromId(id->getText());

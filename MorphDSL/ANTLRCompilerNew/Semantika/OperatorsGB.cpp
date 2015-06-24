@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "../MorphDSLParser.hpp"
+#include "MorphDSLSemantics.h"
 
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::tresholdImplNoCheck(double number, std::string id) {
+void MorphDSLSemantics::tresholdImplNoCheck(double number, std::string id) {
     string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
@@ -17,10 +17,10 @@ void MorphDSLParser::tresholdImplNoCheck(double number, std::string id) {
     morphInterface.treshold(number, fLast, fNew);
 }
 
-void MorphDSLParser::tresholdImpl(double number, const CommonTokenType* id) {
+void MorphDSLSemantics::tresholdImpl(double number, const ParserToken* id) {
     cout << "TRESHOLDING" << endl;
 
-    if (!checkVariablesExist(id)) {
+    if (!checkVariableExist(id)) {
         return;
     }
 

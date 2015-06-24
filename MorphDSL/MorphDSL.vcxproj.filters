@@ -133,6 +133,9 @@
     <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h">
       <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClInclude>
+    <ClInclude Include="ANTLRCompilerNew\Semantika\MorphDSLSemantics.h">
+      <Filter>ANTLRCompilerNew</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -194,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp">
       <Filter>ANTLRCompilerNew\Razredi</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\MorphDSLSemantics.cpp">
+      <Filter>ANTLRCompilerNew</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
