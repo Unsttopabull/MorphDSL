@@ -85,6 +85,10 @@
     <None Include="DSLPrograms\MorphSQL2.dsl">
       <Filter>DSLPrograms</Filter>
     </None>
+    <None Include="DSLPrograms\MorphTest.dsl" />
+    <None Include="DSLPrograms\PrimeriDSLjev.txt">
+      <Filter>DSLPrograms</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -124,10 +128,10 @@
       <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClInclude>
     <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h">
-      <Filter>Header Files</Filter>
+      <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClInclude>
     <ClInclude Include="ANTLRCompilerNew\Razredi\Sql.h">
-      <Filter>Header Files</Filter>
+      <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,14 +186,14 @@
     <ClCompile Include="ANTLRCompilerNew\Semantika\Util.cpp">
       <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsSql.cpp">
+      <Filter>ANTLRCompilerNew\Semantika</Filter>
     </ClCompile>
     <ClCompile Include="ANTLRCompilerNew\Razredi\Sql.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClCompile>
-    <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsSql.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ANTLRCompilerNew\Razredi\SqlWhere.cpp">
+      <Filter>ANTLRCompilerNew\Razredi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

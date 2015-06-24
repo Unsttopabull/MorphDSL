@@ -4,7 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::erodeBoxImpl(double number, std::string id) {
+void MorphDSLParser::erodeBoxImpl(double number, const CommonTokenType* id) {
     cout << "ERODEBOX: " << endl;
 
     stringstream fLast;//create a stringstream
@@ -22,11 +22,11 @@ void MorphDSLParser::erodeBoxImpl(double number, std::string id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::dilateBoxImpl(double number, std::string id) {
+void MorphDSLParser::dilateBoxImpl(double number, const CommonTokenType* id) {
 
     cout << "DILATEBOX: " << endl;
 
-    string fLast = getImageNameFromId(id);
+    string fLast = getImageNameFromId(id->getText());
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -38,10 +38,10 @@ void MorphDSLParser::dilateBoxImpl(double number, std::string id) {
 
 }
 
-void MorphDSLParser::openBoxImpl(double number, std::string id) {
+void MorphDSLParser::openBoxImpl(double number, const CommonTokenType* id) {
     cout << "OPENBOX: " << endl;
 
-    string fLast = getImageNameFromId(id);
+    string fLast = getImageNameFromId(id->getText());
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -52,10 +52,10 @@ void MorphDSLParser::openBoxImpl(double number, std::string id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLParser::closeBoxImpl(double number, std::string id) {
+void MorphDSLParser::closeBoxImpl(double number, const CommonTokenType* id) {
     cout << "CLOSEBOX" << endl;
 
-    string fLast = getImageNameFromId(id);
+    string fLast = getImageNameFromId(id->getText());
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();

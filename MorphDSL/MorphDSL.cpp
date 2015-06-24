@@ -35,9 +35,9 @@ int test_main(int argc, char* argv[]) {
 
 #define SQL
 #ifdef SQL
-        fName	= (ANTLR_UINT8*)"./DSLPrograms/Morph1.dsl"; // Note in VS2005 debug, working directory must be configured
+        fName	= (ANTLR_UINT8*)"./DSLPrograms/MorphSQL.dsl";
 #else
-        fName	= (ANTLR_UINT8*)"./DSLPrograms/MorphSQL_transform.dsl"; // Note in VS2005 debug, working directory must be configured
+        fName	= (ANTLR_UINT8*)"./DSLPrograms/MorphSQL_transform.dsl";
 #endif
     }
     else {
@@ -73,6 +73,7 @@ int test_main(int argc, char* argv[]) {
 #endif
 
     printf("INSIDE DSL!\n");
+
     psr.program();
 
     cout << "konec" << endl;

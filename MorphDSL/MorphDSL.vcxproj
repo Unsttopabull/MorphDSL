@@ -54,6 +54,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -69,6 +70,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -90,6 +92,8 @@
     <None Include="DSLPrograms\MorphSQL.dsl" />
     <None Include="DSLPrograms\MorphSQL2.dsl" />
     <None Include="DSLPrograms\MorphSQL_transform.dsl" />
+    <None Include="DSLPrograms\MorphTest.dsl" />
+    <None Include="DSLPrograms\PrimeriDSLjev.txt" />
     <None Include="Grammar\MorphDSL.g" />
     <None Include="maribor.bmp" />
     <None Include="ReadMe.txt" />

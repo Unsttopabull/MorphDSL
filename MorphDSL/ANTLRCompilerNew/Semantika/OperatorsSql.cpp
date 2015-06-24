@@ -5,111 +5,80 @@ using namespace LPM_MorphDSL;
 using namespace std;
 
 
-void MorphDSLParser::sqlImpl(Sql* sql) {
+void MorphDSLParser::sqlImpl(Sql* sql, string spremenljivka) {
 
-    std::cout << std::endl;
-    std::cout << "keyword" << std::endl;
-    std::cout << "\t" << SelectKw::kw[sql->selectKeyword] << std::endl;
-    std::cout << std::endl;
+    cout << endl;
+    cout << "keyword" << endl;
+    cout << "\t" << SelectKw::kw[sql->selectKeyword] << endl;
+    cout << endl;
 
-    cout << "funkcija" << std::endl;
+    cout << "funkcija" << endl;
     if (sql->selectFunkcija.empty()) {
-        cout << "\t" << "ni funkcije nad keywordom" << std::endl;
+        cout << "\t" << "ni funkcije nad keywordom" << endl;
     }
     else {
-        cout << "\t" << sql->selectFunkcija << std::endl;
+        cout << "\t" << sql->selectFunkcija << endl;
     }
-    cout << std::endl;
+    cout << endl;
 
-    cout << "Nad katerim identifikatorjem izvajamo poizvedbo: " << sql->fromId << std::endl;
-    cout << std::endl;
+    //cout << "Nad katerim identifikatorjem izvajamo poizvedbo: " << sql->fromId << std::endl;
+    cout << endl;
 
-    cout << "Omejitve:" << std::endl;
+    cout << "Omejitve:" << endl;
 
     auto whereOmejitve = sql->getOmejitveUrejeno();
 
-    bool needToSubtract = false;
+    int areaCount = 0;
 
-    std::string last = sql->fromId;
-    char prev;
+    string last = sql->fromId;
+    string newSpr;
     for (auto i = 0; i < whereOmejitve.size(); i++) {
         SqlWhere* omejitev = whereOmejitve[i];
 
-        std::cout << "\tkeyword: " << "\t" + omejitev->getKeyword() << std::endl;
+        cout << "\tkeyword: " << "\t" + omejitev->getKeyword() << endl;
         if (omejitev->isNestedSql()) {
-            cout << "\t\tNested!" << std::endl;
+            cout << "\t\tNested!" << endl;
         }
         else {
-            cout << "\t\t\t" << RelOp::kw[omejitev->getRelOp()] << " " << omejitev->getVrednost() << std::endl;
+            cout << "\t\t\t" << kw[omejitev->getRelOp()] << " " << omejitev->getVrednost() << endl;
 
             double vrednost = omejitev->getVrednost();
 
             switch (omejitev->getKeywordEnum()) {
                 case SqlWhere::AREA:
-                    if (needToSubtract) {
-                        std::string prevS;
-                        prevS += sql->fromId[0] + 1;
+                    areaCount++;
 
-                        last = sql->fromId[0] + 1;
+                    if (areaCount % 2 == 0) {
+                        newSpr = initInternalVariable(sql->fromId);
 
-                        prev = last[0] + 1;
-                        cout << "\t\t\t" << prev << " = " << "open(AREA," << vrednost << "," << sql->fromId << ")" << std::endl;
-                        zadnjaSpremenljivka = prev;
+                        cout << "\t\t\t" << newSpr << " = " << "open(AREA," << vrednost << "," << last << ")" << endl;
+                        //openAreaNoCheck(vrednost, last);
 
-                        openArea(vrednost, sql->fromId);
+                        string newSpr2 = initInternalVariable(sql->fromId);
+                        cout << "\t\t\t" << newSpr2 << " = " << "subtract(" << last << "," << newSpr << ")" << endl;
+                        //subtractImplNoCheck(last, newSpr);
 
-                        prev = char(last[0] + 2);
-                        cout << "\t\t\t" << prev << " = " << "subtract(" << char(last[0] - 1) << "," << ++last[0] << ")" << std::endl;
-                        zadnjaSpremenljivka = prev;
-
-                        std::string sub = last;
-                        subtractImpl(prevS, sub);
-
-                        last[0]++;
-                        needToSubtract = false;
+                        last = newSpr2;
                     }
                     else {
-                        prev = char(last[0] + 1);
-                        cout << "\t\t\t" << prev << " = " << "open(AREA," << vrednost << "," << sql->fromId << ")" << std::endl;
+                        newSpr = initInternalVariable(sql->fromId);
 
-                        initNovaSpremenljivka(string(&prev, 1));
+                        cout << "\t\t\t" << newSpr << " = " << "open(AREA," << vrednost << "," << last << ")" << endl;
+                        //openAreaNoCheck(vrednost, last);
 
-                        openArea(vrednost, sql->fromId);
-
-                        needToSubtract = true;
+                        last = newSpr;
                     }
                     break;
-                case SqlWhere::RESPONSE: {
-                    prev = char(last[0] + 1);
-                    cout << "\t\t\t" << prev << " = " << "treshold(" << vrednost << ", " << last << ")" << std::endl;
-                    zadnjaSpremenljivka = prev;
+                case SqlWhere::RESPONSE:
+                    newSpr = initInternalVariable(sql->fromId);
 
-                    std::string subb = last;
+                    cout << "\t\t\t" << newSpr << " = " << "treshold(" << vrednost << ", " << last << ")" << endl;
+                    //tresholdImplNoCheck(vrednost, last);
 
-                    tresholdImpl(vrednost, subb);
+                    last = newSpr;
                     break;
-                }
-                case SqlWhere::INTERNAL_GRADIENT: {
-                    std::string prevS = last;
-
-                    prev = (last[0] + 1);
-
-                    cout << "\t\t\t" << prev << " = " << "erode(BOX," << vrednost << "," << sql->fromId << ")" << std::endl;
-                    zadnjaSpremenljivka = prev;
-
-                    erodeBoxImpl(vrednost, sql->fromId);
-
-                    prev = char(last[0] + 2);
-                    cout << "\t\t\t" << prev << " = " << "subtract(" << char(last[0] - 1) << "," << ++last[0] << ")" << std::endl;
-                    zadnjaSpremenljivka = prev;
-
-                    std::string sub = last;
-
-                    subtractImpl(prevS, sub);
-
-                    last[0]++;
+                case SqlWhere::INTERNAL_GRADIENT: 
                     break;
-                }
                 case SqlWhere::EXTERNAL_GRADIENT:
                     break;
                 case SqlWhere::VOLUMENT:
@@ -126,14 +95,22 @@ void MorphDSLParser::sqlImpl(Sql* sql) {
     }
 
     if (sql->selectFunkcija == "normalize") {
-        prev = (char)(last[0] + 2);
-        cout << "\t\t\t" << prev << " = " << "normalize(" << ++last[0] << ")" << std::endl;
-        zadnjaSpremenljivka = prev;
+        newSpr = initInternalVariable(sql->fromId);
+        cout << "\t\t\t" << newSpr << " = " << "normalize(" << last << ")" << endl;
 
-        normalizeImpl();
+        //normalizeImpl();
+
+        last = newSpr;
     }
 
     cout << endl;
+
+    if (!spremenljivka.empty()) {
+        Spremenljivka s = getVariableFromId(last);
+        imeSlikeZaSpremenljivko[spremenljivka] = s;
+
+        cout << "\t\t\t" << spremenljivka << " = " << last << endl;
+    }
 
     //auto keywords = sql->getUporabljeneKeyworde();
     //for (auto i = 0; i < keywords.size(); i++) {

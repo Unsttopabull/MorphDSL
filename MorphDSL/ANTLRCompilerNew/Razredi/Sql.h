@@ -9,8 +9,8 @@ class SqlWhere;
 class Sql {
 public:
 
-    SelectKw::Keyword selectKeyword;
     std::string fromId;
+    SelectKw::Keyword selectKeyword;
     std::string selectFunkcija;
 
     void nekaj() {

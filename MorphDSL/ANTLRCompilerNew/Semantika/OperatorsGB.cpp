@@ -4,10 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::tresholdImpl(double number, std::string id) {
-    //cout<<convertLetterToNumber(ID2->getText()[0])<<endl;
-    cout << "TRESHOLDING" << endl;
-
+void MorphDSLParser::tresholdImplNoCheck(double number, std::string id) {
     string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
@@ -18,4 +15,14 @@ void MorphDSLParser::tresholdImpl(double number, std::string id) {
 
     //when 5 pics created
     morphInterface.treshold(number, fLast, fNew);
+}
+
+void MorphDSLParser::tresholdImpl(double number, const CommonTokenType* id) {
+    cout << "TRESHOLDING" << endl;
+
+    if (!checkVariablesExist(id)) {
+        return;
+    }
+
+    tresholdImplNoCheck(number, id->getText());
 }

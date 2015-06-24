@@ -4,10 +4,10 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLParser::distanceTransformImpl(std::string id) {
+void MorphDSLParser::distanceTransformImpl(const CommonTokenType* id) {
     cout << "DISTANCE TRANSFORM" << endl;
 
-    string fLast = getImageNameFromId(id);
+    string fLast = getImageNameFromId(id->getText());
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
