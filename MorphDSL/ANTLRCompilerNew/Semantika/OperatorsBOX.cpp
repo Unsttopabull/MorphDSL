@@ -4,44 +4,54 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::erodeBoxImpl(double number, const ParserToken* id) {
-    cout << "ERODEBOX: " << endl;
-
-    stringstream fLast;//create a stringstream
-    fLast << "./";
-    fLast << imeIzhodneSlike;
-    fLast << number;
-    fLast << ".bmp";
-    cout << "<--  " << fLast.str() << endl;
-
-    string fNew = getNewImageName();
-    cout << "-->  " << fNew << endl;
-
-    //when 5 pics created
-    morphInterface.erodeBOX(number, fLast.str(), fNew);
-    cout << "---END" << endl;
-}
-
-void MorphDSLSemantics::dilateBoxImpl(double number, const ParserToken* id) {
-
-    cout << "DILATEBOX: " << endl;
-
-    string fLast = getImageNameFromId(id->getText());
+void MorphDSLSemantics::erodeBoxNoCheck(double number, string idStr) {
+    string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
-    morphInterface.dilateBOX(number, fLast, fNew);
-    cout << "---END" << endl;
 
+    morphInterface.erodeBOX(number, fLast, fNew);
+    cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::openBoxImpl(double number, const ParserToken* id) {
-    cout << "OPENBOX: " << endl;
+void MorphDSLSemantics::erodeBoxImpl(double number, const ParserToken* id) {
+    cout << "ERODEBOX: " << endl;
 
-    string fLast = getImageNameFromId(id->getText());
+    if (!checkVariableExist(id)) {
+        return;
+    }
+
+    erodeBoxNoCheck(number, id->getText());
+}
+
+void MorphDSLSemantics::dilateBoxNoCheck(double number, string idStr) {
+    string fLast = getImageNameFromId(idStr);
+    cout << "<--  " << fLast << endl;
+
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
+
+    //when 5 pics created
+
+    morphInterface.dilateBOX(number, fLast, fNew);
+    cout << "---END" << endl;
+}
+
+void MorphDSLSemantics::dilateBoxImpl(double number, const ParserToken* id) {
+    cout << "DILATEBOX: " << endl;
+
+    if (!checkVariableExist(id)) {
+        return;
+    }
+
+    dilateBoxNoCheck(number, id->getText());
+}
+
+void MorphDSLSemantics::openBoxNoCheck(double number, string idStr) {
+    string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -52,16 +62,35 @@ void MorphDSLSemantics::openBoxImpl(double number, const ParserToken* id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::closeBoxImpl(double number, const ParserToken* id) {
-    cout << "CLOSEBOX" << endl;
+void MorphDSLSemantics::openBoxImpl(double number, const ParserToken* id) {
+    cout << "OPENBOX: " << endl;
 
-    string fLast = getImageNameFromId(id->getText());
+    if (!checkVariableExist(id)) {
+        return;
+    }
+
+    openBoxNoCheck(number, id->getText());
+}
+
+void MorphDSLSemantics::closeBoxNoCheck(double number, string idStr) {
+    string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
+
     morphInterface.closeBOX(number, fLast, fNew);
     cout << "---END" << endl;
+}
+
+void MorphDSLSemantics::closeBoxImpl(double number, const ParserToken* id) {
+    cout << "CLOSEBOX" << endl;
+
+    if (!checkVariableExist(id)) {
+        return;
+    }
+
+    closeBoxNoCheck(number, id->getText());
 }

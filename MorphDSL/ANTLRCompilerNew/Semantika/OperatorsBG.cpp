@@ -4,10 +4,8 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::distanceTransformImpl(const ParserToken* id) {
-    cout << "DISTANCE TRANSFORM" << endl;
-
-    string fLast = getImageNameFromId(id->getText());
+void MorphDSLSemantics::distanceTransformNoCheck(string idStr) {
+    string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
@@ -15,4 +13,14 @@ void MorphDSLSemantics::distanceTransformImpl(const ParserToken* id) {
 
     morphInterface.distanceTransform(fLast, fNew);
     cout << "---END" << endl;
+}
+
+void MorphDSLSemantics::distanceTransformImpl(const ParserToken* id) {
+    cout << "DISTANCE TRANSFORM" << endl;
+
+    if (!checkVariableExist(id)) {
+        return;
+    }
+
+    distanceTransformNoCheck(id->getText());
 }

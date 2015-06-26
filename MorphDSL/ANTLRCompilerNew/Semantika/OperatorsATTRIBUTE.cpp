@@ -4,36 +4,54 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::openAttribute(const ParserToken* attributeName, double number, const ParserToken* id2) {
-    cout << "OPEN - ATTRIBUTE" << endl;
+void MorphDSLSemantics::openAttributeNoCheck(string attribute, double number, string id2) {
+    cout << "<--  " << attribute << endl;
 
-    std::string fFirst = attributeName->getText();
-    cout << "<--  " << fFirst << endl;
-
-    string fLast = getImageNameFromId(id2->getText());
+    string fLast = getImageNameFromId(id2);
     cout << "<--  " << fLast << endl;
 
     string fNew = getNewImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
-    morphInterface.open(fFirst, number, fLast, fNew);
+
+    morphInterface.open(attribute, number, fLast, fNew);
+    cout << "---END" << endl;
+}
+
+void MorphDSLSemantics::openAttribute(const ParserToken* attributeName, double number, const ParserToken* id2) {
+    cout << "OPEN - ATTRIBUTE" << endl;
+
+    string id2Str = id2->getText();
+    if (!checkVariableExist(id2Str)) {
+        return;
+    }
+
+    openAttributeNoCheck(attributeName->getText(), number, id2Str);
+}
+
+void MorphDSLSemantics::closeAttributeNoCheck(string attribute, double number, string id2) {
+    cout << "<--  " << attribute << endl;
+
+    string fLast = getImageNameFromId(id2);
+    cout << "<--  " << fLast << endl;
+
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
+
+    //when 5 pics created
+
+    morphInterface.close(attribute, number, fLast, fNew);
     cout << "---END" << endl;
 }
 
 void MorphDSLSemantics::closeAttribute(const ParserToken* attributeName, double number, const ParserToken* id2) {
     cout << "CLOSE - ATTRIBUTE" << endl;
 
-    std::string fFirst = attributeName->getText();
-    cout << "<--  " << fFirst << endl;
+    string id2Str = id2->getText();
+    if (!checkVariableExist(id2Str)) {
+        return;
+    }
 
-    string fLast = getImageNameFromId(id2->getText());
-    cout << "<--  " << fLast << endl;
-
-    string fNew = getNewImageName();
-    cout << "-->  " << fNew << endl;
-
-    //when 5 pics created
-    morphInterface.close(fFirst, number, fLast, fNew);
-    cout << "---END" << endl;
+    closeAttributeNoCheck(attributeName->getText(), number, id2Str);
 }
