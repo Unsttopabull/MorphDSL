@@ -136,6 +136,9 @@
     <ClInclude Include="ANTLRCompilerNew\Semantika\MorphDSLSemantics.h">
       <Filter>ANTLRCompilerNew</Filter>
     </ClInclude>
+    <ClInclude Include="ANTLRCompilerNew\Util\Identifier.h">
+      <Filter>ANTLRCompilerNew\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -200,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="ANTLRCompilerNew\Semantika\MorphDSLSemantics.cpp">
       <Filter>ANTLRCompilerNew</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\Util\Identifier.cpp">
+      <Filter>ANTLRCompilerNew\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

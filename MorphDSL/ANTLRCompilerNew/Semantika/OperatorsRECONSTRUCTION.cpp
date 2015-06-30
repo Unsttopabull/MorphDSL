@@ -21,7 +21,7 @@ void MorphDSLSemantics::erodeNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::erodeImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::erodeImpl(const Identifier* id1, const Identifier* id2) {
     cout << "ERODE - RECONSTRUCTION MARKER" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -45,7 +45,7 @@ void MorphDSLSemantics::dilateNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::dilateImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::dilateImpl(const Identifier* id1, const Identifier* id2) {
     cout << "DILATE - RECONSTRUCTION MARKER" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -56,6 +56,8 @@ void MorphDSLSemantics::dilateImpl(const ParserToken* id1, const ParserToken* id
 }
 
 void MorphDSLSemantics::openNoCheck(double number, string idStr) {
+    cout << "<--  " << number << endl;
+
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
@@ -66,7 +68,7 @@ void MorphDSLSemantics::openNoCheck(double number, string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::openImpl(double number, const ParserToken* id) {
+void MorphDSLSemantics::openImpl(double number, const Identifier* id) {
     cout << "OPEN RECONSTRUCTION BOX" << endl;
 
     if (!checkVariableExist(id)) {
@@ -77,6 +79,8 @@ void MorphDSLSemantics::openImpl(double number, const ParserToken* id) {
 }
 
 void MorphDSLSemantics::closeNoCheck(double number, string idStr) {
+    cout << "<--  " << number << endl;
+
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
@@ -87,7 +91,7 @@ void MorphDSLSemantics::closeNoCheck(double number, string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::closeImpl(double number, const ParserToken* id) {
+void MorphDSLSemantics::closeImpl(double number, const Identifier* id) {
     cout << "CLOSE RECONSTRUCTION BOX" << endl;
 
     if (!checkVariableExist(id)) {

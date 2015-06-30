@@ -5,6 +5,8 @@ using namespace LPM_MorphDSL;
 using namespace std;
 
 void MorphDSLSemantics::erodeBoxNoCheck(double number, string idStr) {
+    cout << "<--  " << number << endl;
+
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
@@ -17,7 +19,7 @@ void MorphDSLSemantics::erodeBoxNoCheck(double number, string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::erodeBoxImpl(double number, const ParserToken* id) {
+void MorphDSLSemantics::erodeBoxImpl(double number, const Identifier* id) {
     cout << "ERODEBOX: " << endl;
 
     if (!checkVariableExist(id)) {
@@ -28,6 +30,8 @@ void MorphDSLSemantics::erodeBoxImpl(double number, const ParserToken* id) {
 }
 
 void MorphDSLSemantics::dilateBoxNoCheck(double number, string idStr) {
+    cout << "<--  " << number << endl;
+
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
@@ -40,7 +44,7 @@ void MorphDSLSemantics::dilateBoxNoCheck(double number, string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::dilateBoxImpl(double number, const ParserToken* id) {
+void MorphDSLSemantics::dilateBoxImpl(double number, const Identifier* id) {
     cout << "DILATEBOX: " << endl;
 
     if (!checkVariableExist(id)) {
@@ -51,6 +55,8 @@ void MorphDSLSemantics::dilateBoxImpl(double number, const ParserToken* id) {
 }
 
 void MorphDSLSemantics::openBoxNoCheck(double number, string idStr) {
+    cout << "<--  " << number << endl;
+
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
@@ -62,7 +68,7 @@ void MorphDSLSemantics::openBoxNoCheck(double number, string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::openBoxImpl(double number, const ParserToken* id) {
+void MorphDSLSemantics::openBoxImpl(double number, const Identifier* id) {
     cout << "OPENBOX: " << endl;
 
     if (!checkVariableExist(id)) {
@@ -73,6 +79,8 @@ void MorphDSLSemantics::openBoxImpl(double number, const ParserToken* id) {
 }
 
 void MorphDSLSemantics::closeBoxNoCheck(double number, string idStr) {
+    cout << "<--  " << number << endl;
+
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
@@ -85,7 +93,7 @@ void MorphDSLSemantics::closeBoxNoCheck(double number, string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::closeBoxImpl(double number, const ParserToken* id) {
+void MorphDSLSemantics::closeBoxImpl(double number, const Identifier* id) {
     cout << "CLOSEBOX" << endl;
 
     if (!checkVariableExist(id)) {

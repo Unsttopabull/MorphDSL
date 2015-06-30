@@ -15,7 +15,7 @@ void MorphDSLSemantics::complementNoCheck(string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::complementImpl(const ParserToken* id) {
+void MorphDSLSemantics::complementImpl(const Identifier* id) {
     cout << "COMPLEMENT" << endl;
 
     if (!checkVariableExist(id)) {
@@ -39,7 +39,7 @@ void MorphDSLSemantics::unionNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::unionImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::unionImpl(const Identifier* id1, const Identifier* id2) {
     cout << "UNION" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -63,7 +63,7 @@ void MorphDSLSemantics::intersectionNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::intersectionImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::intersectionImpl(const Identifier* id1, const Identifier* id2) {
     cout << "INTERSECTION" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -87,7 +87,7 @@ void MorphDSLSemantics::withoutNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::withoutImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::withoutImpl(const Identifier* id1, const Identifier* id2) {
     cout << "WITHOUT" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -111,7 +111,7 @@ void MorphDSLSemantics::hitMissNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::hitMissImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::hitMissImpl(const Identifier* id1, const Identifier* id2) {
     cout << "HITMISS" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -132,7 +132,7 @@ void MorphDSLSemantics::boundaryNoCheck(string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::boundaryImpl(const ParserToken* id1) {
+void MorphDSLSemantics::boundaryImpl(const Identifier* id1) {
     cout << "BOUNDARY" << endl;
 
     if (!checkVariableExist(id1)) {

@@ -2,21 +2,40 @@
 #include <string>
 
 namespace LPM_MorphDSL {
+    using namespace std;
 
-    struct Spremenljivka {
-        std::string slika;
-        std::string brezKoncnice;
+    class Spremenljivka {
+        string slika;
+        string brezKoncnice;
+        string maskSlika;
         bool isTemp;
-        std::string tempOfVaraible; //TODO
+
+    public:
 
         Spremenljivka() {
 
         }
 
-        Spremenljivka(std::string slika, std::string koncnica, bool isTemp = false) {
+        Spremenljivka(string slika, string koncnica, bool isTemp) {
             brezKoncnice = slika;
             this->slika += slika + koncnica;
-            isTemp = false;
+            this->isTemp = isTemp;
+        }
+
+        string getMask() const {
+            return maskSlika;
+        }
+
+        void setMask(string slika) {
+            maskSlika = slika;
+        }
+
+        string getBrezKoncnice() const {
+            return brezKoncnice;
+        }
+
+        string getSlika() const {
+            return slika;
         }
     };
 }

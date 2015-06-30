@@ -19,7 +19,7 @@ void MorphDSLSemantics::openAttributeNoCheck(string attribute, double number, st
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::openAttribute(const ParserToken* attributeName, double number, const ParserToken* id2) {
+void MorphDSLSemantics::openAttribute(const string attributeName, double number, const Identifier* id2) {
     cout << "OPEN - ATTRIBUTE" << endl;
 
     string id2Str = id2->getText();
@@ -27,7 +27,7 @@ void MorphDSLSemantics::openAttribute(const ParserToken* attributeName, double n
         return;
     }
 
-    openAttributeNoCheck(attributeName->getText(), number, id2Str);
+    openAttributeNoCheck(attributeName, number, id2Str);
 }
 
 void MorphDSLSemantics::closeAttributeNoCheck(string attribute, double number, string id2) {
@@ -45,7 +45,7 @@ void MorphDSLSemantics::closeAttributeNoCheck(string attribute, double number, s
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::closeAttribute(const ParserToken* attributeName, double number, const ParserToken* id2) {
+void MorphDSLSemantics::closeAttribute(const string attributeName, double number, const Identifier* id2) {
     cout << "CLOSE - ATTRIBUTE" << endl;
 
     string id2Str = id2->getText();
@@ -53,5 +53,5 @@ void MorphDSLSemantics::closeAttribute(const ParserToken* attributeName, double 
         return;
     }
 
-    closeAttributeNoCheck(attributeName->getText(), number, id2Str);
+    closeAttributeNoCheck(attributeName, number, id2Str);
 }

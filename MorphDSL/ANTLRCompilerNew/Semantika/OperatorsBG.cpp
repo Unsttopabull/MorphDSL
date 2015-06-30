@@ -15,7 +15,7 @@ void MorphDSLSemantics::distanceTransformNoCheck(string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::distanceTransformImpl(const ParserToken* id) {
+void MorphDSLSemantics::distanceTransformImpl(const Identifier* id) {
     cout << "DISTANCE TRANSFORM" << endl;
 
     if (!checkVariableExist(id)) {

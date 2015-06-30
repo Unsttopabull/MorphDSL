@@ -199,3 +199,4 @@ FakesAssemblies/
 MorphDSL/Grammar/output/
 /MorphDSL/ANTLRCompilerNew/Razredi/Bckp
 /MorphDSL/*.db
+/MorphDSL/SQL/Thumbs.db

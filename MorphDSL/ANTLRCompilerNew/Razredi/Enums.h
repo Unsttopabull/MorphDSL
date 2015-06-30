@@ -29,3 +29,14 @@ namespace RelOp {
 
     static std::string kw[] = { "ERR", "<", ">", "==", "¨!=", "<=", ">=" };
 }
+
+namespace SubId {
+    enum SubIdentifier {
+        NONE,
+        MASK,
+        SET,
+        ATTRIBUTE,
+        OKROGLOST,
+        VOLUMENT
+    };
+}

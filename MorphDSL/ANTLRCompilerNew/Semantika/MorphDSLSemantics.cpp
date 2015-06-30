@@ -10,3 +10,26 @@ MorphDSLSemantics::MorphDSLSemantics(MorphDSLParser* p) {
 
     parser = p;
 }
+
+void MorphDSLSemantics::loadImpl(string imeSlike, string imeSpremenljivke) {
+    cout << "LOADING" << endl;
+    cout << "<--  " << imeSlike << endl;
+
+    int firstLetter = imeSlike.find_last_of("/\\") + 1;
+    int length = imeSlike.find_last_of(".") - firstLetter;
+    imeIzhodneSlike = imeSlike.substr(firstLetter, length);
+
+    //cout << outputFigureName << endl;
+
+    initNovaSpremenljivka(zadnjaSpremenljivka);
+
+    string fNew = getNewImageName();
+    cout << "-->  " << fNew << endl;
+
+    cout << "---END" << endl;
+
+    imeSlike = imeSlike.substr(1, imeSlike.length() - 2);
+
+    morphInterface.LoadImg(imeSlike, img);
+    morphInterface.StoreImg(fNew, img);
+}

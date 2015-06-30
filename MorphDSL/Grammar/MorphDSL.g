@@ -87,6 +87,7 @@ tokens {
 
 namespace LPM_MorphDSL {
 	class MorphDSLSemantics;
+	class Identifier;
 }
 }
 
@@ -154,7 +155,7 @@ program
 	;
 
 load
-	: imeSpremenljivke=ID '=' 'load' '(' '\"' imeSlike=ID '\"' ')' 
+	: imeSpremenljivke=ID '=' 'load' '(' imeSlike=STRING ')' 
 	{
 		s->setZadnjaSpremenljivka($imeSpremenljivke.text);
 		s->loadImpl($imeSlike.text, $imeSpremenljivke.text);
@@ -178,6 +179,21 @@ figurevector
 		s->setZadnjaSpremenljivka($ID.text); 
 		s->initNovaSpremenljivka(s->getZadnjaSpremenljivka());
 	}
+	;
+
+var returns [Identifier* id]
+	@init { id = NULL; }
+	: ID  { $id = new Identifier($ID); }
+	('.' subId { $id->setSubId($subId.id); })?
+	;
+
+subId returns [SubId::SubIdentifier id]
+	@init{ id = SubId::NONE; }
+	: 'mask' { $id = SubId::MASK; }
+	| 'set' { $id = SubId::SET; }
+	| 'attribute' { $id = SubId::ATTRIBUTE; }
+	| 'okroglost' { $id = SubId::OKROGLOST; }
+	| 'volument' { $id = SubId::VOLUMENT; }
 	;
 
 sql [std::string spremenljivka] returns [Sql* sql]
@@ -223,28 +239,44 @@ selectKeyword returns [SelectKw::Keyword kw]
 operatorName: 'normalize';
 
 sqlWhere returns [std::string keyword, SqlWhere* stavek]
-	: val1=DOUBLENUMBER op1=relOp kv1=sqlWhereKeyword
-	{ 
-		$keyword = $kv1.text;
-		$stavek = new SqlWhere($op1.relOperator, toDouble($val1), $kv1.text);
-	}
-	| kv2=sqlWhereKeyword op2=relOp val2=DOUBLENUMBER
-	{ 
-		$keyword = $kv2.text;
-		$stavek = new SqlWhere($op2.relOperator, toDouble($val2), $kv2.text);
-	}
-	| kv3=sqlWhereKeyword '=' '(' sql[""] ')'
-	{
-		$keyword = $kv3.text;
-		$stavek = new SqlWhere($sql.sql, $kv3.text);
-	}
+	@init { bool isVar = false; }
+	: val1=DOUBLENUMBER op1=relOp 
+	  (kv1=sqlWhereKeyword | var1=var { isVar = true; })
+	  	{ 
+			if(!isVar){
+	  			$keyword = $kv1.text;
+	  			$stavek = new SqlWhere($op1.relOperator, toDouble($val1), $kv1.text);
+			}
+			else{
+				//TODO SQL WHERE 1
+				$stavek = NULL;
+			}
+	  	}
+	| 
+	(kv2=sqlWhereKeyword | var2=var { isVar = true; }) op2=relOp val2=DOUBLENUMBER
+		{ 
+			if(!isVar){
+				$keyword = $kv2.text;
+				$stavek = new SqlWhere($op2.relOperator, toDouble($val2), $kv2.text);
+			}
+			else{
+				//TODO SQL WHERE 2
+				$stavek = NULL;
+			}
+		}
+	|
+	kv3=sqlWhereKeyword '=' '(' sql[""] ')'
+		{
+			$keyword = $kv3.text;
+			$stavek = new SqlWhere($sql.sql, $kv3.text);
+		}
 	;
 
 sqlWhereKeyword
-	: 'area'
-	| 'response'
-	| 'internal_gradient'
-	| 'external_gradient'
+	: 'area'  // < 100 ali > 100
+	| 'response' // < 5 ali > 5
+	| 'internal_gradient' // > 1
+	| 'external_gradient' // > 2
 	| 'volument'
 	| 'okroglost'
 	| 'atribute'
@@ -261,35 +293,35 @@ relOp returns [RelOp::RelacijskiOperatorji relOperator]
 	;
 
 operatorsBB : 
-	( 'complement' '(' cId=ID ')' {	s->complementImpl($cId); }
-	| 'union' '(' uId1=ID ',' uId2=ID ')' { s->unionImpl($uId1, $uId2); }
-	| 'intersection' '(' iId1=ID ',' iId2=ID ')' { s->intersectionImpl($iId1, $iId2); }
-	| 'without' '(' wId1=ID ',' wId2=ID ')' { s->withoutImpl($wId1, $wId2); }
-	| 'hitmiss' '(' hId1=ID ',' hId2=ID ')' { s->hitMissImpl($hId1, $hId2); }
-	| 'boundary' '(' bId=ID ')' { s->boundaryImpl($bId); }
+	( 'complement' '(' cId=var ')' {	s->complementImpl($cId.id); }
+	| 'union' '(' uId1=var ',' uId2=var ')' { s->unionImpl($uId1.id, $uId2.id); }
+	| 'intersection' '(' iId1=var ',' iId2=var ')' { s->intersectionImpl($iId1.id, $iId2.id); }
+	| 'without' '(' wId1=var ',' wId2=var ')' { s->withoutImpl($wId1.id, $wId2.id); }
+	| 'hitmiss' '(' hId1=var ',' hId2=var ')' { s->hitMissImpl($hId1.id, $hId2.id); }
+	| 'boundary' '(' bId=var ')' { s->boundaryImpl($bId.id); }
 	);
 	
 operatorsGG : 
-	( 'negate' '(' nId=ID ')' { s->negateImpl($nId); }
+	( 'negate' '(' nId=var ')' { s->negateImpl($nId.id); }
 	| 'normalize' { s->normalizeImpl(); }
-	| 'multiply' '(' mId=ID ',' mDbl=DOUBLENUMBER ')' { s->multiplyImpl($mId, toDouble($mDbl)); }
-	| 'multiply' '(' mDbl2=DOUBLENUMBER ',' mId2=ID ')'{ s->multiplyImpl(toDouble($mDbl2), $mId2); }
-	| 'multiply' '(' mId3=ID ',' mId4=ID ')' { s->multiplyImpl($mId3, $mId4); }
-	| 'crop' '(' cId=ID ',' interval ')' { s->cropImpl($cId, $interval.start, $interval.stop); }
-	| 'subtract' '(' sId1=ID ',' sId2=ID ')' { s->subtractImpl($sId1, $sId2); }
-	| 'gradient' '(' 'INTERNAL' ',' giId=ID ')' { s->gradientInternalImpl($giId); }
-	| 'gradient' '(' 'EXTERNAL' ',' geId=ID ')' { s->gradientExternalImpl($geId); }
-	| 'diferentialProfiles' '(' 'MORPHOLOGICAL' ',' dpmId1=ID ',' dpmId2=ID ')' { s->diferentialProfilesMorphologicalImpl($dpmId1, $dpmId2); }
-	| 'diferentialProfiles' '(' 'ATTRIBUTE' ',' dpaId1=ID ',' dpaId2=ID ')' { s->diferentialProfilesAttributeImpl($dpaId1, $dpaId2); }
-	| 'mapping' '(' 'DMP' ',' dmpId1=ID ',' dmpId2=ID /*',' dmpId3=ID */ ')'  { }
-	| 'mapping' '(' 'DAP' ',' dapId1=ID ',' dapId2=ID /*',' dapId3=ID */ ')'  { }
-	| 'segmentation' '(' 'MSLS' ',' msls_1_Id1=ID ',' msls_1_Id2=ID ')' { s->segmentationMsls1Impl($msls_1_Id1, $msls_1_Id2); }
-	| 'segmentation' '(' 'MSLS' ',' msls_2_Id1=ID ',' msls_2_Id2=ID ')' { s->segmentationMsls2Impl($msls_2_Id1, $msls_2_Id2); }
-	| 'segmentation' '(' 'WATHERSHADE' ',' watershadeId=ID ')' { s->segmentationWatershadeImpl($watershadeId); }
+	| 'multiply' '(' mId=var ',' mDbl=DOUBLENUMBER ')' { s->multiplyImpl($mId.id, toDouble($mDbl)); }
+	| 'multiply' '(' mDbl2=DOUBLENUMBER ',' mId2=var ')'{ s->multiplyImpl(toDouble($mDbl2), $mId2.id); }
+	| 'multiply' '(' mId3=var ',' mId4=var ')' { s->multiplyImpl($mId3.id, $mId4.id); }
+	| 'crop' '(' cId=var ',' interval ')' { s->cropImpl($cId.id, $interval.start, $interval.stop); }
+	| 'subtract' '(' sId1=var ',' sId2=var ')' { s->subtractImpl($sId1.id, $sId2.id); }
+	| 'gradient' '(' 'INTERNAL' ',' giId=var ')' { s->gradientInternalImpl($giId.id); }
+	| 'gradient' '(' 'EXTERNAL' ',' geId=var ')' { s->gradientExternalImpl($geId.id); }
+	| 'diferentialProfiles' '(' 'MORPHOLOGICAL' ',' dpmId1=var ',' dpmId2=var ')' { s->diferentialProfilesMorphologicalImpl($dpmId1.id, $dpmId2.id); }
+	| 'diferentialProfiles' '(' 'ATTRIBUTE' ',' dpaId1=var ',' dpaId2=var ')' { s->diferentialProfilesAttributeImpl($dpaId1.id, $dpaId2.id); }
+	| 'mapping' '(' 'DMP' ',' dmpId1=var ',' dmpId2=var /*',' dmpId3=ID */ ')'  { }
+	| 'mapping' '(' 'DAP' ',' dapId1=var ',' dapId2=var /*',' dapId3=ID */ ')'  { }
+	| 'segmentation' '(' 'MSLS' ',' msls_1_Id1=var ',' msls_1_Id2=var ')' { s->segmentationMsls1Impl($msls_1_Id1.id, $msls_1_Id2.id); }
+	| 'segmentation' '(' 'MSLS' ',' msls_2_Id1=var ',' msls_2_Id2=var ')' { s->segmentationMsls2Impl($msls_2_Id1.id, $msls_2_Id2.id); }
+	| 'segmentation' '(' 'WATHERSHADE' ',' watershadeId=var ')' { s->segmentationWatershadeImpl($watershadeId.id); }
 	/*Spremenjeno v kodi, odstranjen marker in dodan še en ID
 	| 'segmentation' '(' 'WATHERSHADE' ',' marker ',' watershadeMarkerId=ID ')' )
 	*/
-	| ('segmentation' '(' 'WATHERSHADE' ',' watershadeMarkerId2=ID ',' watershadeMarkerId1=ID ')' ) { s->segmentationWatershadeMarkerImpl($watershadeMarkerId1, $watershadeMarkerId2); })
+	| ('segmentation' '(' 'WATHERSHADE' ',' watershadeMarkerId2=var ',' watershadeMarkerId1=var ')' ) { s->segmentationWatershadeMarkerImpl($watershadeMarkerId1.id, $watershadeMarkerId2.id); })
 	;
 	
 interval returns[double start, double stop]
@@ -309,37 +341,37 @@ operatorsBBGG :
 	;
 	
 operatorsBOX : 
-	( 'erode' '(' 'BOX' '(' eNum=DOUBLENUMBER ')' ',' eId=ID ')'  { s->erodeBoxImpl(toDouble($eNum), $eId); }
-	| 'dilate' '(' 'BOX' '(' dNum=DOUBLENUMBER ')' ',' dId=ID ')' { s->dilateBoxImpl(toDouble($dNum), $dId); }
-	| 'open' '(' 'BOX' '(' oNum=DOUBLENUMBER ')' ',' oId=ID ')'   { s->openBoxImpl(toDouble($oNum), $oId); }
-	| 'close' '(' 'BOX' '(' cNum=DOUBLENUMBER ')' ',' cId=ID ')'  { s->closeBoxImpl(toDouble($cNum), $cId); }
+	( 'erode' '(' 'BOX' '(' eNum=DOUBLENUMBER ')' ',' eId=var ')'  { s->erodeBoxImpl(toDouble($eNum), $eId.id); }
+	| 'dilate' '(' 'BOX' '(' dNum=DOUBLENUMBER ')' ',' dId=var ')' { s->dilateBoxImpl(toDouble($dNum), $dId.id); }
+	| 'open' '(' 'BOX' '(' oNum=DOUBLENUMBER ')' ',' oId=var ')'   { s->openBoxImpl(toDouble($oNum), $oId.id); }
+	| 'close' '(' 'BOX' '(' cNum=DOUBLENUMBER ')' ',' cId=var ')'  { s->closeBoxImpl(toDouble($cNum), $cId.id); }
 	)
 	;	
 	
 operatorsRECONSTRUCTION : 
     //'erode' '(' 'RECONSTRUCTION' ',' marker ',' ID ')' //sprememba v kodi 'marker' zamenjan z še enim ID-jem
-	  'erode' '(' 'RECONSTRUCTION' ',' eId2=ID ',' eId1=ID ')' { s->erodeImpl($eId1, $eId2); }
+	  'erode' '(' 'RECONSTRUCTION' ',' eId2=var ',' eId1=var ')' { s->erodeImpl($eId1.id, $eId2.id); }
 	//'dilate' '(' 'RECONSTRUCTION' ',' marker ',' ID ')' //sprememba v kodi 'marker' zamenjan z še enim ID-jem
-	| 'dilate' '(' 'RECONSTRUCTION' ',' dId2=ID ',' dId1=ID ')' { s->dilateImpl($dId1, $dId2); }
-	| 'open' '(' 'RECONSTRUCTION' ',' 'BOX' '(' oDbl=DOUBLENUMBER ')' ',' oId=ID ')'  { s->openImpl(toDouble($oDbl), $oId); }
-	| 'close' '(' 'RECONSTRUCTION' ',' 'BOX' '(' cDbl=DOUBLENUMBER ')' ',' cId=ID ')' { s->closeImpl(toDouble($cDbl), $cId); }
+	| 'dilate' '(' 'RECONSTRUCTION' ',' dId2=var ',' dId1=var ')' { s->dilateImpl($dId1.id, $dId2.id); }
+	| 'open' '(' 'RECONSTRUCTION' ',' 'BOX' '(' oDbl=DOUBLENUMBER ')' ',' oId=var ')'  { s->openImpl(toDouble($oDbl), $oId.id); }
+	| 'close' '(' 'RECONSTRUCTION' ',' 'BOX' '(' cDbl=DOUBLENUMBER ')' ',' cId=var ')' { s->closeImpl(toDouble($cDbl), $cId.id); }
 	;	
 	
 operatorsAREA : 
-	( 'open' '(' 'AREA' ',' oDbl=DOUBLENUMBER ',' oId=ID ')'  { s->openArea(toDouble($oDbl), $oId); }
-	| 'close' '(' 'AREA' ',' cDbl=DOUBLENUMBER ',' cId=ID ')' { s->closeArea(toDouble($cDbl), $cId); }
+	( 'open' '(' 'AREA' ',' oDbl=DOUBLENUMBER ',' oId=var ')'  { s->openArea(toDouble($oDbl), $oId.id); }
+	| 'close' '(' 'AREA' ',' cDbl=DOUBLENUMBER ',' cId=var ')' { s->closeArea(toDouble($cDbl), $cId.id); }
 	)
 	;
 
 operatorsATTRIBUTE : 
-	( 'open' '(' oId1=ID ',' oDbl=DOUBLENUMBER ',' oId2=ID ')'  { s->openAttribute($oId1, toDouble($oDbl), $oId2); }
-	| 'close' '(' cId1=ID ',' cDbl=DOUBLENUMBER ',' cId2=ID ')' { s->closeAttribute($cId1, toDouble($cDbl), $cId2); }
+	( 'open' '(' attr1=ID ',' oDbl=DOUBLENUMBER ',' oId2=var ')'  { s->openAttribute($attr1.text, toDouble($oDbl), $oId2.id); }
+	| 'close' '(' attr2=ID ',' cDbl=DOUBLENUMBER ',' cId2=var ')' { s->closeAttribute($attr2.text, toDouble($cDbl), $cId2.id); }
 	)
 	;
 	
-operatorsBG : 'distanceTransform' '(' ID ')' { s->distanceTransformImpl($ID); };
+operatorsBG : 'distanceTransform' '(' var ')' { s->distanceTransformImpl($var.id); };
 
-operatorsGB : 'treshold' '(' DOUBLENUMBER ',' ID ')' { s->tresholdImpl(toDouble($DOUBLENUMBER), $ID); };
+operatorsGB : 'treshold' '(' DOUBLENUMBER ',' var ')' { s->tresholdImpl(toDouble($DOUBLENUMBER), $var.id); };
 
 marker : 
 	( ID 
@@ -360,12 +392,38 @@ vector
 
 //LEXER PRAVILA
 
-ID: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '\\' | '.' | ':' )+ ( '[' NUMBER ']' )?;
+STRING
+    :  '"' ( ESC_SEQ | ~('.\\'| '\\'|'"') )* '"'
+    ;
+
+ID: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 DOUBLENUMBER: NUMBER ( '.' NUMBER )?;
 
 fragment NUMBER: ( '0' .. '9' )+;
 
-WS:	( ' ' | '\t' | '\n' | '\r' ) { $channel = HIDDEN; };
+WS:	( ' ' | '\t' | '\n' | '\r' ) {$channel = HIDDEN;};
 
-COMMENT: '/' '/' (~ ( '\r' | '\n' ) )* { $channel = HIDDEN; };
+COMMENT: '//' (~ ( '\r' | '\n' ) )* { $channel = HIDDEN; };
+
+fragment
+HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
+
+fragment
+ESC_SEQ
+    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\'|)
+    |   UNICODE_ESC
+    |   OCTAL_ESC
+    ;
+
+fragment
+OCTAL_ESC
+    :   '\\' ('0'..'3') ('0'..'7') ('0'..'7')
+    |   '\\' ('0'..'7') ('0'..'7')
+    |   '\\' ('0'..'7')
+    ;
+
+fragment
+UNICODE_ESC
+    :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+    ;

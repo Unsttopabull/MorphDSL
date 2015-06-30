@@ -17,7 +17,7 @@ void MorphDSLSemantics::negateNoCheck(string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::negateImpl(const ParserToken* id) {
+void MorphDSLSemantics::negateImpl(const Identifier* id) {
     cout << "NEGATE" << endl;
 
     if (!checkVariableExist(id)) {
@@ -30,7 +30,7 @@ void MorphDSLSemantics::negateImpl(const ParserToken* id) {
 void MorphDSLSemantics::normalizeImpl() {
     cout << "NORMALIZE" << endl;
 
-    string fLast = getImageNameFromId(zadnjaSpremenljivka);
+    string fLast = getImageNameFromId(predZadnjaSpremenljivka);
 
     cout << "<--  " << fLast << endl;
 
@@ -57,7 +57,7 @@ void MorphDSLSemantics::multiplyNoCheck(double num, string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::multiplyImpl(const ParserToken* id, double num) {
+void MorphDSLSemantics::multiplyImpl(const Identifier* id, double num) {
     cout << "MULTIPLY" << endl;
 
     if (!checkVariableExist(id)) {
@@ -67,7 +67,7 @@ void MorphDSLSemantics::multiplyImpl(const ParserToken* id, double num) {
     multiplyNoCheck(num, id->getText());
 }
 
-void MorphDSLSemantics::multiplyImpl(double num, const ParserToken* id) {
+void MorphDSLSemantics::multiplyImpl(double num, const Identifier* id) {
     multiplyImpl(id, num);
 }
 
@@ -85,7 +85,7 @@ void MorphDSLSemantics::multiplyNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::multiplyImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::multiplyImpl(const Identifier* id1, const Identifier* id2) {
     cout << "MULTYPLY" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -106,7 +106,7 @@ void MorphDSLSemantics::cropNoCheck(string id1Str, double lowBound, double highB
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::cropImpl(const ParserToken* id, double lowBound, double highBound) {
+void MorphDSLSemantics::cropImpl(const Identifier* id, double lowBound, double highBound) {
     cout << "CROP" << endl;
 
     if (!checkVariableExist(id)) {
@@ -118,7 +118,7 @@ void MorphDSLSemantics::cropImpl(const ParserToken* id, double lowBound, double 
     cropNoCheck(id1Str, lowBound, highBound);
 }
 
-void MorphDSLSemantics::subtractImplNoCheck(string id1Str, string id2Str) {
+void MorphDSLSemantics::subtractNoCheck(string id1Str, string id2Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -134,14 +134,14 @@ void MorphDSLSemantics::subtractImplNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::subtractImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::subtractImpl(const Identifier* id1, const Identifier* id2) {
     cout << "SUBTRACT" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    subtractImplNoCheck(id1->getText(), id2->getText());
+    subtractNoCheck(id1->getText(), id2->getText());
 }
 
 void MorphDSLSemantics::gradientInternalNoCheck(string id1Str) {
@@ -157,7 +157,7 @@ void MorphDSLSemantics::gradientInternalNoCheck(string id1Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::gradientInternalImpl(const ParserToken* id) {
+void MorphDSLSemantics::gradientInternalImpl(const Identifier* id) {
     cout << "GRADIENT INTERNAL" << endl;
 
     if (!checkVariableExist(id)) {
@@ -180,7 +180,7 @@ void MorphDSLSemantics::gradientExternalNoCheck(string id1Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::gradientExternalImpl(const ParserToken* id) {
+void MorphDSLSemantics::gradientExternalImpl(const Identifier* id) {
     cout << "GRADIENT EXTERNAL" << endl;
 
     if (!checkVariableExist(id)) {
@@ -206,7 +206,7 @@ void MorphDSLSemantics::diferentialProfilesMorphologicalNoCheck(string id1Str, s
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::diferentialProfilesMorphologicalImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::diferentialProfilesMorphologicalImpl(const Identifier* id1, const Identifier* id2) {
     cout << "DIF. PROFILES - MORPHOLOGICAL" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -238,14 +238,14 @@ void MorphDSLSemantics::differentialProfilesAttributeNoCheck(string id1Str, stri
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::diferentialProfilesAttributeImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::diferentialProfilesAttributeImpl(const Identifier* id1, const Identifier* id2) {
     cout << "DIF. PROFILES - ATTRIBUTE" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    string id1Str = id1->getText();
+    string id1Str = id1->getToken()->getText();
 
     auto vectorIter = vect.find(id1Str);
     if (vectorIter == vect.end()) {
@@ -270,14 +270,14 @@ void MorphDSLSemantics::mappingDmpNoCheck(string id1Str, string id2Str, vector<d
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::mappingDmpImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::mappingDmpImpl(const Identifier* id1, const Identifier* id2) {
     cout << "MAPPING - DMP" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    string id1Str = id1->getText();
+    string id1Str = id1->getToken()->getText();
 
     auto vectorIter = vect.find(id1Str);
     if (vectorIter == vect.end()) {
@@ -303,7 +303,7 @@ void MorphDSLSemantics::mappingDapNoCheck(string id2Str, string id1Str, std::vec
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::mappingDapImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::mappingDapImpl(const Identifier* id1, const Identifier* id2) {
     cout << "MAPPING - DAP" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -336,7 +336,7 @@ void MorphDSLSemantics::segmentationMsls1NoCheck(string id2Str, string id1Str, s
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationMsls1Impl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::segmentationMsls1Impl(const Identifier* id1, const Identifier* id2) {
     cout << "SEGMENTATION - MSLS" << endl;
     cout << "MAPPING - DAP" << endl;
 
@@ -370,7 +370,7 @@ void MorphDSLSemantics::segmentationMsls2NoCheck(string id1Str, string id2Str, s
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationMsls2Impl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::segmentationMsls2Impl(const Identifier* id1, const Identifier* id2) {
     cout << "SEGMENTATION - MSLS" << endl;
     cout << "MAPPING - DAP" << endl;
 
@@ -401,7 +401,7 @@ void MorphDSLSemantics::segmentatonWatershadeNoCheck(string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationWatershadeImpl(const ParserToken* id) {
+void MorphDSLSemantics::segmentationWatershadeImpl(const Identifier* id) {
     cout << "SEGMENTATION - WATHERSHADE" << endl;
 
     if (!checkVariableExist(id)) {
@@ -426,7 +426,7 @@ void MorphDSLSemantics::segmentationWatershadeMarkerNoCheck(string id1Str, strin
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationWatershadeMarkerImpl(const ParserToken* id1, const ParserToken* id2) {
+void MorphDSLSemantics::segmentationWatershadeMarkerImpl(const Identifier* id1, const Identifier* id2) {
     cout << "SEGMENTATION - WATHERSHADE MARKER" << endl;
 
     if (!checkVariablesExist(id1, id2)) {

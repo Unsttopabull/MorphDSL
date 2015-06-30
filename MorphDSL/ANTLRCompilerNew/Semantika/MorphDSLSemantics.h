@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../Util/Spremenljivka.h"
+#include "../Util/Identifier.h"
 #include "../../ANTLRInterface/CompilerSemanticInterface.h"
 #include <map>
 
@@ -7,8 +8,7 @@
     #include "../MorphDSLParser.hpp"
 #endif
 
-namespace LPM_MorphDSL {
-
+namespace LPM_MorphDSL {   
     typedef MorphDSLParser::CommonTokenType ParserToken;
 
     class MorphDSLSemantics {
@@ -17,17 +17,18 @@ namespace LPM_MorphDSL {
         MorphDSLParser* parser;
 
         CompilerSemanticInterface morphInterface;
-        //const CommonTokenType*    currentFigure;
         vector<vector<double>> img;
         map<string, vector<double>> vect;
         map<string, Spremenljivka> imeSlikeZaSpremenljivko;
         string imeIzhodneSlike;
         string zadnjaSpremenljivka;
+        string predZadnjaSpremenljivka;
         int imageCounter;
         int tempCnt;
 
         //Util
-        string getImageNameFromId(string id);
+        string getImageNameFromId(string id, SubIdentifier subId = NONE);
+        string getImageNameFromId(Identifier* id);
         string getNewImageName(bool noExtension = false);
         string getNewImageNameWtf();
 
@@ -36,8 +37,8 @@ namespace LPM_MorphDSL {
         bool checkVariablesExist(string id1, string id2);
         bool checkVariableExist(string id);
 
-        bool checkVariablesExist(const ParserToken* id1, const ParserToken* id2);
-        bool checkVariableExist(const ParserToken* id1);
+        bool checkVariablesExist(const Identifier* id1, const Identifier* id2);
+        bool checkVariableExist(const Identifier* id1);
 
         Spremenljivka getVariableFromId(string id);
 
@@ -58,7 +59,7 @@ namespace LPM_MorphDSL {
         void multiplyNoCheck(double num, string idStr);
         void multiplyNoCheck(string id1Str, string id2Str);
         void cropNoCheck(string id1Str, double lowBound, double highBound);
-        void subtractImplNoCheck(string id1Str, string id2Str);
+        void subtractNoCheck(string id1Str, string id2Str);
         void gradientInternalNoCheck(string id1Str);
         void gradientExternalNoCheck(string id1Str);
         void diferentialProfilesMorphologicalNoCheck(string id1Str, string id2Str, vector<double> vector);
@@ -101,6 +102,7 @@ namespace LPM_MorphDSL {
         explicit MorphDSLSemantics(MorphDSLParser* p);
 
         void setZadnjaSpremenljivka(string spr) {
+            predZadnjaSpremenljivka = zadnjaSpremenljivka;
             zadnjaSpremenljivka = spr;
         }
 
@@ -118,58 +120,58 @@ namespace LPM_MorphDSL {
 #pragma region Implementacije
 
         //operatorsBB
-        void complementImpl(const ParserToken* id);
-        void unionImpl(const ParserToken* id1, const ParserToken* id2);
-        void intersectionImpl(const ParserToken* id1, const ParserToken* id2);
-        void withoutImpl(const ParserToken* id1, const ParserToken* id2);
-        void hitMissImpl(const ParserToken* id1, const ParserToken* id2);
-        void boundaryImpl(const ParserToken* id);
+        void complementImpl(const Identifier* id);
+        void unionImpl(const Identifier* id1, const Identifier* id2);
+        void intersectionImpl(const Identifier* id1, const Identifier* id2);
+        void withoutImpl(const Identifier* id1, const Identifier* id2);
+        void hitMissImpl(const Identifier* id1, const Identifier* id2);
+        void boundaryImpl(const Identifier* id);
 
         //operatorsGG
-        void negateImpl(const ParserToken* id);
+        void negateImpl(const Identifier* id);
         void normalizeImpl();
-        void multiplyImpl(const ParserToken* id, double num);
-        void multiplyImpl(double num, const ParserToken* id);
-        void multiplyImpl(const ParserToken* id1, const ParserToken* id2);
-        void cropImpl(const ParserToken* id, double lowBound, double highBound);
-        void subtractImpl(const ParserToken* id1, const ParserToken* id2);
-        void gradientInternalImpl(const ParserToken* id);
-        void gradientExternalImpl(const ParserToken* id);
-        void diferentialProfilesMorphologicalImpl(const ParserToken* id1, const ParserToken* id2);
-        void diferentialProfilesAttributeImpl(const ParserToken* id1, const ParserToken* id2);
+        void multiplyImpl(const Identifier* id, double num);
+        void multiplyImpl(double num, const Identifier* id);
+        void multiplyImpl(const Identifier* id1, const Identifier* id2);
+        void cropImpl(const Identifier* id, double lowBound, double highBound);
+        void subtractImpl(const Identifier* id1, const Identifier* id2);
+        void gradientInternalImpl(const Identifier* id);
+        void gradientExternalImpl(const Identifier* id);
+        void diferentialProfilesMorphologicalImpl(const Identifier* id1, const Identifier* id2);
+        void diferentialProfilesAttributeImpl(const Identifier* id1, const Identifier* id2);
         void mappingDmpNoCheck(string id1Str, string id2Str, vector<double> vector);
-        void mappingDmpImpl(const ParserToken* id1, const ParserToken* id2);
-        void mappingDapImpl(const ParserToken* id1, const ParserToken* id2);
-        void segmentationMsls1Impl(const ParserToken* id1, const ParserToken* id2);
-        void segmentationMsls2Impl(const ParserToken* id1, const ParserToken* id2);
-        void segmentationWatershadeImpl(const ParserToken* id1);
-        void segmentationWatershadeMarkerImpl(const ParserToken* id1, const ParserToken* id2);
+        void mappingDmpImpl(const Identifier* id1, const Identifier* id2);
+        void mappingDapImpl(const Identifier* id1, const Identifier* id2);
+        void segmentationMsls1Impl(const Identifier* id1, const Identifier* id2);
+        void segmentationMsls2Impl(const Identifier* id1, const Identifier* id2);
+        void segmentationWatershadeImpl(const Identifier* id1);
+        void segmentationWatershadeMarkerImpl(const Identifier* id1, const Identifier* id2);
 
         //operatorsBOX
-        void erodeBoxImpl(double number, const ParserToken* id);
-        void dilateBoxImpl(double number, const ParserToken* id);
-        void openBoxImpl(double number, const ParserToken* id);
-        void closeBoxImpl(double number, const ParserToken* id);
+        void erodeBoxImpl(double number, const Identifier* id);
+        void dilateBoxImpl(double number, const Identifier* id);
+        void openBoxImpl(double number, const Identifier* id);
+        void closeBoxImpl(double number, const Identifier* id);
 
         //operatorsRECONSTRUCTION
-        void erodeImpl(const ParserToken* id1, const ParserToken* id2);
-        void dilateImpl(const ParserToken* id1, const ParserToken* id2);
-        void openImpl(double number, const ParserToken* id);
-        void closeImpl(double number, const ParserToken* id);
+        void erodeImpl(const Identifier* id1, const Identifier* id2);
+        void dilateImpl(const Identifier* id1, const Identifier* id2);
+        void openImpl(double number, const Identifier* id);
+        void closeImpl(double number, const Identifier* id);
 
         //operatorsAREA
-        void openArea(double number, const ParserToken* id);
-        void closeArea(double number, const ParserToken* id);
+        void openArea(double number, const Identifier* id);
+        void closeArea(double number, const Identifier* id);
 
         //operatorsATTRIBUTE
-        void openAttribute(const ParserToken* attribute, double number, const ParserToken* id2);
-        void closeAttribute(const ParserToken* attribute, double number, const ParserToken* id2);
+        void openAttribute(const string attributeName, double number, const Identifier* id2);
+        void closeAttribute(const string attributeName, double number, const Identifier* id2);
 
         //operatorsBG
-        void distanceTransformImpl(const ParserToken* id);
+        void distanceTransformImpl(const Identifier* id);
 
         //operatorsGB
-        void tresholdImpl(double number, const ParserToken* id);
+        void tresholdImpl(double number, const Identifier* id);
 
         //sql
         void sqlImpl(Sql* sql, string spremenljivka);

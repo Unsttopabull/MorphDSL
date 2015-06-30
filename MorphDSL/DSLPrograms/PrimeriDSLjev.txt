@@ -64,6 +64,7 @@ a = load(".\braintumor.bmp")
 b = erode(BOX(1),a)
 c = subtract(a,b)
 
+/* negativni response */
 
 a = load(".\maribor.bmp")
 b = SELECT mask FROM a WHERE 100<area AND area <1000 AND response < 5
@@ -78,7 +79,11 @@ e = multiply(-1, d)
 f = treshold(-5, e)
 g = multiply(-1, f)
 
+/* */
+
 b = SELECT mask FROM a WHERE 100<area AND area <1000 AND response < 5
 
-c = Select mashk From d where b.mask 
+/* */
+
+c = SELECT mask FROM d WHERE b.mask
 
