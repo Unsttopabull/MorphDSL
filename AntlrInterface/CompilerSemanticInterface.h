@@ -1,8 +1,7 @@
 #pragma once
-#include "../stdafx.h"
 #include <string>
 #include <vector>
-#include "..\BMP\BitmapEx.h"
+#include "BMP\BitmapEx.h"
 
 using namespace std;
 

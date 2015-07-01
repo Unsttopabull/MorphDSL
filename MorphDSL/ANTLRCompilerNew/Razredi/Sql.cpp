@@ -4,23 +4,18 @@
 void Sql::dodajOmejitev(std::string keyword, SqlWhere* omejitev) {
     omejitveUrejeno.push_back(omejitev);
 
-    if (omejitve.find(keyword) != omejitve.end()) {
-        omejitve[keyword].push_back(omejitev);
-    }
-    else {
+    if (omejitve.find(keyword) == omejitve.end()) {
         omejitve[keyword] = std::vector<SqlWhere*>();
-        omejitve[keyword].push_back(omejitev);
     }
-    auto test = omejitve[keyword];
+
+    omejitve[keyword].push_back(omejitev);
 }
 
 std::vector<SqlWhere*> Sql::getOmejtiveZaKeyword(std::string keyword) {
     if (omejitve.find(keyword) != omejitve.end()) {
         return omejitve[keyword];
     }
-    else {
-        return std::vector<SqlWhere*>();
-    }
+    return std::vector<SqlWhere*>();
 }
 
 std::vector<std::string> Sql::getUporabljeneKeyworde() {

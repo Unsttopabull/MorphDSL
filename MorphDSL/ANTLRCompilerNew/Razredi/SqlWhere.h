@@ -20,9 +20,9 @@ public:
     };
 
     SqlWhere();
-    SqlWhere(RelacijskiOperatorji relOperator, double vrednost, std::string whereKw);
+    SqlWhere(RelacijskiOperatorji relOperator, double vrednost, string whereKw);
     SqlWhere(RelacijskiOperatorji relOperator, double vrednost, Keyword whereKw);
-    SqlWhere(Sql* stavek, std::string whereKw);
+    SqlWhere(Sql* stavek, string whereKw);
 
     ~SqlWhere();
 
@@ -30,7 +30,7 @@ public:
     Sql* getNestedSql();
     double getVrednost();
 
-    std::string getKeyword() {
+    string getKeyword() {
         return whereKeyword;
     }
 
@@ -42,7 +42,7 @@ public:
             return;
         }
 
-        enumKeyword = SqlWhere::ERR;
+        enumKeyword = ERR;
     }
 
     Keyword getKeywordEnum() {
@@ -67,8 +67,8 @@ private:
     Sql* sql;
     RelacijskiOperatorji relOperator;
     double vrednost;
-    std::string whereKeyword;
+    string whereKeyword;
     Keyword enumKeyword;
-    std::map<std::string, Keyword> preslikava;
+    map<string, Keyword> preslikava;
 };
 

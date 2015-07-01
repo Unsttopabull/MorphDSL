@@ -4,7 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::openAreaNoCheck(double number, std::string id) {
+void MorphDSLSemantics::openAreaNoCheck(double number, string id) {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(id);
@@ -31,7 +31,7 @@ void MorphDSLSemantics::openArea(double number, const Identifier* id) {
     openAreaNoCheck(number, id->getText());
 }
 
-void MorphDSLSemantics::closeAreaNoCheck(double number, std::string id) {
+void MorphDSLSemantics::closeAreaNoCheck(double number, string id) {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(id);

@@ -20,12 +20,12 @@ namespace LPM_MorphDSL {
         Identifier(const ParserToken* token, string subId) {
             this->token = token;
             //TODO parse subID
-            subId = NONE;
+            this->subId = NONE;
         }
 
         explicit Identifier(const ParserToken* token) {
             this->token = token;
-            subId = NONE;
+            this->subId = NONE;
         }
 
         const ParserToken* getToken() const {

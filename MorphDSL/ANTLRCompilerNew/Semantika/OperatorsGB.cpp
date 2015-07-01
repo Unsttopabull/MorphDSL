@@ -4,7 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::tresholdImplNoCheck(double number, std::string id) {
+void MorphDSLSemantics::tresholdImplNoCheck(double number, string id) {
     cout << "<-- " << number << endl;
 
     string fLast = getImageNameFromId(id);

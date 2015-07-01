@@ -5,7 +5,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-bool MorphDSLSemantics::checkVariablesExist(std::string id1, std::string id2) {
+bool MorphDSLSemantics::checkVariablesExist(string id1, string id2) {
     if (!checkVariableExist(id1)) {
         return false;
     }
@@ -16,7 +16,7 @@ bool MorphDSLSemantics::checkVariablesExist(std::string id1, std::string id2) {
     return true;
 }
 
-bool MorphDSLSemantics::checkVariableExist(std::string id) {
+bool MorphDSLSemantics::checkVariableExist(string id) {
     if (imeSlikeZaSpremenljivko.find(id) == imeSlikeZaSpremenljivko.end()) {
         cout << "ERROR: Spremenljivka '" << id << "' ne obstaja." << endl;
         parser->set_failedflag(true);
@@ -45,79 +45,98 @@ bool MorphDSLSemantics::checkVariableExist(const Identifier* id) {
     return true;
 }
 
-std::string MorphDSLSemantics::getImageNameFromId(std::string id, SubIdentifier sub) {
-    Spremenljivka spr = imeSlikeZaSpremenljivko[id];
+string MorphDSLSemantics::getImageNameFromId(string id, SubIdentifier sub) {
+    Spremenljivka* spr = imeSlikeZaSpremenljivko[id];
 
     switch (sub) {
         case NONE:
-            return spr.getSlika();
+            return spr->getSlika();
         case MASK:
-            return spr.getMask();
+            return spr->getMask();
         case SET:
         case ATTRIBUTE:
         case OKROGLOST:
         case VOLUMENT:
         default:
-            return spr.getSlika();
+            return spr->getSlika();
     }
 }
 
-std::string MorphDSLSemantics::getImageNameFromId(Identifier* id) {
+string MorphDSLSemantics::getImageNameFromId(Identifier* id) {
     return getImageNameFromId(id->getText(), id->getSubId());
 }
 
-Spremenljivka MorphDSLSemantics::getVariableFromId(std::string id) {
+Spremenljivka* MorphDSLSemantics::getVariableFromId(string id) {
     return imeSlikeZaSpremenljivko[id];
 }
 
-std::string MorphDSLSemantics::getNewImageName(bool noExtension) {
-    Spremenljivka spr = imeSlikeZaSpremenljivko[zadnjaSpremenljivka];
+string MorphDSLSemantics::getNewImageName(bool noExtension) {
+    Spremenljivka* spr = imeSlikeZaSpremenljivko[zadnjaSpremenljivka];
     if (noExtension) {
-        return spr.getBrezKoncnice();
+        return spr->getBrezKoncnice();
     }
-    return spr.getSlika();
+    return spr->getSlika();
 }
 
-std::string MorphDSLSemantics::getNewImageNameWtf() {
-    Spremenljivka spr = imeSlikeZaSpremenljivko[zadnjaSpremenljivka];
-    return spr.getSlika() + ".wtf";
+string MorphDSLSemantics::getNewImageNameWtf() {
+    Spremenljivka* spr = imeSlikeZaSpremenljivko[zadnjaSpremenljivka];
+    return spr->getSlika() + ".wtf";
 }
 
-void MorphDSLSemantics::variableToFileName(std::string spremenljivka, bool isTemp) {
+void MorphDSLSemantics::variableToFileName(string spremenljivka, string kategorija) {
     stringstream fId;
     fId << ".\\";
     fId << imeIzhodneSlike;
     fId << imageCounter++;
 
-    imeSlikeZaSpremenljivko[spremenljivka] = Spremenljivka(fId.str(), ".bmp", isTemp);
+    Spremenljivka* spr = new Spremenljivka(spremenljivka, fId.str(), ".bmp", kategorija);
+    imeSlikeZaSpremenljivko[spremenljivka] = spr;
 
-    auto test = imeSlikeZaSpremenljivko[spremenljivka];
+    if (!kategorija.empty()) {
+        if (tempSpremenljivke.find(kategorija) == tempSpremenljivke.end()) {
+            tempSpremenljivke[kategorija] = vector <Spremenljivka*>();
+        }
+        tempSpremenljivke[kategorija].push_back(spr);
+    }
 }
 
-void MorphDSLSemantics::initNovaSpremenljivka(std::string novaSpr) {
+void MorphDSLSemantics::initNovaSpremenljivka(string novaSpr) {
     if (imeSlikeZaSpremenljivko.find(novaSpr) != imeSlikeZaSpremenljivko.end()) {
         return;
     }
 
     zadnjaSpremenljivka = novaSpr;
-    variableToFileName(zadnjaSpremenljivka);
+    variableToFileName(zadnjaSpremenljivka, "");
 }
 
-std::string MorphDSLSemantics::initInternalVariable(std::string spremenljivka) {
+string MorphDSLSemantics::initInternalVariable(string spremenljivka, string kategorija) {
     stringstream sprStream;
     sprStream << "$" << spremenljivka << tempCnt++;
 
     string spr = sprStream.str();
 
     if (imeSlikeZaSpremenljivko.find(spr) != imeSlikeZaSpremenljivko.end()) {
-        return initInternalVariable(spremenljivka);
+        return initInternalVariable(spremenljivka, kategorija);
     }
 
     predZadnjaSpremenljivka = zadnjaSpremenljivka;
     zadnjaSpremenljivka = spr;
-    variableToFileName(spr, true);
+    variableToFileName(spr, kategorija);
 
     return spr;
+}
+
+void MorphDSLSemantics::clearTempVariablesCategory(string kategorija) {
+    auto iter = tempSpremenljivke.find(kategorija);
+    if (iter == tempSpremenljivke.end()) {
+        return;
+    }
+
+    for (vector<Spremenljivka*>::const_iterator it = iter->second.begin(); it != iter->second.end(); ++it){
+        imeSlikeZaSpremenljivko.erase((*it)->getText());
+    }
+
+    tempSpremenljivke.erase(kategorija);
 }
 
 //void MorphDSLSemantics::clearTempSpremenljivke() {
