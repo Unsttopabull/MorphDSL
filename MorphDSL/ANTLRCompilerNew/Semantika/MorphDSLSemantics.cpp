@@ -12,10 +12,11 @@ MorphDSLSemantics::MorphDSLSemantics(MorphDSLParser* p) {
 }
 
 void MorphDSLSemantics::loadImpl(string imeSlike, string imeSpremenljivke) {
-    cout << "LOADING" << endl;
-    cout << "<--  " << imeSlike << endl;
-
     int firstLetter = imeSlike.find_last_of("/\\") + 1;
+
+    cout << "LOADING" << endl;
+    cout << "<--  " << imeSlike.substr(1, imeSlike.length() - 2) << endl;
+    
     int length = imeSlike.find_last_of(".") - firstLetter;
     imeIzhodneSlike = imeSlike.substr(firstLetter, length);
 
