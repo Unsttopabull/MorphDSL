@@ -4,7 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::complementNoCheck(const string& idStr) {
+void MorphDSLSemantics::complementNoCheck(const string& idStr) const {
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
@@ -15,7 +15,7 @@ void MorphDSLSemantics::complementNoCheck(const string& idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::complementImpl(const Identifier& id) {
+void MorphDSLSemantics::complementImpl(const Identifier& id) const {
     cout << "COMPLEMENT" << endl;
 
     if (!checkVariableExist(id)) {
@@ -25,7 +25,7 @@ void MorphDSLSemantics::complementImpl(const Identifier& id) {
     complementNoCheck(id.getText());
 }
 
-void MorphDSLSemantics::unionNoCheck(const string& id1Str, const string& id2Str) {
+void MorphDSLSemantics::unionNoCheck(const string& id1Str, const string& id2Str) const {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -39,7 +39,7 @@ void MorphDSLSemantics::unionNoCheck(const string& id1Str, const string& id2Str)
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::unionImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::unionImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "UNION" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -49,7 +49,7 @@ void MorphDSLSemantics::unionImpl(const Identifier& id1, const Identifier& id2) 
     unionNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::intersectionNoCheck(const string& id1Str, const string& id2Str) {
+void MorphDSLSemantics::intersectionNoCheck(const string& id1Str, const string& id2Str) const {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -63,7 +63,7 @@ void MorphDSLSemantics::intersectionNoCheck(const string& id1Str, const string& 
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::intersectionImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::intersectionImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "INTERSECTION" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -73,7 +73,7 @@ void MorphDSLSemantics::intersectionImpl(const Identifier& id1, const Identifier
     intersectionNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::withoutNoCheck(const string& id1Str, const string& id2Str) {
+void MorphDSLSemantics::withoutNoCheck(const string& id1Str, const string& id2Str) const {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -87,7 +87,7 @@ void MorphDSLSemantics::withoutNoCheck(const string& id1Str, const string& id2St
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::withoutImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::withoutImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "WITHOUT" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -97,7 +97,7 @@ void MorphDSLSemantics::withoutImpl(const Identifier& id1, const Identifier& id2
     withoutNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::hitMissNoCheck(const string& id1Str, const string& id2Str) {
+void MorphDSLSemantics::hitMissNoCheck(const string& id1Str, const string& id2Str) const {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -111,7 +111,7 @@ void MorphDSLSemantics::hitMissNoCheck(const string& id1Str, const string& id2St
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::hitMissImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::hitMissImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "HITMISS" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -121,7 +121,7 @@ void MorphDSLSemantics::hitMissImpl(const Identifier& id1, const Identifier& id2
     hitMissNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::boundaryNoCheck(const string& idStr) {
+void MorphDSLSemantics::boundaryNoCheck(const string& idStr) const {
     string fFirst = getImageNameFromId(idStr);
     cout << "<--  " << fFirst << endl;
 
@@ -132,7 +132,7 @@ void MorphDSLSemantics::boundaryNoCheck(const string& idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::boundaryImpl(const Identifier& id1) {
+void MorphDSLSemantics::boundaryImpl(const Identifier& id1) const {
     cout << "BOUNDARY" << endl;
 
     if (!checkVariableExist(id1)) {

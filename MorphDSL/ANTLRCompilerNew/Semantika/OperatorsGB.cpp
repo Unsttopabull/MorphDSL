@@ -4,7 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::tresholdImplNoCheck(const double number, const string& id) {
+void MorphDSLSemantics::tresholdImplNoCheck(const double number, const string& id) const {
     cout << "<-- " << number << endl;
 
     string fLast = getImageNameFromId(id);
@@ -19,7 +19,7 @@ void MorphDSLSemantics::tresholdImplNoCheck(const double number, const string& i
     morphInterface.treshold(number, fLast, fNew);
 }
 
-void MorphDSLSemantics::tresholdImpl(const double number, const Identifier& id) {
+void MorphDSLSemantics::tresholdImpl(const double number, const Identifier& id) const {
     cout << "TRESHOLDING" << endl;
 
     if (!checkVariableExist(id)) {

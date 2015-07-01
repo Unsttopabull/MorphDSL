@@ -4,7 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::openAttributeNoCheck(const string& attribute, const double number, const string& id2) {
+void MorphDSLSemantics::openAttributeNoCheck(const string& attribute, const double number, const string& id2) const {
     cout << "<--  " << attribute << endl;
 
     string fLast = getImageNameFromId(id2);
@@ -19,7 +19,7 @@ void MorphDSLSemantics::openAttributeNoCheck(const string& attribute, const doub
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::openAttribute(const string& attributeName, const double number, const Identifier& id2) {
+void MorphDSLSemantics::openAttribute(const string& attributeName, const double number, const Identifier& id2) const {
     cout << "OPEN - ATTRIBUTE" << endl;
 
     string id2Str = id2.getText();
@@ -30,7 +30,7 @@ void MorphDSLSemantics::openAttribute(const string& attributeName, const double 
     openAttributeNoCheck(attributeName, number, id2Str);
 }
 
-void MorphDSLSemantics::closeAttributeNoCheck(const string& attribute, const double number, const string& id2) {
+void MorphDSLSemantics::closeAttributeNoCheck(const string& attribute, const double number, const string& id2) const {
     cout << "<--  " << attribute << endl;
 
     string fLast = getImageNameFromId(id2);
@@ -45,7 +45,7 @@ void MorphDSLSemantics::closeAttributeNoCheck(const string& attribute, const dou
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::closeAttribute(const string& attributeName, const double number, const Identifier& id2) {
+void MorphDSLSemantics::closeAttribute(const string& attributeName, const double number, const Identifier& id2) const {
     cout << "CLOSE - ATTRIBUTE" << endl;
 
     string id2Str = id2.getText();

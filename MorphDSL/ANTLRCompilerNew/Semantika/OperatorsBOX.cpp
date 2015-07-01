@@ -4,7 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::erodeBoxNoCheck(double number, const string& idStr) {
+void MorphDSLSemantics::erodeBoxNoCheck(double number, const string& idStr) const {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(idStr);
@@ -19,7 +19,7 @@ void MorphDSLSemantics::erodeBoxNoCheck(double number, const string& idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::erodeBoxImpl(double number, const Identifier& id) {
+void MorphDSLSemantics::erodeBoxImpl(double number, const Identifier& id) const {
     cout << "ERODEBOX: " << endl;
 
     if (!checkVariableExist(id)) {
@@ -29,7 +29,7 @@ void MorphDSLSemantics::erodeBoxImpl(double number, const Identifier& id) {
     erodeBoxNoCheck(number, id.getText());
 }
 
-void MorphDSLSemantics::dilateBoxNoCheck(double number, const string& idStr) {
+void MorphDSLSemantics::dilateBoxNoCheck(double number, const string& idStr) const {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(idStr);
@@ -44,7 +44,7 @@ void MorphDSLSemantics::dilateBoxNoCheck(double number, const string& idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::dilateBoxImpl(double number, const Identifier& id) {
+void MorphDSLSemantics::dilateBoxImpl(double number, const Identifier& id) const {
     cout << "DILATEBOX: " << endl;
 
     if (!checkVariableExist(id)) {
@@ -54,7 +54,7 @@ void MorphDSLSemantics::dilateBoxImpl(double number, const Identifier& id) {
     dilateBoxNoCheck(number, id.getText());
 }
 
-void MorphDSLSemantics::openBoxNoCheck(double number, const string& idStr) {
+void MorphDSLSemantics::openBoxNoCheck(double number, const string& idStr) const {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(idStr);
@@ -68,7 +68,7 @@ void MorphDSLSemantics::openBoxNoCheck(double number, const string& idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::openBoxImpl(double number, const Identifier& id) {
+void MorphDSLSemantics::openBoxImpl(double number, const Identifier& id) const {
     cout << "OPENBOX: " << endl;
 
     if (!checkVariableExist(id)) {
@@ -78,7 +78,7 @@ void MorphDSLSemantics::openBoxImpl(double number, const Identifier& id) {
     openBoxNoCheck(number, id.getText());
 }
 
-void MorphDSLSemantics::closeBoxNoCheck(double number, const string& idStr) {
+void MorphDSLSemantics::closeBoxNoCheck(double number, const string& idStr) const {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(idStr);
@@ -93,7 +93,7 @@ void MorphDSLSemantics::closeBoxNoCheck(double number, const string& idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::closeBoxImpl(double number, const Identifier& id) {
+void MorphDSLSemantics::closeBoxImpl(double number, const Identifier& id) const {
     cout << "CLOSEBOX" << endl;
 
     if (!checkVariableExist(id)) {

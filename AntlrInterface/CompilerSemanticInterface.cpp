@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CompilerSemanticInterface.h"
 #include "MMLib.h"
-#include <sstream>
+#include "BMP\BitmapEx.h"
 
 using namespace std;
 
@@ -9,7 +9,7 @@ CompilerSemanticInterface::CompilerSemanticInterface() {
     // CONSTRUCTOR
 }
 
-void CompilerSemanticInterface::LoadImg(string filePath, vector<vector<double>>& img) {
+void CompilerSemanticInterface::LoadImg(const string& filePath, vector<vector<double>>& img) const {
     CBitmapEx bmp;
     CString test = filePath.c_str();
     bmp.Load(test.GetBuffer());
@@ -31,7 +31,7 @@ void CompilerSemanticInterface::LoadImg(string filePath, vector<vector<double>>&
     /*END: Set new window size*/
 }
 
-void CompilerSemanticInterface::LoadFile(string filePath, vector<vector<double>>& img) {
+void CompilerSemanticInterface::LoadFile(const string& filePath, vector<vector<double>>& img) const {
     CString tFile = filePath.c_str();
     FILE* file = fopen(tFile.GetBuffer(), "rb");
 
@@ -50,7 +50,7 @@ void CompilerSemanticInterface::LoadFile(string filePath, vector<vector<double>>
     fclose(file);
 }
 
-void CompilerSemanticInterface::LoadFile(string filePath, vector<vector<vector<double>>>& img) {
+void CompilerSemanticInterface::LoadFile(const string& filePath, vector<vector<vector<double>>>& img) const {
     CString tFile = filePath.c_str();
     FILE* file = fopen(tFile.GetBuffer(), "rb");
 
@@ -74,7 +74,7 @@ void CompilerSemanticInterface::LoadFile(string filePath, vector<vector<vector<d
     fclose(file);
 }
 
-void CompilerSemanticInterface::StoreImg(string filePath, vector<vector<double>>& img) {
+void CompilerSemanticInterface::StoreImg(const string& filePath, vector<vector<double>>& img) const {
     CBitmapEx bmp;
     CString test = filePath.c_str();
     bmp.Create(img.size(), img[0].size());
@@ -89,7 +89,7 @@ void CompilerSemanticInterface::StoreImg(string filePath, vector<vector<double>>
     bmp.Save(test.GetBuffer());
 }
 
-void CompilerSemanticInterface::StoreFile(string filePath, vector<vector<double>>& img) {
+void CompilerSemanticInterface::StoreFile(const string& filePath, vector<vector<double>>& img) const {
     CString tFile = filePath.c_str();
     FILE* file = fopen(tFile.GetBuffer(), "wb");
 
@@ -106,7 +106,7 @@ void CompilerSemanticInterface::StoreFile(string filePath, vector<vector<double>
     fclose(file);
 }
 
-void CompilerSemanticInterface::StoreFile(string filePath, vector<vector<vector<double>>>& img) {
+void CompilerSemanticInterface::StoreFile(const string& filePath, vector<vector<vector<double>>>& img) const {
     CString tFile = filePath.c_str();
     FILE* file = fopen(tFile.GetBuffer(), "wb");
 
@@ -129,7 +129,7 @@ void CompilerSemanticInterface::StoreFile(string filePath, vector<vector<vector<
 }
 
 // b = open(BOX(1), a)
-void CompilerSemanticInterface::openBOX(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::openBOX(double aNumber, const string& inputFileName, const string& outputFileName) const {
 
     printf("INSIDE INTERFACE OPENBOX 1!\n");
     vector<vector<double>> img;
@@ -144,7 +144,7 @@ void CompilerSemanticInterface::openBOX(double aNumber, string inputFileName, st
 }
 
 //f = treshold(10, e)
-void CompilerSemanticInterface::treshold(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::treshold(double aNumber, const string& inputFileName, const string& outputFileName) const {
 
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
@@ -158,7 +158,7 @@ void CompilerSemanticInterface::treshold(double aNumber, string inputFileName, s
 }
 
 // c = close(BOX(1), b)
-void CompilerSemanticInterface::closeBOX(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::closeBOX(double aNumber, const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -172,7 +172,7 @@ void CompilerSemanticInterface::closeBOX(double aNumber, string inputFileName, s
 }
 
 // d = open(AREA, 250, c)
-void CompilerSemanticInterface::openAREA(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::openAREA(double aNumber, const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -183,7 +183,7 @@ void CompilerSemanticInterface::openAREA(double aNumber, string inputFileName, s
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::negate(string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::negate(const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -193,7 +193,7 @@ void CompilerSemanticInterface::negate(string inputFileName, string outputFileNa
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::normalize(string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::normalize(const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -203,7 +203,7 @@ void CompilerSemanticInterface::normalize(string inputFileName, string outputFil
 
 }
 
-void CompilerSemanticInterface::multiply(string inputFileName, double aNumber, string outputFileName) {
+void CompilerSemanticInterface::multiply(const string& inputFileName, double aNumber, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -212,7 +212,7 @@ void CompilerSemanticInterface::multiply(string inputFileName, double aNumber, s
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::multiply(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::multiply(double aNumber, const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -222,7 +222,7 @@ void CompilerSemanticInterface::multiply(double aNumber, string inputFileName, s
 
 }
 
-void CompilerSemanticInterface::multiply(string inputFileName1, string inputFileName2, string outputFileName) {
+void CompilerSemanticInterface::multiply(const string& inputFileName1, const string& inputFileName2, const string& outputFileName) const {
     vector<vector<double>> img1;
     LoadImg(inputFileName1, img1);
 
@@ -234,7 +234,7 @@ void CompilerSemanticInterface::multiply(string inputFileName1, string inputFile
     StoreImg(outputFileName, img1);
 }
 
-void CompilerSemanticInterface::crop(string inputFileName, double lowNumber, double upNumber, string outputFileName) {
+void CompilerSemanticInterface::crop(const string& inputFileName, double lowNumber, double upNumber, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -245,7 +245,7 @@ void CompilerSemanticInterface::crop(string inputFileName, double lowNumber, dou
 }
 
 // e = subtract (d,c)
-void CompilerSemanticInterface::subtract(string inputFileName1, string inputFileName2, string outputFileName) {
+void CompilerSemanticInterface::subtract(const string& inputFileName1, const string& inputFileName2, const string& outputFileName) const {
     vector<vector<double>> img1;
     vector<vector<double>> img2;
     LoadImg(inputFileName1, img1);
@@ -256,7 +256,7 @@ void CompilerSemanticInterface::subtract(string inputFileName1, string inputFile
     StoreImg(outputFileName, img1);
 }
 
-void CompilerSemanticInterface::erodeBOX(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::erodeBOX(double aNumber, const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -269,7 +269,7 @@ void CompilerSemanticInterface::erodeBOX(double aNumber, string inputFileName, s
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::dilateBOX(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::dilateBOX(double aNumber, const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -284,7 +284,7 @@ void CompilerSemanticInterface::dilateBOX(double aNumber, string inputFileName, 
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::closeAREA(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::closeAREA(double aNumber, const string& inputFileName, const string& outputFileName) const {
     printf("INSIDE INTERFACE CLOSEAREA 1!\n");
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
@@ -312,7 +312,7 @@ void CompilerSemanticInterface::closeAREA(double aNumber, string inputFileName, 
     printf("AFTER STORE!\n");
 }
 
-void CompilerSemanticInterface::complement(string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::complement(const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -326,7 +326,7 @@ void CompilerSemanticInterface::complement(string inputFileName, string outputFi
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::unionBB(string inputFileName1, string inputFileName2, string outputFileName) {
+void CompilerSemanticInterface::unionBB(const string& inputFileName1, const string& inputFileName2, const string& outputFileName) const {
     vector<vector<double>> img1, img2;
     LoadImg(inputFileName1, img1);
     LoadImg(inputFileName2, img2);
@@ -342,7 +342,7 @@ void CompilerSemanticInterface::unionBB(string inputFileName1, string inputFileN
     StoreImg(outputFileName, img1);
 }
 
-void CompilerSemanticInterface::intersection(string inputFileName1, string inputFileName2, string outputFileName) {
+void CompilerSemanticInterface::intersection(const string& inputFileName1, const string& inputFileName2, const string& outputFileName) const {
     vector<vector<double>> img1, img2;
     LoadImg(inputFileName1, img1);
     LoadImg(inputFileName2, img2);
@@ -358,7 +358,7 @@ void CompilerSemanticInterface::intersection(string inputFileName1, string input
     StoreImg(outputFileName, img1);
 }
 
-void CompilerSemanticInterface::without(string inputFileName1, string inputFileName2, string outputFileName) {
+void CompilerSemanticInterface::without(const string& inputFileName1, const string& inputFileName2, const string& outputFileName) const {
     vector<vector<double>> img1, img2;
     LoadImg(inputFileName1, img1);
     LoadImg(inputFileName2, img2);
@@ -374,7 +374,7 @@ void CompilerSemanticInterface::without(string inputFileName1, string inputFileN
     StoreImg(outputFileName, img1);
 }
 
-void CompilerSemanticInterface::hitmiss(string inputFileName1, string inputFileName2, string outputFileName) {
+void CompilerSemanticInterface::hitmiss(const string& inputFileName1, const string& inputFileName2, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName1, img);
     // DOMEN - your code goes here ;-)
@@ -382,7 +382,7 @@ void CompilerSemanticInterface::hitmiss(string inputFileName1, string inputFileN
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::boundary(string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::boundary(const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
     // DOMEN - your code goes here ;-)
@@ -390,7 +390,7 @@ void CompilerSemanticInterface::boundary(string inputFileName, string outputFile
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::gradientINTERNAL(string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::gradientINTERNAL(const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -402,7 +402,7 @@ void CompilerSemanticInterface::gradientINTERNAL(string inputFileName, string ou
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::gradientEXTERNAL(string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::gradientEXTERNAL(const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -412,14 +412,16 @@ void CompilerSemanticInterface::gradientEXTERNAL(string inputFileName, string ou
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::diferentialProfilesMORPHOLOGICAL(string inputFileName, vector<double> values, string outputFileNamePartially) {
+void CompilerSemanticInterface::diferentialProfilesMORPHOLOGICAL(const string& inputFileName, const vector<double>& values, string& outputFileNamePartially) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
     vector<vector<vector<double>>> f_stack;
     vector<int> wVec;
 
-    for (int i = 0; i < values.size(); i++)wVec.push_back(values[i]);
+    for (int i = 0; i < values.size(); i++) {
+        wVec.push_back(values[i]);
+    }
 
     MMLibG2D mmg;
     mmg.data = img;
@@ -431,7 +433,7 @@ void CompilerSemanticInterface::diferentialProfilesMORPHOLOGICAL(string inputFil
     StoreFile(outputFileNamePartially, f_stack);
 }
 
-void CompilerSemanticInterface::diferentialProfilesATTRIBUTE(string inputFileName, vector<double> values, string outputFileNamePartially) {
+void CompilerSemanticInterface::diferentialProfilesATTRIBUTE(const string& inputFileName, const vector<double>& values, string& outputFileNamePartially) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -463,7 +465,7 @@ void CompilerSemanticInterface::diferentialProfilesATTRIBUTE(string inputFileNam
     StoreFile(outputFileNamePartially, f_stack);
 }
 
-void CompilerSemanticInterface::mappingDMP(string inputFileName, vector<double> values, string outputFileNamePartially) {
+void CompilerSemanticInterface::mappingDMP(const string& inputFileName, const vector<double>& values, string& outputFileNamePartially) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -490,7 +492,7 @@ void CompilerSemanticInterface::mappingDMP(string inputFileName, vector<double> 
     StoreFile(outputFileNamePartially, f_stack);
 }
 
-void CompilerSemanticInterface::mappingDAP(string inputFileName, vector<double> values, string outputFileNamePartially) {
+void CompilerSemanticInterface::mappingDAP(const string& inputFileName, const vector<double>& values, string& outputFileNamePartially) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -522,7 +524,7 @@ void CompilerSemanticInterface::mappingDAP(string inputFileName, vector<double> 
     StoreFile(outputFileNamePartially, f_stack);
 }
 
-void CompilerSemanticInterface::segmentationMSLS(string inputFileName1, vector<double> values, string outputFileName) {
+void CompilerSemanticInterface::segmentationMSLS(const string& inputFileName1, vector<double> values, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName1, img);
     // TOMAŽ: Tukaj notri dobimo vektor attributnih vrednosti
@@ -530,7 +532,7 @@ void CompilerSemanticInterface::segmentationMSLS(string inputFileName1, vector<d
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::segmentationWATHERSHADE(string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::segmentationWATHERSHADE(const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -545,7 +547,7 @@ void CompilerSemanticInterface::segmentationWATHERSHADE(string inputFileName, st
     StoreFile(outputFileName, img);
 }
 
-void CompilerSemanticInterface::segmentationWATHERSHADE(string inputFileName1, string inputFileName2, string outputFileName) {
+void CompilerSemanticInterface::segmentationWATHERSHADE(const string& inputFileName1, const string& inputFileName2, const string& outputFileName) const {
     vector<vector<double>> img1;
     LoadImg(inputFileName1, img1);
 
@@ -565,7 +567,7 @@ void CompilerSemanticInterface::segmentationWATHERSHADE(string inputFileName1, s
 }
 
 
-void CompilerSemanticInterface::erodeRECONSTRUCTION(string inputFileName1, string inputFileName2, string outputFileName) {
+void CompilerSemanticInterface::erodeRECONSTRUCTION(const string& inputFileName1, const string& inputFileName2, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName1, img);
     InvertData(img);
@@ -602,7 +604,7 @@ void CompilerSemanticInterface::erodeRECONSTRUCTION(double aNumber, string input
 }
 */
 
-void CompilerSemanticInterface::dilateRECONSTRUCTION(string inputFileName1, string inputFileName2, string outputFileName) {
+void CompilerSemanticInterface::dilateRECONSTRUCTION(const string& inputFileName1, const string& inputFileName2, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName1, img);
 
@@ -614,7 +616,7 @@ void CompilerSemanticInterface::dilateRECONSTRUCTION(string inputFileName1, stri
     StoreImg(outputFileName, mmg.data);
 }
 
-void CompilerSemanticInterface::openRECONSTRUCTION_BOX(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::openRECONSTRUCTION_BOX(double aNumber, const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -627,7 +629,7 @@ void CompilerSemanticInterface::openRECONSTRUCTION_BOX(double aNumber, string in
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::closeRECONSTRUCTION_BOX(double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::closeRECONSTRUCTION_BOX(double aNumber, const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
 
@@ -642,7 +644,7 @@ void CompilerSemanticInterface::closeRECONSTRUCTION_BOX(double aNumber, string i
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::open(string attributeName, double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::open(string attributeName, double aNumber, const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
     // DOMEN - your code goes here ;-)
@@ -650,7 +652,7 @@ void CompilerSemanticInterface::open(string attributeName, double aNumber, strin
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::close(string attributeName, double aNumber, string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::close(string attributeName, double aNumber, const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
     // DOMEN - your code goes here ;-)
@@ -658,7 +660,7 @@ void CompilerSemanticInterface::close(string attributeName, double aNumber, stri
     StoreImg(outputFileName, img);
 }
 
-void CompilerSemanticInterface::distanceTransform(string inputFileName, string outputFileName) {
+void CompilerSemanticInterface::distanceTransform(const string& inputFileName, const string& outputFileName) const {
     vector<vector<double>> img;
     LoadImg(inputFileName, img);
     // DOMEN - your code goes here ;-)
