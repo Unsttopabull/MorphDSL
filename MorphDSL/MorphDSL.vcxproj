@@ -108,8 +108,6 @@
     <ClInclude Include="ANTLRCompilerNew\Util\Spremenljivka.h" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Lexer.hpp" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Parser.hpp" />
-    <ClInclude Include="ANTLRInterface\CompilerSemanticInterface.h" />
-    <ClInclude Include="BMP\BitmapEx.h" />
     <ClInclude Include="ANTLRCompilerNew\Razredi\Enums.h" />
     <ClInclude Include="MorphDSL.h" />
     <ClInclude Include="Resource.h" />
@@ -135,8 +133,6 @@
     <ClCompile Include="ANTLRCompilerNew\Util\Identifier.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Lexer.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Parser.cpp" />
-    <ClCompile Include="ANTLRInterface\CompilerSemanticInterface.cpp" />
-    <ClCompile Include="BMP\BitmapEx.cpp" />
     <ClCompile Include="MorphDSL.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -147,6 +143,9 @@
     <ResourceCompile Include="MorphDSL.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AntlrInterface\AntlrInterface.vcxproj">
+      <Project>{ebcaa901-c2a3-431d-8772-1db981f8af96}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\MMLib\MMLib.vcxproj">
       <Project>{50335163-44bf-495a-bfd5-0ed2873c75a7}</Project>
     </ProjectReference>

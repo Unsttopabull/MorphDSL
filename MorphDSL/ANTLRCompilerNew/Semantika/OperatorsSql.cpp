@@ -50,7 +50,7 @@ void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
                     areaCount++;
 
                     if (areaCount % 2 == 0) {
-                        newSpr = initInternalVariable(sql->fromId);
+                        newSpr = initInternalVariable(sql->fromId, "sql");
 
                         //cout << "\t\t\t" << newSpr << " = " << "open(AREA," << vrednost << "," << last << ")" << endl;
                         //openAreaNoCheck(vrednost, last);
@@ -58,14 +58,14 @@ void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
                         cout << "\t\t\t" << newSpr << " = " << "open(AREA," << vrednost << "," << sql->fromId << ")" << endl;
                         openAreaNoCheck(vrednost, sql->fromId);
 
-                        string newSpr2 = initInternalVariable(sql->fromId);
+                        string newSpr2 = initInternalVariable(sql->fromId, "sql");
                         cout << "\t\t\t" << newSpr2 << " = " << "subtract(" << last << "," << newSpr << ")" << endl;
                         subtractNoCheck(last, newSpr);
 
                         last = newSpr2;
                     }
                     else {
-                        newSpr = initInternalVariable(sql->fromId);
+                        newSpr = initInternalVariable(sql->fromId, "sql");
 
                         //cout << "\t\t\t" << newSpr << " = " << "open(AREA," << vrednost << "," << last << ")" << endl;
                         //openAreaNoCheck(vrednost, last);
@@ -79,23 +79,23 @@ void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
                 }
                 case SqlWhere::RESPONSE:{
                     if (relOp == RelOp::LT) {
-                        newSpr = initInternalVariable(sql->fromId);
+                        newSpr = initInternalVariable(sql->fromId, "sql");
 
                         cout << "\t\t\t" << newSpr << " = " << "multipy(" << -1 << ", " << last << ")" << endl;
                         multiplyNoCheck(-1, last); // e = multiply(-1, d)
 
-                        string newSpr2 = initInternalVariable(sql->fromId);
+                        string newSpr2 = initInternalVariable(sql->fromId, "sql");
                         cout << "\t\t\t" << newSpr2 << " = " << "treshold(" << vrednost << ", " << newSpr << ")" << endl;
                         tresholdImplNoCheck(vrednost, newSpr); //f = treshold(-5, e);
 
-                        string newSpr3 = initInternalVariable(sql->fromId);
+                        string newSpr3 = initInternalVariable(sql->fromId, "sql");
                         cout << "\t\t\t" << newSpr3 << " = " << "multipy(" << -1 << ", " << newSpr2 << ")" << endl;
                         multiplyNoCheck(-1, newSpr2); //g = multipy(-1, f)
 
                         last = newSpr3;
                     }
                     else if (relOp == RelOp::GT) {
-                        newSpr = initInternalVariable(sql->fromId);
+                        newSpr = initInternalVariable(sql->fromId, "sql");
                         cout << "\t\t\t" << newSpr << " = " << "treshold(" << vrednost << ", " << last << ")" << endl;
                         tresholdImplNoCheck(vrednost, last);
 
@@ -105,12 +105,12 @@ void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
                 }
                 case SqlWhere::INTERNAL_GRADIENT:{
                     //TODO
-                    newSpr = initInternalVariable(sql->fromId);
+                    newSpr = initInternalVariable(sql->fromId, "sql");
 
                     cout << "\t\t\t" << newSpr << " = " << "erode(BOX(" << vrednost << "), " << last << ")" << endl;
                     erodeBoxNoCheck(vrednost, last);
 
-                    string newSpr2 = initInternalVariable(sql->fromId);
+                    string newSpr2 = initInternalVariable(sql->fromId, "sql");
                     cout << "\t\t\t" << newSpr2 << " = " << "subtract(" << last << ", " << newSpr << ")" << endl;
                     subtractNoCheck(last, newSpr);
 
@@ -137,7 +137,7 @@ void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
     }
 
     if (sql->selectFunkcija == "normalize") {
-        newSpr = initInternalVariable(sql->fromId);
+        newSpr = initInternalVariable(sql->fromId, "sql");
         cout << "\t\t\t" << newSpr << " = " << "normalize(" << last << ")" << endl;
 
         normalizeImpl();
@@ -148,13 +148,13 @@ void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
     cout << endl;
 
     if (!spremenljivka.empty()) {
-        Spremenljivka s = getVariableFromId(last);
+        Spremenljivka* s = getVariableFromId(last);
         switch (sql->selectKeyword) {
             case SelectKw::Star:
                 //
                 break;
             case SelectKw::Mask:
-                s.setMask(s.getSlika());
+                s->setMask(s->getSlika());
                 break;
             case SelectKw::Set: 
                 break;
@@ -180,6 +180,7 @@ void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
         cout << "\t\t\t" << spremenljivka << " = " << last << endl;
     }
 
+    clearTempVariablesCategory("sql");
 
 
     //auto keywords = sql->getUporabljeneKeyworde();

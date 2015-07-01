@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ANTLRInterface">
-      <UniqueIdentifier>{1f37f8fd-83e7-408e-b6c4-7b2c60490219}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="BMP">
-      <UniqueIdentifier>{55e6fb57-4e93-4eb1-a863-f63f9d3f7d90}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ANTLRCompiler">
       <UniqueIdentifier>{8b53b8db-a96c-49b3-99f2-d05c97ef603e}</UniqueIdentifier>
     </Filter>
@@ -100,12 +94,6 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ANTLRInterface\CompilerSemanticInterface.h">
-      <Filter>ANTLRInterface</Filter>
-    </ClInclude>
-    <ClInclude Include="BMP\BitmapEx.h">
-      <Filter>BMP</Filter>
-    </ClInclude>
     <ClInclude Include="ANTLRCompiler\MorphDSL3Lexer.hpp">
       <Filter>ANTLRCompiler</Filter>
     </ClInclude>
@@ -143,12 +131,6 @@
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ANTLRInterface\CompilerSemanticInterface.cpp">
-      <Filter>ANTLRInterface</Filter>
-    </ClCompile>
-    <ClCompile Include="BMP\BitmapEx.cpp">
-      <Filter>BMP</Filter>
     </ClCompile>
     <ClCompile Include="ANTLRCompiler\MorphDSL3Lexer.cpp">
       <Filter>ANTLRCompiler</Filter>

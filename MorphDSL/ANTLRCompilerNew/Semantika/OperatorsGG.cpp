@@ -289,7 +289,7 @@ void MorphDSLSemantics::mappingDmpImpl(const Identifier* id1, const Identifier* 
     mappingDmpNoCheck(id1Str, id2->getText(), vectorIter->second);
 }
 
-void MorphDSLSemantics::mappingDapNoCheck(string id2Str, string id1Str, std::vector<double> vector) {
+void MorphDSLSemantics::mappingDapNoCheck(string id2Str, string id1Str, vector<double> vector) {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
@@ -322,7 +322,7 @@ void MorphDSLSemantics::mappingDapImpl(const Identifier* id1, const Identifier* 
     mappingDapNoCheck(id2->getText(), id1Str, vectorIter->second);
 }
 
-void MorphDSLSemantics::segmentationMsls1NoCheck(string id2Str, string id1Str, std::vector<double> vector) {
+void MorphDSLSemantics::segmentationMsls1NoCheck(string id2Str, string id1Str, vector<double> vector) {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
@@ -356,7 +356,7 @@ void MorphDSLSemantics::segmentationMsls1Impl(const Identifier* id1, const Ident
     segmentationMsls1NoCheck(id2->getText(), id1Str, vectorIter->second);
 }
 
-void MorphDSLSemantics::segmentationMsls2NoCheck(string id1Str, string id2Str, std::vector<double> vector) {
+void MorphDSLSemantics::segmentationMsls2NoCheck(string id1Str, string id2Str, vector<double> vector) {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 

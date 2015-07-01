@@ -19,7 +19,8 @@ namespace LPM_MorphDSL {
         CompilerSemanticInterface morphInterface;
         vector<vector<double>> img;
         map<string, vector<double>> vect;
-        map<string, Spremenljivka> imeSlikeZaSpremenljivko;
+        map<string, Spremenljivka*> imeSlikeZaSpremenljivko;
+        map<string, vector<Spremenljivka*>> tempSpremenljivke;
         string imeIzhodneSlike;
         string zadnjaSpremenljivka;
         string predZadnjaSpremenljivka;
@@ -31,8 +32,7 @@ namespace LPM_MorphDSL {
         string getImageNameFromId(Identifier* id);
         string getNewImageName(bool noExtension = false);
         string getNewImageNameWtf();
-
-        void variableToFileName(string spremenljivka, bool isTemp = false);
+        void variableToFileName(std::string spremenljivka, string kategorija);
 
         bool checkVariablesExist(string id1, string id2);
         bool checkVariableExist(string id);
@@ -40,9 +40,10 @@ namespace LPM_MorphDSL {
         bool checkVariablesExist(const Identifier* id1, const Identifier* id2);
         bool checkVariableExist(const Identifier* id1);
 
-        Spremenljivka getVariableFromId(string id);
+        Spremenljivka* getVariableFromId(string id);
 
-        string initInternalVariable(string spremenljivka);
+        string initInternalVariable(string spremenljivka, std::string kategorija);
+        void clearTempVariablesCategory(string kategorija);
 
 #pragma region NO CHECK
 
