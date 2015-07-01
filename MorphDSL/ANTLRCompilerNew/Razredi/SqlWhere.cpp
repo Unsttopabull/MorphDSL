@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "SqlWhere.h"
 
+using namespace LPM_MorphDSL;
 
 SqlWhere::SqlWhere() {
     init();

@@ -28,86 +28,86 @@ namespace LPM_MorphDSL {
         int tempCnt;
 
         //Util
-        string getImageNameFromId(string id, SubIdentifier subId = NONE);
-        string getImageNameFromId(Identifier* id);
-        string getNewImageName(bool noExtension = false);
-        string getNewImageNameWtf();
-        void variableToFileName(std::string spremenljivka, string kategorija);
+        string getImageNameFromId(const string& id, SubIdentifier subId = NONE) const;
+        string getImageNameFromId(const Identifier& id) const;
+        string getLastVariableImageName(bool noExtension = false) const;
+        string getLastVariableImageNameWtf() const;
+        void variableToFileName(const string& spremenljivka, const string& kategorija);
 
-        bool checkVariablesExist(string id1, string id2);
-        bool checkVariableExist(string id);
+        bool checkVariablesExist(const string& id1, const string& id2) const;
+        bool checkVariableExist(const string& id) const;
 
-        bool checkVariablesExist(const Identifier* id1, const Identifier* id2);
-        bool checkVariableExist(const Identifier* id1);
+        bool checkVariablesExist(const Identifier& id1, const Identifier& id2) const;
+        bool checkVariableExist(const Identifier& id1) const;
 
-        Spremenljivka* getVariableFromId(string id);
+        Spremenljivka* getVariableFromId(const string& id) const;
 
-        string initInternalVariable(string spremenljivka, std::string kategorija);
-        void clearTempVariablesCategory(string kategorija);
+        string initInternalVariable(const string& spremenljivka, const string& kategorija);
+        void clearTempVariablesCategory(const string& kategorija);
 
 #pragma region NO CHECK
 
         //operators BB
-        void complementNoCheck(string idStr);
-        void unionNoCheck(string id1Str, string id2Str);
-        void intersectionNoCheck(string id1Str, string id2Str);
-        void withoutNoCheck(string id1Str, string id2Str);
-        void hitMissNoCheck(string id1Str, string id2Str);
-        void boundaryNoCheck(string idStr);
+        void complementNoCheck(const string& idStr);
+        void unionNoCheck(const string& id1Str, const string& id2Str);
+        void intersectionNoCheck(const string& id1Str, const string& id2Str);
+        void withoutNoCheck(const string& id1Str, const string& id2Str);
+        void hitMissNoCheck(const string& id1Str, const string& id2Str);
+        void boundaryNoCheck(const string& idStr);
 
         //operatorsGG
-        void negateNoCheck(string idStr);
-        void multiplyNoCheck(double num, string idStr);
-        void multiplyNoCheck(string id1Str, string id2Str);
-        void cropNoCheck(string id1Str, double lowBound, double highBound);
-        void subtractNoCheck(string id1Str, string id2Str);
-        void gradientInternalNoCheck(string id1Str);
-        void gradientExternalNoCheck(string id1Str);
-        void diferentialProfilesMorphologicalNoCheck(string id1Str, string id2Str, vector<double> vector);
-        void differentialProfilesAttributeNoCheck(string id1Str, string id2Str, vector<double> vector);
-        void mappingDapNoCheck(string id2Str, string id1Str, vector<double> vector);
-        void segmentationMsls1NoCheck(string id2Str, string id1Str, vector<double> vector);
-        void segmentationMsls2NoCheck(string id1Str, string id2Str, vector<double> vector);
-        void segmentatonWatershadeNoCheck(string idStr);
-        void segmentationWatershadeMarkerNoCheck(string id1Str, string id2Str);
+        void negateNoCheck(const string& idStr);
+        void multiplyNoCheck(const double num, const string& idStr);
+        void multiplyNoCheck(const string& id1Str, const string& id2Str);
+        void cropNoCheck(const string& id1Str, const double lowBound, double highBound);
+        void subtractNoCheck(const string& id1Str, const string& id2Str);
+        void gradientInternalNoCheck(const string& id1Str);
+        void gradientExternalNoCheck(const string& id1Str);
+        void diferentialProfilesMorphologicalNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector);
+        void differentialProfilesAttributeNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector);
+        void mappingDapNoCheck(const string& id2Str, const string& id1Str, const vector<double>& vector);
+        void segmentationMsls1NoCheck(const string& id2Str, const string& id1Str, const vector<double>& vector);
+        void segmentationMsls2NoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector);
+        void segmentatonWatershadeNoCheck(const string& idStr);
+        void segmentationWatershadeMarkerNoCheck(const string& id1Str, const string& id2Str);
 
         //operatorsBOX
-        void erodeBoxNoCheck(double number, string idStr);
-        void dilateBoxNoCheck(double number, string idStr);
-        void openBoxNoCheck(double number, string idStr);
-        void closeBoxNoCheck(double number, string idStr);
+        void erodeBoxNoCheck(const double number, const string& idStr);
+        void dilateBoxNoCheck(const double number, const string& idStr);
+        void openBoxNoCheck(const double number, const string& idStr);
+        void closeBoxNoCheck(const double number, const string& idStr);
 
         //operatorsRECONSTRUCTION
-        void erodeNoCheck(string id1Str, string id2Str);
-        void dilateNoCheck(string id1Str, string id2Str);
-        void openNoCheck(double number, string idStr);
-        void closeNoCheck(double number, string idStr);
+        void erodeNoCheck(const string& id1Str, const string& id2Str);
+        void dilateNoCheck(const string& id1Str, const string& id2Str);
+        void openNoCheck(const double number, const string& idStr);
+        void closeNoCheck(const double number, const string& idStr);
 
         //operatorsAREA
-        void openAreaNoCheck(double number, string id);
-        void closeAreaNoCheck(double number, string id);
+        void openAreaNoCheck(const double number, const string& id);
+        void closeAreaNoCheck(const double number, const string& id);
 
         //operatorsATTRIBUTE
-        void openAttributeNoCheck(string attribute, double number, string id2);
-        void closeAttributeNoCheck(string attribute, double number, string id2);
+        void openAttributeNoCheck(const string& attribute, const double number, const string& id2);
+        void closeAttributeNoCheck(const string& attribute, const double number, const string& id2);
 
         //operatorsBG
-        void distanceTransformNoCheck(string idStr);
+        void distanceTransformNoCheck(const string& idStr);
 
         //operatorsGB
-        void tresholdImplNoCheck(double number, string id);
+        void tresholdImplNoCheck(const double number, const string& id);
 
 #pragma endregion 
 
     public:
         explicit MorphDSLSemantics(MorphDSLParser* p);
 
-        void setZadnjaSpremenljivka(string spr) {
+        void setZadnjaSpremenljivka(const string& spr) {
             predZadnjaSpremenljivka = zadnjaSpremenljivka;
             zadnjaSpremenljivka = spr;
         }
 
-        string getZadnjaSpremenljivka() {
+        string getZadnjaSpremenljivka() const {
             return zadnjaSpremenljivka;
         }
 
@@ -116,66 +116,66 @@ namespace LPM_MorphDSL {
         }
 
         void loadImpl(string id2, string currentFigure);
-        void initNovaSpremenljivka(string novaSpr);
+        void initNovaSpremenljivka(const string& novaSpr);
 
 #pragma region Implementacije
 
         //operatorsBB
-        void complementImpl(const Identifier* id);
-        void unionImpl(const Identifier* id1, const Identifier* id2);
-        void intersectionImpl(const Identifier* id1, const Identifier* id2);
-        void withoutImpl(const Identifier* id1, const Identifier* id2);
-        void hitMissImpl(const Identifier* id1, const Identifier* id2);
-        void boundaryImpl(const Identifier* id);
+        void complementImpl(const Identifier& id);
+        void unionImpl(const Identifier& id1, const Identifier& id2);
+        void intersectionImpl(const Identifier& id1, const Identifier& id2);
+        void withoutImpl(const Identifier& id1, const Identifier& id2);
+        void hitMissImpl(const Identifier& id1, const Identifier& id2);
+        void boundaryImpl(const Identifier& id);
 
         //operatorsGG
-        void negateImpl(const Identifier* id);
+        void negateImpl(const Identifier& id);
         void normalizeImpl();
-        void multiplyImpl(const Identifier* id, double num);
-        void multiplyImpl(double num, const Identifier* id);
-        void multiplyImpl(const Identifier* id1, const Identifier* id2);
-        void cropImpl(const Identifier* id, double lowBound, double highBound);
-        void subtractImpl(const Identifier* id1, const Identifier* id2);
-        void gradientInternalImpl(const Identifier* id);
-        void gradientExternalImpl(const Identifier* id);
-        void diferentialProfilesMorphologicalImpl(const Identifier* id1, const Identifier* id2);
-        void diferentialProfilesAttributeImpl(const Identifier* id1, const Identifier* id2);
-        void mappingDmpNoCheck(string id1Str, string id2Str, vector<double> vector);
-        void mappingDmpImpl(const Identifier* id1, const Identifier* id2);
-        void mappingDapImpl(const Identifier* id1, const Identifier* id2);
-        void segmentationMsls1Impl(const Identifier* id1, const Identifier* id2);
-        void segmentationMsls2Impl(const Identifier* id1, const Identifier* id2);
-        void segmentationWatershadeImpl(const Identifier* id1);
-        void segmentationWatershadeMarkerImpl(const Identifier* id1, const Identifier* id2);
+        void multiplyImpl(const Identifier& id, double num);
+        void multiplyImpl(double num, const Identifier& id);
+        void multiplyImpl(const Identifier& id1, const Identifier& id2);
+        void cropImpl(const Identifier& id, double lowBound, double highBound);
+        void subtractImpl(const Identifier& id1, const Identifier& id2);
+        void gradientInternalImpl(const Identifier& id);
+        void gradientExternalImpl(const Identifier& id);
+        void diferentialProfilesMorphologicalImpl(const Identifier& id1, const Identifier& id2);
+        void diferentialProfilesAttributeImpl(const Identifier& id1, const Identifier& id2);
+        void mappingDmpNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector);
+        void mappingDmpImpl(const Identifier& id1, const Identifier& id2);
+        void mappingDapImpl(const Identifier& id1, const Identifier& id2);
+        void segmentationMsls1Impl(const Identifier& id1, const Identifier& id2);
+        void segmentationMsls2Impl(const Identifier& id1, const Identifier& id2);
+        void segmentationWatershadeImpl(const Identifier& id1);
+        void segmentationWatershadeMarkerImpl(const Identifier& id1, const Identifier& id2);
 
         //operatorsBOX
-        void erodeBoxImpl(double number, const Identifier* id);
-        void dilateBoxImpl(double number, const Identifier* id);
-        void openBoxImpl(double number, const Identifier* id);
-        void closeBoxImpl(double number, const Identifier* id);
+        void erodeBoxImpl(const double number, const Identifier& id);
+        void dilateBoxImpl(const double number, const Identifier& id);
+        void openBoxImpl(const double number, const Identifier& id);
+        void closeBoxImpl(const double number, const Identifier& id);
 
         //operatorsRECONSTRUCTION
-        void erodeImpl(const Identifier* id1, const Identifier* id2);
-        void dilateImpl(const Identifier* id1, const Identifier* id2);
-        void openImpl(double number, const Identifier* id);
-        void closeImpl(double number, const Identifier* id);
+        void erodeImpl(const Identifier& id1, const Identifier& id2);
+        void dilateImpl(const Identifier& id1, const Identifier& id2);
+        void openImpl(const double number, const Identifier& id);
+        void closeImpl(const double number, const Identifier& id);
 
         //operatorsAREA
-        void openArea(double number, const Identifier* id);
-        void closeArea(double number, const Identifier* id);
+        void openArea(const double number, const Identifier& id);
+        void closeArea(const double number, const Identifier& id);
 
         //operatorsATTRIBUTE
-        void openAttribute(const string attributeName, double number, const Identifier* id2);
-        void closeAttribute(const string attributeName, double number, const Identifier* id2);
+        void openAttribute(const string& attributeName, const double number, const Identifier& id2);
+        void closeAttribute(const string& attributeName, const double number, const Identifier& id2);
 
         //operatorsBG
-        void distanceTransformImpl(const Identifier* id);
+        void distanceTransformImpl(const Identifier& id);
 
         //operatorsGB
-        void tresholdImpl(double number, const Identifier* id);
+        void tresholdImpl(const double number, const Identifier& id);
 
         //sql
-        void sqlImpl(Sql* sql, string spremenljivka);
+        void sqlImpl(Sql* sql, const string& spremenljivka);
 
 #pragma endregion 
     };

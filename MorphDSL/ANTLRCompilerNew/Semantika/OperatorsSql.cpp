@@ -5,7 +5,7 @@ using namespace LPM_MorphDSL;
 using namespace std;
 
 
-void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
+void MorphDSLSemantics::sqlImpl(Sql* sql, const string& spremenljivka) {
 
     cout << endl;
     cout << "keyword" << endl;
@@ -174,14 +174,12 @@ void MorphDSLSemantics::sqlImpl(Sql* sql, string spremenljivka) {
                 return;
         }
 
-
         imeSlikeZaSpremenljivko[spremenljivka] = s;
 
         cout << "\t\t\t" << spremenljivka << " = " << last << endl;
     }
 
     clearTempVariablesCategory("sql");
-
 
     //auto keywords = sql->getUporabljeneKeyworde();
     //for (auto i = 0; i < keywords.size(); i++) {

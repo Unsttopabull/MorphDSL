@@ -12,6 +12,10 @@ namespace LPM_MorphDSL {
 
     class Identifier {
     public:
+
+        Identifier() {
+        }
+
         Identifier(const ParserToken* token, SubIdentifier subId) {
             this->token = token;
             this->subId = subId;

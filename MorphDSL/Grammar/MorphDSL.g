@@ -293,35 +293,35 @@ relOp returns [RelOp::RelacijskiOperatorji relOperator]
 	;
 
 operatorsBB : 
-	( 'complement' '(' cId=var ')' {	s->complementImpl($cId.id); }
-	| 'union' '(' uId1=var ',' uId2=var ')' { s->unionImpl($uId1.id, $uId2.id); }
-	| 'intersection' '(' iId1=var ',' iId2=var ')' { s->intersectionImpl($iId1.id, $iId2.id); }
-	| 'without' '(' wId1=var ',' wId2=var ')' { s->withoutImpl($wId1.id, $wId2.id); }
-	| 'hitmiss' '(' hId1=var ',' hId2=var ')' { s->hitMissImpl($hId1.id, $hId2.id); }
-	| 'boundary' '(' bId=var ')' { s->boundaryImpl($bId.id); }
+	( 'complement' '(' cId=var ')' {	s->complementImpl(*$cId.id); }
+	| 'union' '(' uId1=var ',' uId2=var ')' { s->unionImpl(*$uId1.id, *$uId2.id); }
+	| 'intersection' '(' iId1=var ',' iId2=var ')' { s->intersectionImpl(*$iId1.id, *$iId2.id); }
+	| 'without' '(' wId1=var ',' wId2=var ')' { s->withoutImpl(*$wId1.id, *$wId2.id); }
+	| 'hitmiss' '(' hId1=var ',' hId2=var ')' { s->hitMissImpl(*$hId1.id, *$hId2.id); }
+	| 'boundary' '(' bId=var ')' { s->boundaryImpl(*$bId.id); }
 	);
 	
 operatorsGG : 
-	( 'negate' '(' nId=var ')' { s->negateImpl($nId.id); }
+	( 'negate' '(' nId=var ')' { s->negateImpl(*$nId.id); }
 	| 'normalize' { s->normalizeImpl(); }
-	| 'multiply' '(' mId=var ',' mDbl=DOUBLENUMBER ')' { s->multiplyImpl($mId.id, toDouble($mDbl)); }
-	| 'multiply' '(' mDbl2=DOUBLENUMBER ',' mId2=var ')'{ s->multiplyImpl(toDouble($mDbl2), $mId2.id); }
-	| 'multiply' '(' mId3=var ',' mId4=var ')' { s->multiplyImpl($mId3.id, $mId4.id); }
-	| 'crop' '(' cId=var ',' interval ')' { s->cropImpl($cId.id, $interval.start, $interval.stop); }
-	| 'subtract' '(' sId1=var ',' sId2=var ')' { s->subtractImpl($sId1.id, $sId2.id); }
-	| 'gradient' '(' 'INTERNAL' ',' giId=var ')' { s->gradientInternalImpl($giId.id); }
-	| 'gradient' '(' 'EXTERNAL' ',' geId=var ')' { s->gradientExternalImpl($geId.id); }
-	| 'diferentialProfiles' '(' 'MORPHOLOGICAL' ',' dpmId1=var ',' dpmId2=var ')' { s->diferentialProfilesMorphologicalImpl($dpmId1.id, $dpmId2.id); }
-	| 'diferentialProfiles' '(' 'ATTRIBUTE' ',' dpaId1=var ',' dpaId2=var ')' { s->diferentialProfilesAttributeImpl($dpaId1.id, $dpaId2.id); }
+	| 'multiply' '(' mId=var ',' mDbl=DOUBLENUMBER ')' { s->multiplyImpl(*$mId.id, toDouble($mDbl)); }
+	| 'multiply' '(' mDbl2=DOUBLENUMBER ',' mId2=var ')'{ s->multiplyImpl(toDouble($mDbl2), *$mId2.id); }
+	| 'multiply' '(' mId3=var ',' mId4=var ')' { s->multiplyImpl(*$mId3.id, *$mId4.id); }
+	| 'crop' '(' cId=var ',' interval ')' { s->cropImpl(*$cId.id, $interval.start, $interval.stop); }
+	| 'subtract' '(' sId1=var ',' sId2=var ')' { s->subtractImpl(*$sId1.id, *$sId2.id); }
+	| 'gradient' '(' 'INTERNAL' ',' giId=var ')' { s->gradientInternalImpl(*$giId.id); }
+	| 'gradient' '(' 'EXTERNAL' ',' geId=var ')' { s->gradientExternalImpl(*$geId.id); }
+	| 'diferentialProfiles' '(' 'MORPHOLOGICAL' ',' dpmId1=var ',' dpmId2=var ')' { s->diferentialProfilesMorphologicalImpl(*$dpmId1.id, *$dpmId2.id); }
+	| 'diferentialProfiles' '(' 'ATTRIBUTE' ',' dpaId1=var ',' dpaId2=var ')' { s->diferentialProfilesAttributeImpl(*$dpaId1.id, *$dpaId2.id); }
 	| 'mapping' '(' 'DMP' ',' dmpId1=var ',' dmpId2=var /*',' dmpId3=ID */ ')'  { }
 	| 'mapping' '(' 'DAP' ',' dapId1=var ',' dapId2=var /*',' dapId3=ID */ ')'  { }
-	| 'segmentation' '(' 'MSLS' ',' msls_1_Id1=var ',' msls_1_Id2=var ')' { s->segmentationMsls1Impl($msls_1_Id1.id, $msls_1_Id2.id); }
-	| 'segmentation' '(' 'MSLS' ',' msls_2_Id1=var ',' msls_2_Id2=var ')' { s->segmentationMsls2Impl($msls_2_Id1.id, $msls_2_Id2.id); }
-	| 'segmentation' '(' 'WATHERSHADE' ',' watershadeId=var ')' { s->segmentationWatershadeImpl($watershadeId.id); }
+	| 'segmentation' '(' 'MSLS' ',' msls_1_Id1=var ',' msls_1_Id2=var ')' { s->segmentationMsls1Impl(*$msls_1_Id1.id, *$msls_1_Id2.id); }
+	| 'segmentation' '(' 'MSLS' ',' msls_2_Id1=var ',' msls_2_Id2=var ')' { s->segmentationMsls2Impl(*$msls_2_Id1.id, *$msls_2_Id2.id); }
+	| 'segmentation' '(' 'WATHERSHADE' ',' watershadeId=var ')' { s->segmentationWatershadeImpl(*$watershadeId.id); }
 	/*Spremenjeno v kodi, odstranjen marker in dodan še en ID
 	| 'segmentation' '(' 'WATHERSHADE' ',' marker ',' watershadeMarkerId=ID ')' )
 	*/
-	| ('segmentation' '(' 'WATHERSHADE' ',' watershadeMarkerId2=var ',' watershadeMarkerId1=var ')' ) { s->segmentationWatershadeMarkerImpl($watershadeMarkerId1.id, $watershadeMarkerId2.id); })
+	| ('segmentation' '(' 'WATHERSHADE' ',' watershadeMarkerId2=var ',' watershadeMarkerId1=var ')' ) { s->segmentationWatershadeMarkerImpl(*$watershadeMarkerId1.id, *$watershadeMarkerId2.id); })
 	;
 	
 interval returns[double start, double stop]
@@ -341,37 +341,37 @@ operatorsBBGG :
 	;
 	
 operatorsBOX : 
-	( 'erode' '(' 'BOX' '(' eNum=DOUBLENUMBER ')' ',' eId=var ')'  { s->erodeBoxImpl(toDouble($eNum), $eId.id); }
-	| 'dilate' '(' 'BOX' '(' dNum=DOUBLENUMBER ')' ',' dId=var ')' { s->dilateBoxImpl(toDouble($dNum), $dId.id); }
-	| 'open' '(' 'BOX' '(' oNum=DOUBLENUMBER ')' ',' oId=var ')'   { s->openBoxImpl(toDouble($oNum), $oId.id); }
-	| 'close' '(' 'BOX' '(' cNum=DOUBLENUMBER ')' ',' cId=var ')'  { s->closeBoxImpl(toDouble($cNum), $cId.id); }
+	( 'erode' '(' 'BOX' '(' eNum=DOUBLENUMBER ')' ',' eId=var ')'  { s->erodeBoxImpl(toDouble($eNum), *$eId.id); }
+	| 'dilate' '(' 'BOX' '(' dNum=DOUBLENUMBER ')' ',' dId=var ')' { s->dilateBoxImpl(toDouble($dNum), *$dId.id); }
+	| 'open' '(' 'BOX' '(' oNum=DOUBLENUMBER ')' ',' oId=var ')'   { s->openBoxImpl(toDouble($oNum), *$oId.id); }
+	| 'close' '(' 'BOX' '(' cNum=DOUBLENUMBER ')' ',' cId=var ')'  { s->closeBoxImpl(toDouble($cNum), *$cId.id); }
 	)
 	;	
 	
 operatorsRECONSTRUCTION : 
     //'erode' '(' 'RECONSTRUCTION' ',' marker ',' ID ')' //sprememba v kodi 'marker' zamenjan z še enim ID-jem
-	  'erode' '(' 'RECONSTRUCTION' ',' eId2=var ',' eId1=var ')' { s->erodeImpl($eId1.id, $eId2.id); }
+	  'erode' '(' 'RECONSTRUCTION' ',' eId2=var ',' eId1=var ')' { s->erodeImpl(*$eId1.id, *$eId2.id); }
 	//'dilate' '(' 'RECONSTRUCTION' ',' marker ',' ID ')' //sprememba v kodi 'marker' zamenjan z še enim ID-jem
-	| 'dilate' '(' 'RECONSTRUCTION' ',' dId2=var ',' dId1=var ')' { s->dilateImpl($dId1.id, $dId2.id); }
-	| 'open' '(' 'RECONSTRUCTION' ',' 'BOX' '(' oDbl=DOUBLENUMBER ')' ',' oId=var ')'  { s->openImpl(toDouble($oDbl), $oId.id); }
-	| 'close' '(' 'RECONSTRUCTION' ',' 'BOX' '(' cDbl=DOUBLENUMBER ')' ',' cId=var ')' { s->closeImpl(toDouble($cDbl), $cId.id); }
+	| 'dilate' '(' 'RECONSTRUCTION' ',' dId2=var ',' dId1=var ')' { s->dilateImpl(*$dId1.id, *$dId2.id); }
+	| 'open' '(' 'RECONSTRUCTION' ',' 'BOX' '(' oDbl=DOUBLENUMBER ')' ',' oId=var ')'  { s->openImpl(toDouble($oDbl), *$oId.id); }
+	| 'close' '(' 'RECONSTRUCTION' ',' 'BOX' '(' cDbl=DOUBLENUMBER ')' ',' cId=var ')' { s->closeImpl(toDouble($cDbl), *$cId.id); }
 	;	
 	
 operatorsAREA : 
-	( 'open' '(' 'AREA' ',' oDbl=DOUBLENUMBER ',' oId=var ')'  { s->openArea(toDouble($oDbl), $oId.id); }
-	| 'close' '(' 'AREA' ',' cDbl=DOUBLENUMBER ',' cId=var ')' { s->closeArea(toDouble($cDbl), $cId.id); }
+	( 'open' '(' 'AREA' ',' oDbl=DOUBLENUMBER ',' oId=var ')'  { s->openArea(toDouble($oDbl), *$oId.id); }
+	| 'close' '(' 'AREA' ',' cDbl=DOUBLENUMBER ',' cId=var ')' { s->closeArea(toDouble($cDbl), *$cId.id); }
 	)
 	;
 
 operatorsATTRIBUTE : 
-	( 'open' '(' attr1=ID ',' oDbl=DOUBLENUMBER ',' oId2=var ')'  { s->openAttribute($attr1.text, toDouble($oDbl), $oId2.id); }
-	| 'close' '(' attr2=ID ',' cDbl=DOUBLENUMBER ',' cId2=var ')' { s->closeAttribute($attr2.text, toDouble($cDbl), $cId2.id); }
+	( 'open' '(' attr1=ID ',' oDbl=DOUBLENUMBER ',' oId2=var ')'  { s->openAttribute($attr1.text, toDouble($oDbl), *$oId2.id); }
+	| 'close' '(' attr2=ID ',' cDbl=DOUBLENUMBER ',' cId2=var ')' { s->closeAttribute($attr2.text, toDouble($cDbl), *$cId2.id); }
 	)
 	;
 	
-operatorsBG : 'distanceTransform' '(' var ')' { s->distanceTransformImpl($var.id); };
+operatorsBG : 'distanceTransform' '(' var ')' { s->distanceTransformImpl(*$var.id); };
 
-operatorsGB : 'treshold' '(' DOUBLENUMBER ',' var ')' { s->tresholdImpl(toDouble($DOUBLENUMBER), $var.id); };
+operatorsGB : 'treshold' '(' DOUBLENUMBER ',' var ')' { s->tresholdImpl(toDouble($DOUBLENUMBER), *$var.id); };
 
 marker : 
 	( ID 

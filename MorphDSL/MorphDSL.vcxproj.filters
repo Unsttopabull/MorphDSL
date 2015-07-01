@@ -83,6 +83,7 @@
     <None Include="DSLPrograms\PrimeriDSLjev.txt">
       <Filter>DSLPrograms</Filter>
     </None>
+    <None Include="DSLPrograms\MorphSQL2_transform.dsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

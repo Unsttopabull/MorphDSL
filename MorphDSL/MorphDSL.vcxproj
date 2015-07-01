@@ -91,6 +91,7 @@
     <None Include="DSLPrograms\Morph9.dsl" />
     <None Include="DSLPrograms\MorphSQL.dsl" />
     <None Include="DSLPrograms\MorphSQL2.dsl" />
+    <None Include="DSLPrograms\MorphSQL2_transform.dsl" />
     <None Include="DSLPrograms\MorphSQL_transform.dsl" />
     <None Include="DSLPrograms\MorphTest.dsl" />
     <None Include="DSLPrograms\PrimeriDSLjev.txt" />

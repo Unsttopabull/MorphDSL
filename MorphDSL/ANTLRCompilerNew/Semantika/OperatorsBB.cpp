@@ -4,141 +4,141 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::complementNoCheck(string idStr) {
+void MorphDSLSemantics::complementNoCheck(const string& idStr) {
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.complement(fLast, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::complementImpl(const Identifier* id) {
+void MorphDSLSemantics::complementImpl(const Identifier& id) {
     cout << "COMPLEMENT" << endl;
 
     if (!checkVariableExist(id)) {
         return;
     }
 
-    complementNoCheck(id->getText());
+    complementNoCheck(id.getText());
 }
 
-void MorphDSLSemantics::unionNoCheck(string id1Str, string id2Str) {
+void MorphDSLSemantics::unionNoCheck(const string& id1Str, const string& id2Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id2Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.unionBB(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::unionImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::unionImpl(const Identifier& id1, const Identifier& id2) {
     cout << "UNION" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    unionNoCheck(id1->getText(), id2->getText());
+    unionNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::intersectionNoCheck(string id1Str, string id2Str) {
+void MorphDSLSemantics::intersectionNoCheck(const string& id1Str, const string& id2Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id2Str);
     cout << "<--  " << fLast << endl;
 
-    std::string fNew = getNewImageName();
+    std::string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.intersection(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::intersectionImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::intersectionImpl(const Identifier& id1, const Identifier& id2) {
     cout << "INTERSECTION" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    intersectionNoCheck(id1->getText(), id2->getText());
+    intersectionNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::withoutNoCheck(string id1Str, string id2Str) {
+void MorphDSLSemantics::withoutNoCheck(const string& id1Str, const string& id2Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id2Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.without(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::withoutImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::withoutImpl(const Identifier& id1, const Identifier& id2) {
     cout << "WITHOUT" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    withoutNoCheck(id1->getText(), id2->getText());
+    withoutNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::hitMissNoCheck(string id1Str, string id2Str) {
+void MorphDSLSemantics::hitMissNoCheck(const string& id1Str, const string& id2Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id2Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.hitmiss(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::hitMissImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::hitMissImpl(const Identifier& id1, const Identifier& id2) {
     cout << "HITMISS" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    hitMissNoCheck(id1->getText(), id2->getText());
+    hitMissNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::boundaryNoCheck(string idStr) {
+void MorphDSLSemantics::boundaryNoCheck(const string& idStr) {
     string fFirst = getImageNameFromId(idStr);
     cout << "<--  " << fFirst << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.boundary(fFirst, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::boundaryImpl(const Identifier* id1) {
+void MorphDSLSemantics::boundaryImpl(const Identifier& id1) {
     cout << "BOUNDARY" << endl;
 
     if (!checkVariableExist(id1)) {
         return;
     }
 
-    boundaryNoCheck(id1->getText());
+    boundaryNoCheck(id1.getText());
 }
 

@@ -23,7 +23,7 @@ void MorphDSLSemantics::loadImpl(string imeSlike, string imeSpremenljivke) {
 
     initNovaSpremenljivka(zadnjaSpremenljivka);
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     cout << "---END" << endl;

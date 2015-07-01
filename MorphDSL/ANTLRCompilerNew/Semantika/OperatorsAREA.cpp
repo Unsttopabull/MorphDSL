@@ -4,13 +4,13 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::openAreaNoCheck(double number, string id) {
+void MorphDSLSemantics::openAreaNoCheck(const double number, const string& id) {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
@@ -21,31 +21,31 @@ void MorphDSLSemantics::openAreaNoCheck(double number, string id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::openArea(double number, const Identifier* id) {
+void MorphDSLSemantics::openArea(const double number, const Identifier& id) {
     cout << "OPENAREA" << endl;
 
     if (!checkVariableExist(id)) {
         return;
     }
 
-    openAreaNoCheck(number, id->getText());
+    openAreaNoCheck(number, id.getText());
 }
 
-void MorphDSLSemantics::closeAreaNoCheck(double number, string id) {
+void MorphDSLSemantics::closeAreaNoCheck(const double number, const string& id) {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.closeAREA(number, fLast, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::closeArea(double number, const Identifier* id) {
+void MorphDSLSemantics::closeArea(const double number, const Identifier& id) {
     cout << "CLOSEAREA" << endl;
 
-    closeAreaNoCheck(number, id->getText());
+    closeAreaNoCheck(number, id.getText());
 }

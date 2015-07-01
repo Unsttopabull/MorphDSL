@@ -4,13 +4,13 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::openAttributeNoCheck(string attribute, double number, string id2) {
+void MorphDSLSemantics::openAttributeNoCheck(const string& attribute, const double number, const string& id2) {
     cout << "<--  " << attribute << endl;
 
     string fLast = getImageNameFromId(id2);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
@@ -19,10 +19,10 @@ void MorphDSLSemantics::openAttributeNoCheck(string attribute, double number, st
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::openAttribute(const string attributeName, double number, const Identifier* id2) {
+void MorphDSLSemantics::openAttribute(const string& attributeName, const double number, const Identifier& id2) {
     cout << "OPEN - ATTRIBUTE" << endl;
 
-    string id2Str = id2->getText();
+    string id2Str = id2.getText();
     if (!checkVariableExist(id2Str)) {
         return;
     }
@@ -30,13 +30,13 @@ void MorphDSLSemantics::openAttribute(const string attributeName, double number,
     openAttributeNoCheck(attributeName, number, id2Str);
 }
 
-void MorphDSLSemantics::closeAttributeNoCheck(string attribute, double number, string id2) {
+void MorphDSLSemantics::closeAttributeNoCheck(const string& attribute, const double number, const string& id2) {
     cout << "<--  " << attribute << endl;
 
     string fLast = getImageNameFromId(id2);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
@@ -45,10 +45,10 @@ void MorphDSLSemantics::closeAttributeNoCheck(string attribute, double number, s
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::closeAttribute(const string attributeName, double number, const Identifier* id2) {
+void MorphDSLSemantics::closeAttribute(const string& attributeName, const double number, const Identifier& id2) {
     cout << "CLOSE - ATTRIBUTE" << endl;
 
-    string id2Str = id2->getText();
+    string id2Str = id2.getText();
     if (!checkVariableExist(id2Str)) {
         return;
     }

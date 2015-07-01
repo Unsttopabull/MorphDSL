@@ -4,11 +4,11 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::negateNoCheck(string idStr) {
+void MorphDSLSemantics::negateNoCheck(const string& idStr) {
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     // morphInterface.negate("maribor1.bmp", "maribor2.bmp");
@@ -17,14 +17,14 @@ void MorphDSLSemantics::negateNoCheck(string idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::negateImpl(const Identifier* id) {
+void MorphDSLSemantics::negateImpl(const Identifier& id) {
     cout << "NEGATE" << endl;
 
     if (!checkVariableExist(id)) {
         return;
     }
 
-    negateNoCheck(id->getText());
+    negateNoCheck(id.getText());
 }
 
 void MorphDSLSemantics::normalizeImpl() {
@@ -34,7 +34,7 @@ void MorphDSLSemantics::normalizeImpl() {
 
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
@@ -44,88 +44,88 @@ void MorphDSLSemantics::normalizeImpl() {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::multiplyNoCheck(double num, string idStr) {
+void MorphDSLSemantics::multiplyNoCheck(double num, const string& idStr) {
     cout << "<--  " << num << endl;
 
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.multiply(fLast, num, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::multiplyImpl(const Identifier* id, double num) {
+void MorphDSLSemantics::multiplyImpl(const Identifier& id, double num) {
     cout << "MULTIPLY" << endl;
 
     if (!checkVariableExist(id)) {
         return;
     }
 
-    multiplyNoCheck(num, id->getText());
+    multiplyNoCheck(num, id.getText());
 }
 
-void MorphDSLSemantics::multiplyImpl(double num, const Identifier* id) {
+void MorphDSLSemantics::multiplyImpl(double num, const Identifier& id) {
     multiplyImpl(id, num);
 }
 
-void MorphDSLSemantics::multiplyNoCheck(string id1Str, string id2Str) {
+void MorphDSLSemantics::multiplyNoCheck(const string& id1Str, const string& id2Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id2Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.multiply(fFirst, fLast, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::multiplyImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::multiplyImpl(const Identifier& id1, const Identifier& id2) {
     cout << "MULTYPLY" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    multiplyNoCheck(id1->getText(), id2->getText());
+    multiplyNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::cropNoCheck(string id1Str, double lowBound, double highBound) {
+void MorphDSLSemantics::cropNoCheck(const string& id1Str, double lowBound, double highBound) {
     string fLast = getImageNameFromId(id1Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     morphInterface.crop(fLast, lowBound, highBound, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::cropImpl(const Identifier* id, double lowBound, double highBound) {
+void MorphDSLSemantics::cropImpl(const Identifier& id, double lowBound, double highBound) {
     cout << "CROP" << endl;
 
     if (!checkVariableExist(id)) {
         return;
     }
 
-    string id1Str = id->getText();
+    string id1Str = id.getText();
 
     cropNoCheck(id1Str, lowBound, highBound);
 }
 
-void MorphDSLSemantics::subtractNoCheck(string id1Str, string id2Str) {
+void MorphDSLSemantics::subtractNoCheck(const string& id1Str, const string& id2Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id2Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
@@ -134,21 +134,21 @@ void MorphDSLSemantics::subtractNoCheck(string id1Str, string id2Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::subtractImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::subtractImpl(const Identifier& id1, const Identifier& id2) {
     cout << "SUBTRACT" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    subtractNoCheck(id1->getText(), id2->getText());
+    subtractNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::gradientInternalNoCheck(string id1Str) {
+void MorphDSLSemantics::gradientInternalNoCheck(const string& id1Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
@@ -157,21 +157,21 @@ void MorphDSLSemantics::gradientInternalNoCheck(string id1Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::gradientInternalImpl(const Identifier* id) {
+void MorphDSLSemantics::gradientInternalImpl(const Identifier& id) {
     cout << "GRADIENT INTERNAL" << endl;
 
     if (!checkVariableExist(id)) {
         return;
     }
 
-    gradientInternalNoCheck(id->getText());
+    gradientInternalNoCheck(id.getText());
 }
 
-void MorphDSLSemantics::gradientExternalNoCheck(string id1Str) {
+void MorphDSLSemantics::gradientExternalNoCheck(const string& id1Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     //when 5 pics created
@@ -180,163 +180,163 @@ void MorphDSLSemantics::gradientExternalNoCheck(string id1Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::gradientExternalImpl(const Identifier* id) {
+void MorphDSLSemantics::gradientExternalImpl(const Identifier& id) {
     cout << "GRADIENT EXTERNAL" << endl;
 
     if (!checkVariableExist(id)) {
         return;
     }
 
-    string id1Str = id->getText();
+    string id1Str = id.getText();
 
     gradientExternalNoCheck(id1Str);
 }
 
-void MorphDSLSemantics::diferentialProfilesMorphologicalNoCheck(string id1Str, string id2Str, vector<double> vector) {
+void MorphDSLSemantics::diferentialProfilesMorphologicalNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id1Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName(true);
+    string fNew = getLastVariableImageName(true);
     cout << "-->  " << fNew << ".wtf" << endl;
 
     morphInterface.diferentialProfilesMORPHOLOGICAL(fFirst, vector, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::diferentialProfilesMorphologicalImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::diferentialProfilesMorphologicalImpl(const Identifier& id1, const Identifier& id2) {
     cout << "DIF. PROFILES - MORPHOLOGICAL" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    string id1Str = id1->getText();
+    string id1Str = id1.getText();
 
     auto vectorIter = vect.find(id1Str);
     if (vectorIter == vect.end()) {
-        cout << "ERROR: Spremenljivka '" << id1 << "' ni vektor." << endl;
+        cout << "ERROR: Spremenljivka '" << id1Str << "' ni vektor." << endl;
         return;
     }
 
-    diferentialProfilesMorphologicalNoCheck(id1Str, id2->getText(), vectorIter->second);
+    diferentialProfilesMorphologicalNoCheck(id1Str, id2.getText(), vectorIter->second);
 }
 
-void MorphDSLSemantics::differentialProfilesAttributeNoCheck(string id1Str, string id2Str, vector<double> vector) {
+void MorphDSLSemantics::differentialProfilesAttributeNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id1Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName(true);
+    string fNew = getLastVariableImageName(true);
     cout << "-->  " << fNew << ".wtf" << endl;
 
     morphInterface.diferentialProfilesATTRIBUTE(fFirst, vector, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::diferentialProfilesAttributeImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::diferentialProfilesAttributeImpl(const Identifier& id1, const Identifier& id2) {
     cout << "DIF. PROFILES - ATTRIBUTE" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    string id1Str = id1->getToken()->getText();
+    string id1Str = id1.getToken()->getText();
 
     auto vectorIter = vect.find(id1Str);
     if (vectorIter == vect.end()) {
-        cout << "ERROR: Spremenljivka '" << id1 << "' ni vektor." << endl;
+        cout << "ERROR: Spremenljivka '" << id1Str << "' ni vektor." << endl;
         return;
     }
 
-    differentialProfilesAttributeNoCheck(id1Str, id2->getText(), vectorIter->second);
+    differentialProfilesAttributeNoCheck(id1Str, id2.getText(), vectorIter->second);
 }
 
-void MorphDSLSemantics::mappingDmpNoCheck(string id1Str, string id2Str, vector<double> vector) {
+void MorphDSLSemantics::mappingDmpNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id1Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName(true);
+    string fNew = getLastVariableImageName(true);
     cout << "-->  " << fNew << ".wtf" << endl;
 
     morphInterface.mappingDMP(fFirst, vector, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::mappingDmpImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::mappingDmpImpl(const Identifier& id1, const Identifier& id2) {
     cout << "MAPPING - DMP" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    string id1Str = id1->getToken()->getText();
+    string id1Str = id1.getToken()->getText();
 
     auto vectorIter = vect.find(id1Str);
     if (vectorIter == vect.end()) {
-        cout << "ERROR: Spremenljivka '" << id1 << "' ni vektor." << endl;
+        cout << "ERROR: Spremenljivka '" << id1Str << "' ni vektor." << endl;
         parser->set_failedflag(true);
         return;
     }
 
-    mappingDmpNoCheck(id1Str, id2->getText(), vectorIter->second);
+    mappingDmpNoCheck(id1Str, id2.getText(), vectorIter->second);
 }
 
-void MorphDSLSemantics::mappingDapNoCheck(string id2Str, string id1Str, vector<double> vector) {
+void MorphDSLSemantics::mappingDapNoCheck(const string& id2Str, const string& id1Str, const vector<double>& vector) {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id1Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName(true);
+    string fNew = getLastVariableImageName(true);
     cout << "-->  " << fNew << ".wtf" << endl;
 
     morphInterface.mappingDAP(fFirst, vector, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::mappingDapImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::mappingDapImpl(const Identifier& id1, const Identifier& id2) {
     cout << "MAPPING - DAP" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    string id1Str = id1->getText();
+    string id1Str = id1.getText();
 
     auto vectorIter = vect.find(id1Str);
     if (vectorIter == vect.end()) {
-        cout << "ERROR: Spremenljivka '" << id1 << "' ni vektor." << endl;
+        cout << "ERROR: Spremenljivka '" << id1Str << "' ni vektor." << endl;
         parser->set_failedflag(true);
         return;
     }
 
-    mappingDapNoCheck(id2->getText(), id1Str, vectorIter->second);
+    mappingDapNoCheck(id2.getText(), id1Str, vectorIter->second);
 }
 
-void MorphDSLSemantics::segmentationMsls1NoCheck(string id2Str, string id1Str, vector<double> vector) {
+void MorphDSLSemantics::segmentationMsls1NoCheck(const string& id2Str, const string& id1Str, const vector<double>& vector) {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id1Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName(true);
+    string fNew = getLastVariableImageName(true);
     cout << "-->  " << fNew << ".wtf" << endl;
 
     morphInterface.segmentationMSLS(fFirst, vector, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationMsls1Impl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::segmentationMsls1Impl(const Identifier& id1, const Identifier& id2) {
     cout << "SEGMENTATION - MSLS" << endl;
     cout << "MAPPING - DAP" << endl;
 
@@ -344,33 +344,33 @@ void MorphDSLSemantics::segmentationMsls1Impl(const Identifier* id1, const Ident
         return;
     }
 
-    string id1Str = id1->getText();
+    string id1Str = id1.getText();
 
     auto vectorIter = vect.find(id1Str);
     if (vectorIter == vect.end()) {
-        cout << "ERROR: Spremenljivka '" << id1 << "' ni vektor." << endl;
+        cout << "ERROR: Spremenljivka '" << id1Str << "' ni vektor." << endl;
         parser->set_failedflag(true);
         return;
     }
 
-    segmentationMsls1NoCheck(id2->getText(), id1Str, vectorIter->second);
+    segmentationMsls1NoCheck(id2.getText(), id1Str, vectorIter->second);
 }
 
-void MorphDSLSemantics::segmentationMsls2NoCheck(string id1Str, string id2Str, vector<double> vector) {
+void MorphDSLSemantics::segmentationMsls2NoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
     string fLast = getImageNameFromId(id1Str);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName(true);
+    string fNew = getLastVariableImageName(true);
     cout << "-->  " << fNew << ".wtf" << endl;
 
     morphInterface.segmentationMSLS(fFirst, vector, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationMsls2Impl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::segmentationMsls2Impl(const Identifier& id1, const Identifier& id2) {
     cout << "SEGMENTATION - MSLS" << endl;
     cout << "MAPPING - DAP" << endl;
 
@@ -378,44 +378,44 @@ void MorphDSLSemantics::segmentationMsls2Impl(const Identifier* id1, const Ident
         return;
     }
 
-    string id1Str = id1->getText();
+    string id1Str = id1.getText();
 
     auto vectorIter = vect.find(id1Str);
     if (vectorIter == vect.end()) {
-        cout << "ERROR: Spremenljivka '" << id1 << "' ni vektor." << endl;
+        cout << "ERROR: Spremenljivka '" << id1Str << "' ni vektor." << endl;
         parser->set_failedflag(true);
         return;
     }
 
-    segmentationMsls2NoCheck(id1Str, id2->getText(), vectorIter->second);
+    segmentationMsls2NoCheck(id1Str, id2.getText(), vectorIter->second);
 }
 
-void MorphDSLSemantics::segmentatonWatershadeNoCheck(string idStr) {
+void MorphDSLSemantics::segmentatonWatershadeNoCheck(const string& idStr) {
     string fFirst = getImageNameFromId(idStr);
     cout << "<--  " << fFirst << endl;
 
-    string fNew = getNewImageNameWtf();
+    string fNew = getLastVariableImageNameWtf();
     cout << "-->  " << fNew << endl;
 
     morphInterface.segmentationWATHERSHADE(fFirst, fNew);
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationWatershadeImpl(const Identifier* id) {
+void MorphDSLSemantics::segmentationWatershadeImpl(const Identifier& id) {
     cout << "SEGMENTATION - WATHERSHADE" << endl;
 
     if (!checkVariableExist(id)) {
         return;
     }
 
-    segmentatonWatershadeNoCheck(id->getText());
+    segmentatonWatershadeNoCheck(id.getText());
 }
 
-void MorphDSLSemantics::segmentationWatershadeMarkerNoCheck(string id1Str, string id2Str) {
+void MorphDSLSemantics::segmentationWatershadeMarkerNoCheck(const string& id1Str, const string& id2Str) {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
-    string fNew = getNewImageNameWtf();
+    string fNew = getLastVariableImageNameWtf();
     cout << "-->  " << fNew << endl;
 
     string m1 = getImageNameFromId(id2Str);
@@ -426,12 +426,12 @@ void MorphDSLSemantics::segmentationWatershadeMarkerNoCheck(string id1Str, strin
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationWatershadeMarkerImpl(const Identifier* id1, const Identifier* id2) {
+void MorphDSLSemantics::segmentationWatershadeMarkerImpl(const Identifier& id1, const Identifier& id2) {
     cout << "SEGMENTATION - WATHERSHADE MARKER" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
         return;
     }
 
-    segmentationWatershadeMarkerNoCheck(id1->getText(), id2->getText());
+    segmentationWatershadeMarkerNoCheck(id1.getText(), id2.getText());
 }

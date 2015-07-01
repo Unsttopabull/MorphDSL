@@ -4,71 +4,74 @@
 using namespace RelOp;
 using namespace std;
 
-class SqlWhere {
+namespace LPM_MorphDSL {
 
-public:
+    class SqlWhere {
 
-    enum Keyword {
-        ERR,
-        AREA,
-        RESPONSE,
-        INTERNAL_GRADIENT,
-        EXTERNAL_GRADIENT,
-        VOLUMENT,
-        OKROGLOST,
-        ATRIBUTE
-    };
+    public:
 
-    SqlWhere();
-    SqlWhere(RelacijskiOperatorji relOperator, double vrednost, string whereKw);
-    SqlWhere(RelacijskiOperatorji relOperator, double vrednost, Keyword whereKw);
-    SqlWhere(Sql* stavek, string whereKw);
+        enum Keyword {
+            ERR,
+            AREA,
+            RESPONSE,
+            INTERNAL_GRADIENT,
+            EXTERNAL_GRADIENT,
+            VOLUMENT,
+            OKROGLOST,
+            ATRIBUTE
+        };
 
-    ~SqlWhere();
+        SqlWhere();
+        SqlWhere(RelacijskiOperatorji relOperator, double vrednost, string whereKw);
+        SqlWhere(RelacijskiOperatorji relOperator, double vrednost, Keyword whereKw);
+        SqlWhere(Sql* stavek, string whereKw);
 
-    bool isNestedSql();
-    Sql* getNestedSql();
-    double getVrednost();
+        ~SqlWhere();
 
-    string getKeyword() {
-        return whereKeyword;
-    }
+        bool isNestedSql();
+        Sql* getNestedSql();
+        double getVrednost();
 
-    void checkKeywordEnum() {
-        auto kw = preslikava.find(whereKeyword);
-        if (kw != preslikava.end()) {
-            //vrnemo enum kljuè
-            enumKeyword = kw->second;
-            return;
+        string getKeyword() {
+            return whereKeyword;
         }
 
-        enumKeyword = ERR;
-    }
+        void checkKeywordEnum() {
+            auto kw = preslikava.find(whereKeyword);
+            if (kw != preslikava.end()) {
+                //vrnemo enum kljuè
+                enumKeyword = kw->second;
+                return;
+            }
 
-    Keyword getKeywordEnum() {
-        return enumKeyword;
-    }
+            enumKeyword = ERR;
+        }
 
-    RelacijskiOperatorji getRelOp() {
-        return relOperator;
-    }
+        Keyword getKeywordEnum() const {
+            return enumKeyword;
+        }
 
-    void init() {
-        preslikava["area"] = AREA;
-        preslikava["response"] = RESPONSE;
-        preslikava["internal_gradient"] = INTERNAL_GRADIENT;
-        preslikava["external_gradient"] = EXTERNAL_GRADIENT;
-        preslikava["volument"] = VOLUMENT;
-        preslikava["okrloglost"] = OKROGLOST;
-        preslikava["atribute"] = ATRIBUTE;
-    }
+        RelacijskiOperatorji getRelOp() const {
+            return relOperator;
+        }
 
-private:
-    Sql* sql;
-    RelacijskiOperatorji relOperator;
-    double vrednost;
-    string whereKeyword;
-    Keyword enumKeyword;
-    map<string, Keyword> preslikava;
-};
+        void init() {
+            preslikava["area"] = AREA;
+            preslikava["response"] = RESPONSE;
+            preslikava["internal_gradient"] = INTERNAL_GRADIENT;
+            preslikava["external_gradient"] = EXTERNAL_GRADIENT;
+            preslikava["volument"] = VOLUMENT;
+            preslikava["okrloglost"] = OKROGLOST;
+            preslikava["atribute"] = ATRIBUTE;
+        }
 
+    private:
+        Sql* sql;
+        RelacijskiOperatorji relOperator;
+        double vrednost;
+        string whereKeyword;
+        Keyword enumKeyword;
+        map<string, Keyword> preslikava;
+    };
+
+}

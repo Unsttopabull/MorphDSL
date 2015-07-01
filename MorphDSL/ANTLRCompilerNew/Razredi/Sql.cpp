@@ -1,25 +1,28 @@
 #include "StdAfx.h"
 #include "Sql.h"
 
-void Sql::dodajOmejitev(std::string keyword, SqlWhere* omejitev) {
+using namespace LPM_MorphDSL;
+using namespace std;
+
+void Sql::dodajOmejitev(string keyword, SqlWhere* omejitev) {
     omejitveUrejeno.push_back(omejitev);
 
     if (omejitve.find(keyword) == omejitve.end()) {
-        omejitve[keyword] = std::vector<SqlWhere*>();
+        omejitve[keyword] = vector<SqlWhere*>();
     }
 
     omejitve[keyword].push_back(omejitev);
 }
 
-std::vector<SqlWhere*> Sql::getOmejtiveZaKeyword(std::string keyword) {
+vector<SqlWhere*> Sql::getOmejtiveZaKeyword(string keyword) const {
     if (omejitve.find(keyword) != omejitve.end()) {
-        return omejitve[keyword];
+        return omejitve.at(keyword);
     }
-    return std::vector<SqlWhere*>();
+    return vector<SqlWhere*>();
 }
 
-std::vector<std::string> Sql::getUporabljeneKeyworde() {
-    std::vector<std::string> keywords;
+vector<string> Sql::getUporabljeneKeyworde() const{
+    vector<string> keywords;
     for (auto it = omejitve.cbegin(); it != omejitve.cend(); ++it) {
         keywords.push_back((*it).first);
     }
@@ -27,6 +30,6 @@ std::vector<std::string> Sql::getUporabljeneKeyworde() {
     return keywords;
 }
 
-std::map<std::string, std::vector<SqlWhere*>> Sql::getOmejitve() {
+map<string, vector<SqlWhere*>> Sql::getOmejitve() const {
     return omejitve;
 }

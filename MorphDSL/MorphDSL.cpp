@@ -33,7 +33,7 @@ int test_main(int argc, char* argv[]) {
     if (argc < 2 || argv[1] == NULL) {
         printf("NO ARGUMENT!\n");
 
-#define SQL
+#define SQLL
 #ifdef SQL
         fName	= (ANTLR_UINT8*)"./DSLPrograms/MorphSQL.dsl";
 #else

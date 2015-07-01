@@ -4,13 +4,13 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::tresholdImplNoCheck(double number, string id) {
+void MorphDSLSemantics::tresholdImplNoCheck(const double number, const string& id) {
     cout << "<-- " << number << endl;
 
     string fLast = getImageNameFromId(id);
     cout << "<--  " << fLast << endl;
 
-    string fNew = getNewImageName();
+    string fNew = getLastVariableImageName();
     cout << "-->  " << fNew << endl;
 
     cout << "---END" << endl;
@@ -19,12 +19,12 @@ void MorphDSLSemantics::tresholdImplNoCheck(double number, string id) {
     morphInterface.treshold(number, fLast, fNew);
 }
 
-void MorphDSLSemantics::tresholdImpl(double number, const Identifier* id) {
+void MorphDSLSemantics::tresholdImpl(const double number, const Identifier& id) {
     cout << "TRESHOLDING" << endl;
 
     if (!checkVariableExist(id)) {
         return;
     }
 
-    tresholdImplNoCheck(number, id->getText());
+    tresholdImplNoCheck(number, id.getText());
 }
