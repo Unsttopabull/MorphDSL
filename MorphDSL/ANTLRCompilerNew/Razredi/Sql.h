@@ -4,31 +4,32 @@
 #include <vector>
 #include "Enums.h"
 
+using namespace std;
+
 namespace LPM_MorphDSL {
     class SqlWhere;
 
     class Sql {
-    public:
+      public:
 
-        std::string fromId;
+        string fromId;
         SelectKw::Keyword selectKeyword;
-        std::string selectFunkcija;
+        string selectFunkcija;
 
         void nekaj() {
         }
 
-        void dodajOmejitev(std::string keyword, SqlWhere* omejitev);
-        std::vector<SqlWhere*> getOmejtiveZaKeyword(std::string keyword) const;
-        std::vector<std::string> getUporabljeneKeyworde() const;
-        std::map<std::string, std::vector<SqlWhere*>> getOmejitve() const;
+        void dodajOmejitev(string keyword, SqlWhere* omejitev);
 
-        std::vector<SqlWhere*> getOmejitveUrejeno() const {
-            return omejitveUrejeno;
-        }
+        vector<SqlWhere*> getOmejtiveZaKeyword(string keyword) const;
+        vector<string> getUporabljeneKeyworde() const;
+        map<string, vector<SqlWhere*>> getOmejitve() const;
 
-    private:
-        std::vector<SqlWhere*> omejitveUrejeno;
-        std::map<std::string, std::vector<SqlWhere*>> omejitve;
+        vector<SqlWhere*> getOmejitveUrejeno() const;
+
+      private:
+        vector<SqlWhere*> omejitveUrejeno;
+        map<string, vector<SqlWhere*>> omejitve;
     };
 
 }

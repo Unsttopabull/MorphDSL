@@ -33,3 +33,7 @@ vector<string> Sql::getUporabljeneKeyworde() const{
 map<string, vector<SqlWhere*>> Sql::getOmejitve() const {
     return omejitve;
 }
+
+vector<SqlWhere*> Sql::getOmejitveUrejeno() const {
+    return omejitveUrejeno;
+}

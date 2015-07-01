@@ -4,7 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::openAreaNoCheck(const double number, const string& id) {
+void MorphDSLSemantics::openAreaNoCheck(const double number, const string& id) const {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(id);
@@ -21,7 +21,7 @@ void MorphDSLSemantics::openAreaNoCheck(const double number, const string& id) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::openArea(const double number, const Identifier& id) {
+void MorphDSLSemantics::openArea(const double number, const Identifier& id) const {
     cout << "OPENAREA" << endl;
 
     if (!checkVariableExist(id)) {
@@ -31,7 +31,7 @@ void MorphDSLSemantics::openArea(const double number, const Identifier& id) {
     openAreaNoCheck(number, id.getText());
 }
 
-void MorphDSLSemantics::closeAreaNoCheck(const double number, const string& id) {
+void MorphDSLSemantics::closeAreaNoCheck(const double number, const string& id) const {
     cout << "<--  " << number << endl;
 
     string fLast = getImageNameFromId(id);
@@ -44,7 +44,7 @@ void MorphDSLSemantics::closeAreaNoCheck(const double number, const string& id) 
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::closeArea(const double number, const Identifier& id) {
+void MorphDSLSemantics::closeArea(const double number, const Identifier& id) const {
     cout << "CLOSEAREA" << endl;
 
     closeAreaNoCheck(number, id.getText());

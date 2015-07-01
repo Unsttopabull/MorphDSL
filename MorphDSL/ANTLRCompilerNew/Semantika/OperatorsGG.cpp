@@ -4,7 +4,7 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::negateNoCheck(const string& idStr) {
+void MorphDSLSemantics::negateNoCheck(const string& idStr) const {
     string fLast = getImageNameFromId(idStr);
     cout << "<--  " << fLast << endl;
 
@@ -17,7 +17,7 @@ void MorphDSLSemantics::negateNoCheck(const string& idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::negateImpl(const Identifier& id) {
+void MorphDSLSemantics::negateImpl(const Identifier& id) const {
     cout << "NEGATE" << endl;
 
     if (!checkVariableExist(id)) {
@@ -27,7 +27,7 @@ void MorphDSLSemantics::negateImpl(const Identifier& id) {
     negateNoCheck(id.getText());
 }
 
-void MorphDSLSemantics::normalizeImpl() {
+void MorphDSLSemantics::normalizeImpl() const {
     cout << "NORMALIZE" << endl;
 
     string fLast = getImageNameFromId(predZadnjaSpremenljivka);
@@ -44,7 +44,7 @@ void MorphDSLSemantics::normalizeImpl() {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::multiplyNoCheck(double num, const string& idStr) {
+void MorphDSLSemantics::multiplyNoCheck(double num, const string& idStr) const {
     cout << "<--  " << num << endl;
 
     string fLast = getImageNameFromId(idStr);
@@ -57,7 +57,7 @@ void MorphDSLSemantics::multiplyNoCheck(double num, const string& idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::multiplyImpl(const Identifier& id, double num) {
+void MorphDSLSemantics::multiplyImpl(const Identifier& id, double num) const {
     cout << "MULTIPLY" << endl;
 
     if (!checkVariableExist(id)) {
@@ -67,11 +67,11 @@ void MorphDSLSemantics::multiplyImpl(const Identifier& id, double num) {
     multiplyNoCheck(num, id.getText());
 }
 
-void MorphDSLSemantics::multiplyImpl(double num, const Identifier& id) {
+void MorphDSLSemantics::multiplyImpl(double num, const Identifier& id) const {
     multiplyImpl(id, num);
 }
 
-void MorphDSLSemantics::multiplyNoCheck(const string& id1Str, const string& id2Str) {
+void MorphDSLSemantics::multiplyNoCheck(const string& id1Str, const string& id2Str) const {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -85,7 +85,7 @@ void MorphDSLSemantics::multiplyNoCheck(const string& id1Str, const string& id2S
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::multiplyImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::multiplyImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "MULTYPLY" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -95,7 +95,7 @@ void MorphDSLSemantics::multiplyImpl(const Identifier& id1, const Identifier& id
     multiplyNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::cropNoCheck(const string& id1Str, double lowBound, double highBound) {
+void MorphDSLSemantics::cropNoCheck(const string& id1Str, double lowBound, double highBound) const {
     string fLast = getImageNameFromId(id1Str);
     cout << "<--  " << fLast << endl;
 
@@ -106,7 +106,7 @@ void MorphDSLSemantics::cropNoCheck(const string& id1Str, double lowBound, doubl
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::cropImpl(const Identifier& id, double lowBound, double highBound) {
+void MorphDSLSemantics::cropImpl(const Identifier& id, double lowBound, double highBound) const {
     cout << "CROP" << endl;
 
     if (!checkVariableExist(id)) {
@@ -118,7 +118,7 @@ void MorphDSLSemantics::cropImpl(const Identifier& id, double lowBound, double h
     cropNoCheck(id1Str, lowBound, highBound);
 }
 
-void MorphDSLSemantics::subtractNoCheck(const string& id1Str, const string& id2Str) {
+void MorphDSLSemantics::subtractNoCheck(const string& id1Str, const string& id2Str) const {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -134,7 +134,7 @@ void MorphDSLSemantics::subtractNoCheck(const string& id1Str, const string& id2S
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::subtractImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::subtractImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "SUBTRACT" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -144,7 +144,7 @@ void MorphDSLSemantics::subtractImpl(const Identifier& id1, const Identifier& id
     subtractNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::gradientInternalNoCheck(const string& id1Str) {
+void MorphDSLSemantics::gradientInternalNoCheck(const string& id1Str) const {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -157,7 +157,7 @@ void MorphDSLSemantics::gradientInternalNoCheck(const string& id1Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::gradientInternalImpl(const Identifier& id) {
+void MorphDSLSemantics::gradientInternalImpl(const Identifier& id) const {
     cout << "GRADIENT INTERNAL" << endl;
 
     if (!checkVariableExist(id)) {
@@ -167,7 +167,7 @@ void MorphDSLSemantics::gradientInternalImpl(const Identifier& id) {
     gradientInternalNoCheck(id.getText());
 }
 
-void MorphDSLSemantics::gradientExternalNoCheck(const string& id1Str) {
+void MorphDSLSemantics::gradientExternalNoCheck(const string& id1Str) const {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -180,7 +180,7 @@ void MorphDSLSemantics::gradientExternalNoCheck(const string& id1Str) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::gradientExternalImpl(const Identifier& id) {
+void MorphDSLSemantics::gradientExternalImpl(const Identifier& id) const {
     cout << "GRADIENT EXTERNAL" << endl;
 
     if (!checkVariableExist(id)) {
@@ -192,7 +192,7 @@ void MorphDSLSemantics::gradientExternalImpl(const Identifier& id) {
     gradientExternalNoCheck(id1Str);
 }
 
-void MorphDSLSemantics::diferentialProfilesMorphologicalNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) {
+void MorphDSLSemantics::diferentialProfilesMorphologicalNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) const {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
@@ -206,7 +206,7 @@ void MorphDSLSemantics::diferentialProfilesMorphologicalNoCheck(const string& id
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::diferentialProfilesMorphologicalImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::diferentialProfilesMorphologicalImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "DIF. PROFILES - MORPHOLOGICAL" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -224,7 +224,7 @@ void MorphDSLSemantics::diferentialProfilesMorphologicalImpl(const Identifier& i
     diferentialProfilesMorphologicalNoCheck(id1Str, id2.getText(), vectorIter->second);
 }
 
-void MorphDSLSemantics::differentialProfilesAttributeNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) {
+void MorphDSLSemantics::differentialProfilesAttributeNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) const {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
@@ -238,7 +238,7 @@ void MorphDSLSemantics::differentialProfilesAttributeNoCheck(const string& id1St
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::diferentialProfilesAttributeImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::diferentialProfilesAttributeImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "DIF. PROFILES - ATTRIBUTE" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -256,7 +256,7 @@ void MorphDSLSemantics::diferentialProfilesAttributeImpl(const Identifier& id1, 
     differentialProfilesAttributeNoCheck(id1Str, id2.getText(), vectorIter->second);
 }
 
-void MorphDSLSemantics::mappingDmpNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) {
+void MorphDSLSemantics::mappingDmpNoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) const {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
@@ -270,7 +270,7 @@ void MorphDSLSemantics::mappingDmpNoCheck(const string& id1Str, const string& id
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::mappingDmpImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::mappingDmpImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "MAPPING - DMP" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -289,7 +289,7 @@ void MorphDSLSemantics::mappingDmpImpl(const Identifier& id1, const Identifier& 
     mappingDmpNoCheck(id1Str, id2.getText(), vectorIter->second);
 }
 
-void MorphDSLSemantics::mappingDapNoCheck(const string& id2Str, const string& id1Str, const vector<double>& vector) {
+void MorphDSLSemantics::mappingDapNoCheck(const string& id2Str, const string& id1Str, const vector<double>& vector) const {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
@@ -303,7 +303,7 @@ void MorphDSLSemantics::mappingDapNoCheck(const string& id2Str, const string& id
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::mappingDapImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::mappingDapImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "MAPPING - DAP" << endl;
 
     if (!checkVariablesExist(id1, id2)) {
@@ -322,7 +322,7 @@ void MorphDSLSemantics::mappingDapImpl(const Identifier& id1, const Identifier& 
     mappingDapNoCheck(id2.getText(), id1Str, vectorIter->second);
 }
 
-void MorphDSLSemantics::segmentationMsls1NoCheck(const string& id2Str, const string& id1Str, const vector<double>& vector) {
+void MorphDSLSemantics::segmentationMsls1NoCheck(const string& id2Str, const string& id1Str, const vector<double>& vector) const {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
@@ -336,7 +336,7 @@ void MorphDSLSemantics::segmentationMsls1NoCheck(const string& id2Str, const str
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationMsls1Impl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::segmentationMsls1Impl(const Identifier& id1, const Identifier& id2) const {
     cout << "SEGMENTATION - MSLS" << endl;
     cout << "MAPPING - DAP" << endl;
 
@@ -356,7 +356,7 @@ void MorphDSLSemantics::segmentationMsls1Impl(const Identifier& id1, const Ident
     segmentationMsls1NoCheck(id2.getText(), id1Str, vectorIter->second);
 }
 
-void MorphDSLSemantics::segmentationMsls2NoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) {
+void MorphDSLSemantics::segmentationMsls2NoCheck(const string& id1Str, const string& id2Str, const vector<double>& vector) const {
     string fFirst = getImageNameFromId(id2Str);
     cout << "<--  " << fFirst << endl;
 
@@ -370,7 +370,7 @@ void MorphDSLSemantics::segmentationMsls2NoCheck(const string& id1Str, const str
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationMsls2Impl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::segmentationMsls2Impl(const Identifier& id1, const Identifier& id2) const {
     cout << "SEGMENTATION - MSLS" << endl;
     cout << "MAPPING - DAP" << endl;
 
@@ -390,7 +390,7 @@ void MorphDSLSemantics::segmentationMsls2Impl(const Identifier& id1, const Ident
     segmentationMsls2NoCheck(id1Str, id2.getText(), vectorIter->second);
 }
 
-void MorphDSLSemantics::segmentatonWatershadeNoCheck(const string& idStr) {
+void MorphDSLSemantics::segmentatonWatershadeNoCheck(const string& idStr) const {
     string fFirst = getImageNameFromId(idStr);
     cout << "<--  " << fFirst << endl;
 
@@ -401,7 +401,7 @@ void MorphDSLSemantics::segmentatonWatershadeNoCheck(const string& idStr) {
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationWatershadeImpl(const Identifier& id) {
+void MorphDSLSemantics::segmentationWatershadeImpl(const Identifier& id) const {
     cout << "SEGMENTATION - WATHERSHADE" << endl;
 
     if (!checkVariableExist(id)) {
@@ -411,7 +411,7 @@ void MorphDSLSemantics::segmentationWatershadeImpl(const Identifier& id) {
     segmentatonWatershadeNoCheck(id.getText());
 }
 
-void MorphDSLSemantics::segmentationWatershadeMarkerNoCheck(const string& id1Str, const string& id2Str) {
+void MorphDSLSemantics::segmentationWatershadeMarkerNoCheck(const string& id1Str, const string& id2Str) const {
     string fFirst = getImageNameFromId(id1Str);
     cout << "<--  " << fFirst << endl;
 
@@ -426,7 +426,7 @@ void MorphDSLSemantics::segmentationWatershadeMarkerNoCheck(const string& id1Str
     cout << "---END" << endl;
 }
 
-void MorphDSLSemantics::segmentationWatershadeMarkerImpl(const Identifier& id1, const Identifier& id2) {
+void MorphDSLSemantics::segmentationWatershadeMarkerImpl(const Identifier& id1, const Identifier& id2) const {
     cout << "SEGMENTATION - WATHERSHADE MARKER" << endl;
 
     if (!checkVariablesExist(id1, id2)) {

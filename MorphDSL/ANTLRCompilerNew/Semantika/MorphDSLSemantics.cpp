@@ -33,3 +33,16 @@ void MorphDSLSemantics::loadImpl(string imeSlike, string imeSpremenljivke) {
     morphInterface.LoadImg(imeSlike, img);
     morphInterface.StoreImg(fNew, img);
 }
+
+void MorphDSLSemantics::setZadnjaSpremenljivka(const string& spr) {
+    predZadnjaSpremenljivka = zadnjaSpremenljivka;
+    zadnjaSpremenljivka = spr;
+}
+
+string MorphDSLSemantics::getZadnjaSpremenljivka() const {
+    return zadnjaSpremenljivka;
+}
+
+void MorphDSLSemantics::insertToVect(pair<string, vector<double>> pair) {
+    vect.insert(vect.begin(), pair);
+}
