@@ -106,6 +106,8 @@
     <ClInclude Include="ANTLRCompilerNew\Razredi\SqlWhere.h" />
     <ClInclude Include="ANTLRCompilerNew\Semantika\MorphDSLSemantics.h" />
     <ClInclude Include="ANTLRCompilerNew\Util\Identifier.h" />
+    <ClInclude Include="ANTLRCompilerNew\Interfaces\ILogger.h" />
+    <ClInclude Include="ANTLRCompilerNew\Util\ConsoleLogger.h" />
     <ClInclude Include="ANTLRCompilerNew\Util\Spremenljivka.h" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Lexer.hpp" />
     <ClInclude Include="ANTLRCompiler\MorphDSL3Parser.hpp" />
@@ -132,6 +134,7 @@
     <ClCompile Include="ANTLRCompilerNew\Semantika\OperatorsSql.cpp" />
     <ClCompile Include="ANTLRCompilerNew\Semantika\Util.cpp" />
     <ClCompile Include="ANTLRCompilerNew\Util\Identifier.cpp" />
+    <ClCompile Include="ANTLRCompilerNew\Util\ConsoleLogger.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Lexer.cpp" />
     <ClCompile Include="ANTLRCompiler\MorphDSL3Parser.cpp" />
     <ClCompile Include="MorphDSL.cpp" />

@@ -18,7 +18,7 @@ bool MorphDSLSemantics::checkVariablesExist(const string& id1, const string& id2
 
 bool MorphDSLSemantics::checkVariableExist(const string& id) const {
     if (imeSlikeZaSpremenljivko.find(id) == imeSlikeZaSpremenljivko.end()) {
-        cout << "ERROR: Spremenljivka '" << id << "' ne obstaja." << endl;
+        logger->errorId(id);
         parser->set_failedflag(true);
         return false;
     }
@@ -38,7 +38,7 @@ bool MorphDSLSemantics::checkVariablesExist(const Identifier& id1, const Identif
 
 bool MorphDSLSemantics::checkVariableExist(const Identifier& id) const {
     if (imeSlikeZaSpremenljivko.find(id.getText()) == imeSlikeZaSpremenljivko.end()) {
-        cout << "ERROR: Spremenljivka '" << id.getText() << "' ne obstaja. (" << id.getToken()->get_line() << ", " << id.getToken()->getCharPositionInLine() << ")" << endl;
+        logger->errorId(id);
         parser->set_failedflag(true);
         return false;
     }
@@ -94,7 +94,7 @@ void MorphDSLSemantics::variableToFileName(const string& spremenljivka, const st
 
     if (!kategorija.empty()) {
         if (tempSpremenljivke.find(kategorija) == tempSpremenljivke.end()) {
-            tempSpremenljivke[kategorija] = vector <Spremenljivka*>();
+            tempSpremenljivke[kategorija] = vector<Spremenljivka*>();
         }
         tempSpremenljivke[kategorija].push_back(spr);
     }
@@ -109,7 +109,7 @@ void MorphDSLSemantics::initNovaSpremenljivka(const string& novaSpr) {
     variableToFileName(zadnjaSpremenljivka, "");
 }
 
-string MorphDSLSemantics::initInternalVariable(const string& spremenljivka, const string& kategorija)  {
+string MorphDSLSemantics::initInternalVariable(const string& spremenljivka, const string& kategorija) {
     stringstream sprStream;
     sprStream << "$" << spremenljivka << tempCnt++;
 
@@ -132,7 +132,7 @@ void MorphDSLSemantics::clearTempVariablesCategory(const string& kategorija) {
         return;
     }
 
-    for (vector<Spremenljivka*>::const_iterator it = iter->second.begin(); it != iter->second.end(); ++it){
+    for (vector<Spremenljivka*>::const_iterator it = iter->second.begin(); it != iter->second.end(); ++it) {
         imeSlikeZaSpremenljivko.erase((*it)->getText());
     }
 

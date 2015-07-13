@@ -34,6 +34,9 @@
     <Filter Include="ANTLRCompilerNew\Semantika">
       <UniqueIdentifier>{056d83c6-da06-45ef-99be-d2d35ad97175}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ANTLRCompilerNew\Interfaces">
+      <UniqueIdentifier>{9cb4700a-ecd6-4dd5-8a97-5137c08f77e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -128,6 +131,12 @@
     <ClInclude Include="ANTLRCompilerNew\Util\Identifier.h">
       <Filter>ANTLRCompilerNew\Util</Filter>
     </ClInclude>
+    <ClInclude Include="ANTLRCompilerNew\Util\ConsoleLogger.h">
+      <Filter>ANTLRCompilerNew\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ANTLRCompilerNew\Interfaces\ILogger.h">
+      <Filter>ANTLRCompilerNew\Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -188,6 +197,9 @@
       <Filter>ANTLRCompilerNew</Filter>
     </ClCompile>
     <ClCompile Include="ANTLRCompilerNew\Util\Identifier.cpp">
+      <Filter>ANTLRCompilerNew\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ANTLRCompilerNew\Util\ConsoleLogger.cpp">
       <Filter>ANTLRCompilerNew\Util</Filter>
     </ClCompile>
   </ItemGroup>

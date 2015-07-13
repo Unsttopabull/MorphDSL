@@ -6,17 +6,17 @@ using namespace std;
 
 void MorphDSLSemantics::complementNoCheck(const string& idStr) const {
     string fLast = getImageNameFromId(idStr);
-    cout << "<--  " << fLast << endl;
+    logger->inputId(idStr, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.complement(fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::complementImpl(const Identifier& id) const {
-    cout << "COMPLEMENT" << endl;
+    logger->startSection("COMPLEMENT");
 
     if (!checkVariableExist(id)) {
         return;
@@ -25,22 +25,22 @@ void MorphDSLSemantics::complementImpl(const Identifier& id) const {
     complementNoCheck(id.getText());
 }
 
-void MorphDSLSemantics::unionNoCheck(const string& id1Str, const string& id2Str) const {
-    string fFirst = getImageNameFromId(id1Str);
-    cout << "<--  " << fFirst << endl;
+void MorphDSLSemantics::unionNoCheck(const string& id1, const string& id2) const {
+    string fFirst = getImageNameFromId(id1);
+    logger->inputId(id1, fFirst);
 
-    string fLast = getImageNameFromId(id2Str);
-    cout << "<--  " << fLast << endl;
+    string fLast = getImageNameFromId(id2);
+    logger->inputId(id2, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.unionBB(fFirst, fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::unionImpl(const Identifier& id1, const Identifier& id2) const {
-    cout << "UNION" << endl;
+    logger->startSection("UNION");
 
     if (!checkVariablesExist(id1, id2)) {
         return;
@@ -51,20 +51,20 @@ void MorphDSLSemantics::unionImpl(const Identifier& id1, const Identifier& id2) 
 
 void MorphDSLSemantics::intersectionNoCheck(const string& id1Str, const string& id2Str) const {
     string fFirst = getImageNameFromId(id1Str);
-    cout << "<--  " << fFirst << endl;
+    logger->inputId(id1Str, fFirst);
 
     string fLast = getImageNameFromId(id2Str);
-    cout << "<--  " << fLast << endl;
+    logger->inputId(id2Str, fLast);
 
     std::string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.intersection(fFirst, fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::intersectionImpl(const Identifier& id1, const Identifier& id2) const {
-    cout << "INTERSECTION" << endl;
+    logger->startSection("INTERSECTION");
 
     if (!checkVariablesExist(id1, id2)) {
         return;
@@ -73,22 +73,22 @@ void MorphDSLSemantics::intersectionImpl(const Identifier& id1, const Identifier
     intersectionNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::withoutNoCheck(const string& id1Str, const string& id2Str) const {
-    string fFirst = getImageNameFromId(id1Str);
-    cout << "<--  " << fFirst << endl;
+void MorphDSLSemantics::withoutNoCheck(const string& id1, const string& id2) const {
+    string fFirst = getImageNameFromId(id1);
+    logger->inputId(id1, fFirst);
 
-    string fLast = getImageNameFromId(id2Str);
-    cout << "<--  " << fLast << endl;
+    string fLast = getImageNameFromId(id2);
+    logger->inputId(id2, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.without(fFirst, fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::withoutImpl(const Identifier& id1, const Identifier& id2) const {
-    cout << "WITHOUT" << endl;
+    logger->startSection("WITHOUT");
 
     if (!checkVariablesExist(id1, id2)) {
         return;
@@ -97,22 +97,22 @@ void MorphDSLSemantics::withoutImpl(const Identifier& id1, const Identifier& id2
     withoutNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::hitMissNoCheck(const string& id1Str, const string& id2Str) const {
-    string fFirst = getImageNameFromId(id1Str);
-    cout << "<--  " << fFirst << endl;
+void MorphDSLSemantics::hitMissNoCheck(const string& id1, const string& id2) const {
+    string fFirst = getImageNameFromId(id1);
+    logger->inputId(id1, fFirst);
 
-    string fLast = getImageNameFromId(id2Str);
-    cout << "<--  " << fLast << endl;
+    string fLast = getImageNameFromId(id2);
+    logger->inputId(id2, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.hitmiss(fFirst, fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::hitMissImpl(const Identifier& id1, const Identifier& id2) const {
-    cout << "HITMISS" << endl;
+    logger->startSection("HITMISS");
 
     if (!checkVariablesExist(id1, id2)) {
         return;
@@ -123,17 +123,17 @@ void MorphDSLSemantics::hitMissImpl(const Identifier& id1, const Identifier& id2
 
 void MorphDSLSemantics::boundaryNoCheck(const string& idStr) const {
     string fFirst = getImageNameFromId(idStr);
-    cout << "<--  " << fFirst << endl;
+    logger->inputId(idStr, fFirst);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.boundary(fFirst, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::boundaryImpl(const Identifier& id1) const {
-    cout << "BOUNDARY" << endl;
+    logger->startSection("BOUNDARY");
 
     if (!checkVariableExist(id1)) {
         return;

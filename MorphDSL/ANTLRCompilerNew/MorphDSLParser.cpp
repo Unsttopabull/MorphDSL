@@ -42,7 +42,6 @@
 /* =============================================================================
  * This is what the grammar programmer asked us to put at the top of every file.
  */
-using namespace std;
 /* End of Header action.
  * =============================================================================
  */
@@ -1296,7 +1295,7 @@ MorphDSLParser::program()
     /* Initialize rule variables
      */
 
-     s = new MorphDSLSemantics(this); 
+     s = new MorphDSLSemantics(this, this->log); 
 
  
     {

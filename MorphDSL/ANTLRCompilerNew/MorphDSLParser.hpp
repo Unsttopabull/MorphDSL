@@ -66,6 +66,7 @@ has the callable functions (rules) shown below,
 #include "MorphDSLLexer.hpp"
 #include "Razredi/Enums.h"
 #include "Razredi/SqlWhere.h"
+#include "Interfaces/ILogger.h"
 
 namespace LPM_MorphDSL {
 	class MorphDSLSemantics;
@@ -563,10 +564,39 @@ public:
     void            reset();
     ~MorphDSLParser();
 
+    public:
+        /** \brief Create a new MorphDSLParser parser and return a context for it.
+        *
+        * \param[in] instream Pointer to an input stream interface.
+        * \param[in] pointer to a logger
+        *
+        * \return Pointer to new parser context upon success.
+        */
+        MorphDSLParser::MorphDSLParser(StreamType* instream, ILogger* logger) :ImplTraits::BaseParserType(ANTLR_SIZE_HINT, instream, NULL)
+        {
+            // See if we can create a new parser with the standard constructor
+            //
+            this->init(instream);
+            log = logger;
+        }
 
+        /** \brief Create a new MorphDSLParser parser and return a context for it.
+        *
+        * \param[in] instream Pointer to an input stream interface.
+        *
+        * \return Pointer to new parser context upon success.
+        */
+        MorphDSLParser::MorphDSLParser(StreamType* instream, RecognizerSharedStateType* state, ILogger* logger)
+            :ImplTraits::BaseParserType(ANTLR_SIZE_HINT, instream, state)
+
+        {
+            this->init(instream);
+            log = logger;
+        }
 
     private:
     	MorphDSLSemantics* s;
+        ILogger* log;
 
         int MorphDSLParser::toInt(const CommonTokenType* token) {
             int number;

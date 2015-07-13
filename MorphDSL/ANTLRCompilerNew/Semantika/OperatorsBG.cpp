@@ -4,19 +4,19 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::distanceTransformNoCheck(const string& idStr) const {
-    string fLast = getImageNameFromId(idStr);
-    cout << "<--  " << fLast << endl;
+void MorphDSLSemantics::distanceTransformNoCheck(const string& id) const {
+    string fLast = getImageNameFromId(id);
+    logger->inputId(id, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.distanceTransform(fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::distanceTransformImpl(const Identifier& id) const {
-    cout << "DISTANCE TRANSFORM" << endl;
+    logger->startSection("DISTANCE TRANSFORM");
 
     if (!checkVariableExist(id)) {
         return;

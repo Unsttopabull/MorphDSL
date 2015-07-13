@@ -15,6 +15,7 @@ namespace LPM_MorphDSL {
 
     private:
         MorphDSLParser* parser;
+        ILogger* logger;
 
         CompilerSemanticInterface morphInterface;
         vector<vector<double>> img;
@@ -100,7 +101,7 @@ namespace LPM_MorphDSL {
 #pragma endregion 
 
     public:
-        explicit MorphDSLSemantics(MorphDSLParser* p);
+        explicit MorphDSLSemantics(MorphDSLParser* p, ILogger* logger);
 
         void insertToVect(pair<string, vector<double>> pair);
 

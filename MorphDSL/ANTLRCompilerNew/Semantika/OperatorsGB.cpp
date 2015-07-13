@@ -8,19 +8,19 @@ void MorphDSLSemantics::tresholdImplNoCheck(const double number, const string& i
     cout << "<-- " << number << endl;
 
     string fLast = getImageNameFromId(id);
-    cout << "<--  " << fLast << endl;
+    logger->inputId(id, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
-    cout << "---END" << endl;
+    logger->endSection();
 
     //when 5 pics created
     morphInterface.treshold(number, fLast, fNew);
 }
 
 void MorphDSLSemantics::tresholdImpl(const double number, const Identifier& id) const {
-    cout << "TRESHOLDING" << endl;
+    logger->startSection("TRESHOLDING");
 
     if (!checkVariableExist(id)) {
         return;

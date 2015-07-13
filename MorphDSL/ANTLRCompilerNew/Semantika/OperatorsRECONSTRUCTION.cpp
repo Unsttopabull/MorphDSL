@@ -4,25 +4,25 @@
 using namespace LPM_MorphDSL;
 using namespace std;
 
-void MorphDSLSemantics::erodeNoCheck(const string& id1Str, const string& id2Str) const {
-    string fFirst = getImageNameFromId(id1Str);
-    cout << "<--  " << fFirst << endl;
+void MorphDSLSemantics::erodeNoCheck(const string& id1, const string& id2) const {
+    string fFirst = getImageNameFromId(id1);
+    logger->inputId(id1, fFirst);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     cout << "::::::::::::" << endl;
 
-    string m1 = getImageNameFromId(id2Str);
-    cout << "<--  " << m1 << endl;
+    string m1 = getImageNameFromId(id2);
+    logger->inputId(id2, m1);
 
     morphInterface.erodeRECONSTRUCTION(m1, fFirst, fNew);
 
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::erodeImpl(const Identifier& id1, const Identifier& id2) const {
-    cout << "ERODE - RECONSTRUCTION MARKER" << endl;
+    logger->startSection("ERODE - RECONSTRUCTION MARKER");
 
     if (!checkVariablesExist(id1, id2)) {
         return;
@@ -31,22 +31,22 @@ void MorphDSLSemantics::erodeImpl(const Identifier& id1, const Identifier& id2) 
     erodeNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::dilateNoCheck(const string& id1Str, const string& id2Str) const {
-    string fFirst = getImageNameFromId(id1Str);
-    cout << "<--  " << fFirst << endl;
+void MorphDSLSemantics::dilateNoCheck(const string& id1, const string& id2) const {
+    string fFirst = getImageNameFromId(id1);
+    logger->inputId(id1, fFirst);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
-    string m1 = getImageNameFromId(id2Str);
-    cout << "<--  " << m1 << endl;
+    string m1 = getImageNameFromId(id2);
+    logger->inputId(id2, m1);
 
     morphInterface.dilateRECONSTRUCTION(m1, fFirst, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::dilateImpl(const Identifier& id1, const Identifier& id2) const {
-    cout << "DILATE - RECONSTRUCTION MARKER" << endl;
+    logger->startSection("DILATE - RECONSTRUCTION MARKER");
 
     if (!checkVariablesExist(id1, id2)) {
         return;
@@ -55,21 +55,21 @@ void MorphDSLSemantics::dilateImpl(const Identifier& id1, const Identifier& id2)
     dilateNoCheck(id1.getText(), id2.getText());
 }
 
-void MorphDSLSemantics::openNoCheck(double number, const string& idStr) const {
-    cout << "<--  " << number << endl;
+void MorphDSLSemantics::openNoCheck(double number, const string& id) const {
+    logger->inputValue(number);
 
-    string fLast = getImageNameFromId(idStr);
-    cout << "<--  " << fLast << endl;
+    string fLast = getImageNameFromId(id);
+    logger->inputId(id, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.openRECONSTRUCTION_BOX(number, fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::openImpl(double number, const Identifier& id) const {
-    cout << "OPEN RECONSTRUCTION BOX" << endl;
+    logger->startSection("OPEN RECONSTRUCTION BOX");
 
     if (!checkVariableExist(id)) {
         return;
@@ -78,21 +78,21 @@ void MorphDSLSemantics::openImpl(double number, const Identifier& id) const {
     openNoCheck(number, id.getText());
 }
 
-void MorphDSLSemantics::closeNoCheck(double number, const string& idStr) const {
-    cout << "<--  " << number << endl;
+void MorphDSLSemantics::closeNoCheck(double number, const string& id) const {
+    logger->inputValue(number);
 
-    string fLast = getImageNameFromId(idStr);
-    cout << "<--  " << fLast << endl;
+    string fLast = getImageNameFromId(id);
+    logger->inputId(id, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.closeRECONSTRUCTION_BOX(number, fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::closeImpl(double number, const Identifier& id) const {
-    cout << "CLOSE RECONSTRUCTION BOX" << endl;
+    logger->startSection("CLOSE RECONSTRUCTION BOX");
 
     if (!checkVariableExist(id)) {
         return;

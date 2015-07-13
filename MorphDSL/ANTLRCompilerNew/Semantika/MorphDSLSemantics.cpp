@@ -3,19 +3,20 @@
 
 using namespace LPM_MorphDSL;
 
-MorphDSLSemantics::MorphDSLSemantics(MorphDSLParser* p) {
+MorphDSLSemantics::MorphDSLSemantics(MorphDSLParser* p, ILogger* log) {
     imeIzhodneSlike = "";
     imageCounter = 1;
     tempCnt = 0;
 
     parser = p;
+    logger = log;
 }
 
 void MorphDSLSemantics::loadImpl(string imeSlike, string imeSpremenljivke) {
     int firstLetter = imeSlike.find_last_of("/\\") + 1;
 
-    cout << "LOADING" << endl;
-    cout << "<--  " << imeSlike.substr(1, imeSlike.length() - 2) << endl;
+    logger->logLine("LOADING");
+    logger->inputString(imeSlike.substr(1, imeSlike.length() - 2));
     
     int length = imeSlike.find_last_of(".") - firstLetter;
     imeIzhodneSlike = imeSlike.substr(firstLetter, length);
@@ -25,9 +26,8 @@ void MorphDSLSemantics::loadImpl(string imeSlike, string imeSpremenljivke) {
     initNovaSpremenljivka(zadnjaSpremenljivka);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
-
-    cout << "---END" << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
+    logger->endSection();
 
     imeSlike = imeSlike.substr(1, imeSlike.length() - 2);
 

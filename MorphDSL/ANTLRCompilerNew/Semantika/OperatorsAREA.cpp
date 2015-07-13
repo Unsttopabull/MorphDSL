@@ -5,24 +5,24 @@ using namespace LPM_MorphDSL;
 using namespace std;
 
 void MorphDSLSemantics::openAreaNoCheck(const double number, const string& id) const {
-    cout << "<--  " << number << endl;
+    logger->inputValue(number);
 
     string fLast = getImageNameFromId(id);
-    cout << "<--  " << fLast << endl;
+    logger->inputId(id, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     //when 5 pics created
     // d = open(AREA, 250, c)
     // morphInterface.openAREA(250, "maribor1.bmp", "maribor2.bmp");
 
     morphInterface.openAREA(number, fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::openArea(const double number, const Identifier& id) const {
-    cout << "OPENAREA" << endl;
+    logger->startSection("OPENAREA");
 
     if (!checkVariableExist(id)) {
         return;
@@ -32,20 +32,20 @@ void MorphDSLSemantics::openArea(const double number, const Identifier& id) cons
 }
 
 void MorphDSLSemantics::closeAreaNoCheck(const double number, const string& id) const {
-    cout << "<--  " << number << endl;
+    logger->inputValue(number);
 
     string fLast = getImageNameFromId(id);
-    cout << "<--  " << fLast << endl;
+    logger->inputId(zadnjaSpremenljivka, fLast);
 
     string fNew = getLastVariableImageName();
-    cout << "-->  " << fNew << endl;
+    logger->outputId(zadnjaSpremenljivka, fNew);
 
     morphInterface.closeAREA(number, fLast, fNew);
-    cout << "---END" << endl;
+    logger->endSection();
 }
 
 void MorphDSLSemantics::closeArea(const double number, const Identifier& id) const {
-    cout << "CLOSEAREA" << endl;
+    logger->startSection("CLOSEAREA");
 
     closeAreaNoCheck(number, id.getText());
 }
